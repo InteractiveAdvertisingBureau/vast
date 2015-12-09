@@ -889,7 +889,74 @@
     </xs:sequence>
 
   </xs:complexType>
+  
+  <!-- ========== Definition of the AdVerifications element type ========== -->
+  <xs:complexType name="AdVerifications_type">
+    <xs:annotation>
+      <xs:documentation>
+        The AdVerification element is used to initiate a controlled container where code can be
+executed for collecting data to verify ad playback details.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+	    <xs:element name="Verification" minOccurs="0" maxOccurs="unbounded">
+	<xs:complexType>
+	<xs:sequence>
+      <xs:element name="ViewableImpression" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The name of the event to track for the element. The creativeView should always be requested when present.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+		<xs:sequence>
+		<xs:element name="Viewable" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded">
+		</xs:element>
+		<xs:element name="NotViewable" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded">
+		</xs:element>
+		<xs:element name="ViewUndetermined" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded">
+		</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string" />
+			</xs:complexType>
+		</xs:element>
 
+	  </xs:sequence>
+<xs:attribute name="vendor" type="xs:string" use="optional" />
+	  </xs:complexType>
+	  </xs:element>
+	</xs:sequence>
+  </xs:complexType>
+
+  <!-- ========== Definition of the AdVerifications Inline element type ========== -->
+    <xs:complexType name="AdVerifications_Inline_type">
+    <xs:complexContent>
+      <xs:extension base="AdVerifications_type">
+        <xs:sequence>
+      <xs:choice>
+        <xs:element name="JavaScriptResource" minOccurs="0" maxOccurs="1">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:anyURI">
+              <xs:attribute name="APIFramework" type="xs:string" use="optional" />
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+		</xs:element>
+        <xs:element name="FlashResource" minOccurs="0" maxOccurs="1">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:anyURI">
+              <xs:attribute name="APIFramework" type="xs:string" use="optional" />
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+		</xs:element>
+      </xs:choice>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  
   <!-- ========== Definition of the Wrapper element type ========== -->
   <xs:complexType name="Wrapper_type">
     <xs:complexContent>
@@ -932,6 +999,8 @@
             <xs:annotation>
               <xs:documentation>Name of advertiser as defined by the ad serving party</xs:documentation>
             </xs:annotation>
+          </xs:element>
+          <xs:element name="AdVerifications" type="AdVerifications_Inline_type" minOccurs="0" maxOccurs="1">
           </xs:element>
           <xs:element name="Category" minOccurs="1" maxOccurs="1">
             <xs:annotation>
