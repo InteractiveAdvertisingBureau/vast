@@ -394,9 +394,36 @@
                   <xs:annotation>
                     <xs:documentation>URI location of linear file. Content must be wrapped in CDATA tag.</xs:documentation>
                   </xs:annotation>
+                  <xs:complexType mixed="true">
+                    <xs:sequence>
+                <xs:element name="InteractiveCreativeFile" minOccurs="0" maxOccurs="1">
+                  <xs:annotation>
+                    <xs:documentation>
+                      For any media file that uses APIs for advanced creative functionality, the
+InteractivityCreativeFile element is used to identify the file and framework needed to
+execute advanced functions for the ad.
+                    </xs:documentation>
+                  </xs:annotation>
                   <xs:complexType>
                     <xs:simpleContent>
-                      <xs:extension base="xs:anyURI">
+					<xs:extension base="xs:anyURI">
+					  <xs:attribute name="type" type="xs:string" use="optional">
+						<xs:annotation>
+						  <xs:documentation>Identifies the MIME type of the file provided.</xs:documentation>
+						</xs:annotation>
+					  </xs:attribute>
+					  <xs:attribute name="APIframework" type="xs:string" use="optional">
+						<xs:annotation>
+						  <xs:documentation>identifies the API needed to execute the Creative file if applicable</xs:documentation>
+						</xs:annotation>
+					  </xs:attribute>
+					</xs:extension>
+                    </xs:simpleContent>
+                  </xs:complexType>
+                </xs:element>
+                      <xs:element name="value" type="xs:anyURI"></xs:element>
+   				</xs:sequence>
+
                         <xs:attribute name="id" type="xs:string" use="optional">
                           <xs:annotation>
                             <xs:documentation>Optional identifier</xs:documentation>
@@ -474,8 +501,7 @@
                             <xs:documentation>Specifies if ad is formatted for adaptive streaming or not.</xs:documentation>
                           </xs:annotation>
                         </xs:attribute>
-                      </xs:extension>
-                    </xs:simpleContent>
+
                   </xs:complexType>
                 </xs:element>
                 <xs:element name="Mezzanine" minOccurs="0" maxOccurs="1">
@@ -962,6 +988,9 @@ executed for collecting data to verify ad playback details.
     <xs:complexContent>
       <xs:extension base="AdDefinitionBase_type">
         <xs:sequence>
+          <xs:element name="AdVerifications" type="AdVerifications_type" minOccurs="0" maxOccurs="1">
+          </xs:element>
+
           <xs:element name="Creatives" minOccurs="1" maxOccurs="1">
             <xs:annotation>
               <xs:documentation>
