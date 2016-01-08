@@ -287,6 +287,15 @@
             <xs:documentation>The apiFramework defines the method to use for communication with the icon element</xs:documentation>
           </xs:annotation>
         </xs:attribute>
+        <xs:attribute name="pxratio" type="xs:integer" >
+          <xs:annotation>
+            <xs:documentation>The pixel ratio for which the icon creative is intended. 
+			The pixel ratio is the ratio of physical pixels on the device to the device-independent pixels. 
+			An ad intended for display on a device with a pixel ratio that is twice that of a standard 1:1 
+			pixel ratio would use the value "2" Default value is "1"</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -710,6 +719,16 @@ execute advanced functions for the ad.
             <xs:documentation>Used to match companion creative to publisher placement areas on the page.</xs:documentation>
           </xs:annotation>
         </xs:attribute>
+        <xs:attribute name="pxratio" type="xs:integer" >
+          <xs:annotation>
+            <xs:documentation>The pixel ratio for which the icon creative is intended. 
+			The pixel ratio is the ratio of physical pixels on the device to the device-independent pixels. 
+			An ad intended for display on a device with a pixel ratio that is twice that of a standard 1:1 
+			pixel ratio would use the value "2" Default value is "1"</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+
+
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -990,6 +1009,16 @@ executed for collecting data to verify ad playback details.
         <xs:sequence>
           <xs:element name="AdVerifications" type="AdVerifications_type" minOccurs="0" maxOccurs="1">
           </xs:element>
+          <xs:element name="VASTAdTagURI" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>A URI to another VAST response that may be another VAST Wrapper or a VAST InLine ad.</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:anyURI"></xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
 
           <xs:element name="Creatives" minOccurs="1" maxOccurs="1">
             <xs:annotation>
@@ -1005,6 +1034,23 @@ executed for collecting data to verify ad playback details.
             </xs:complexType>
           </xs:element>
         </xs:sequence>
+        <xs:attribute name="followAdditionalWrappers" type="xs:boolean" >
+          <xs:annotation>
+            <xs:documentation>a Boolean value that identifies whether subsequent wrappers after a requested VAST response is allowed.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="allowMultipleAds" type="xs:boolean" >
+          <xs:annotation>
+            <xs:documentation>a Boolean value that identifies whether multiple ads are allowed in the requested VAST response.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="fallbackOnNoAd" type="xs:boolean" >
+          <xs:annotation>
+            <xs:documentation>a Boolean value that provides instruction for using an available Ad when the requested VAST response returns no ads.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+
+
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
