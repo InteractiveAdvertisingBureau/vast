@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <!--Created with Liquid XML Studio Developer Bundle Edition (Trial) (http://www.liquid-technologies.com)-->
 <xs:schema attributeFormDefault="unqualified"
-           elementFormDefault="unqualified"
+		   elementFormDefault="qualified"
            targetNamespace="http://www.iab.com/VAST"
+		   xmlns="http://www.iab.com/VAST"
 		   xmlns:vast="http://www.iab.com/VAST"
-           version="4.0.1"
+           version="4.0.2"
            xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	<!-- =================== Begin root VAST document structure ============= -->
-	<xs:element name="VAST">
+	<xs:element id="vast.root" name="VAST">
 		<xs:annotation>
-			<xs:documentation>IAB VAST (Video Ad Serving Template), Version 4.0.0</xs:documentation>
+			<xs:documentation>IAB VAST (Video Ad Serving Template), Version 4.0.2</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:choice>
@@ -42,7 +43,7 @@
 							</xs:element>
 						</xs:choice>
 						<xs:attribute name="id"
-                    type="xs:ID"
+                    type="xs:string"
                     use="optional" />
 						<xs:attribute name="sequence"
                     type="xs:integer"
@@ -220,8 +221,12 @@
 		<xs:simpleContent>
 			<xs:extension base="xs:anyURI">
 				<xs:attribute name="id"
-                  type="xs:ID"
-                  use="optional" />
+		 type="xs:string"
+		 use="optional">
+					<xs:annotation>
+						<xs:documentation>Ad server ID for the impression</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
@@ -390,13 +395,13 @@
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="CreativeExtensions_type">
-		<xs:all>
+		<xs:sequence>
 			<xs:element name="CreativeExtension"
                minOccurs="0"
-               maxOccurs="1">
+               maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>Any valid XML may be included in the Extensions node.
-					This can occur zero to many times. The XSD syntax can't represent that.
+					This can occur zero to many times.
 					</xs:documentation>
 				</xs:annotation>
 				<xs:complexType>
@@ -410,7 +415,7 @@
                       processContents="lax" />
 				</xs:complexType>
 			</xs:element>
-		</xs:all>
+		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="AdParameters_type">
 		<xs:simpleContent>
@@ -565,7 +570,7 @@
                        type="xs:anyURI" />
 										</xs:all>
 										<xs:attribute name="id"
-                        type="xs:ID"
+                        type="xs:string"
                         use="optional">
 											<xs:annotation>
 												<xs:documentation>Optional identifier</xs:documentation>
@@ -894,19 +899,19 @@
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="CompanionAds_Collection_type">
-		<xs:all>
+		<xs:sequence>
 			<xs:element name="Companion"
                type="vast:CompanionAd_type"
                minOccurs="0"
-				 maxOccurs="1" >
+				 maxOccurs="unbounded" >
 				<xs:annotation>
 					<xs:documentation>
 						General subclass type for Companion Ad elements.
-						This can occur zero to many times. The XSD syntax can't represent that.
+						This can occur zero to many times.
 					</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-		</xs:all>
+		</xs:sequence>
 		<xs:attribute name="required"
                 use="optional">
 			<xs:annotation>
@@ -935,6 +940,13 @@
                 use="optional">
 			<xs:annotation>
 				<xs:documentation>Identifies an API needed to execute the creative</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="id"
+                type="xs:string"
+                use="optional">
+			<xs:annotation>
+				<xs:documentation>A string used to identify the ad server that provides the creative.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="adId"
@@ -1048,9 +1060,10 @@
 				Base type structure used by Inline or Wrapper ad content element types
 			</xs:documentation>
 		</xs:annotation>
-		<xs:sequence>
+		<xs:choice minOccurs="0"
+               maxOccurs="unbounded">
 			<xs:element name="AdSystem"
-               minOccurs="1"
+               minOccurs="0"
                maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>Indicates source ad server</xs:documentation>
@@ -1070,24 +1083,12 @@
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Impression"
-               minOccurs="1"
-               maxOccurs="1">
+			type="Impression_type"
+               minOccurs="0"
+               maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>URI for impression tracking</xs:documentation>
 				</xs:annotation>
-				<xs:complexType>
-					<xs:simpleContent>
-						<xs:extension base="xs:anyURI">
-							<xs:attribute name="id"
-                     type="xs:string"
-                     use="optional">
-								<xs:annotation>
-									<xs:documentation>Ad server ID for the impression</xs:documentation>
-								</xs:annotation>
-							</xs:attribute>
-						</xs:extension>
-					</xs:simpleContent>
-				</xs:complexType>
 			</xs:element>
 			<xs:element name="Pricing"
                minOccurs="0"
@@ -1109,6 +1110,10 @@
 										<xs:enumeration value="CPM" />
 										<xs:enumeration value="CPE" />
 										<xs:enumeration value="CPV" />
+										<xs:enumeration value="cpc" />
+										<xs:enumeration value="cpm" />
+										<xs:enumeration value="cpe" />
+										<xs:enumeration value="cpv" />
 									</xs:restriction>
 								</xs:simpleType>
 							</xs:attribute>
@@ -1159,7 +1164,7 @@
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-		</xs:sequence>
+		</xs:choice>
 	</xs:complexType>
 	
 	<xs:complexType name="ViewableImpression_type" id="vtype.ad.viewableimpression">
@@ -1360,7 +1365,8 @@ impression.
 	<xs:complexType name="Inline_type">
 		<xs:complexContent>
 			<xs:extension base="vast:AdDefinitionBase_type">
-				<xs:sequence>
+				<xs:choice minOccurs="1"
+                 maxOccurs="unbounded">
 					<xs:element name="AdTitle"
                  type="xs:string"
                  minOccurs="1"
@@ -1446,7 +1452,7 @@ impression.
 							</xs:sequence>
 						</xs:complexType>
 					</xs:element>
-				</xs:sequence>
+				</xs:choice>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
