@@ -1084,7 +1084,7 @@
 			</xs:element>
 			<xs:element name="Impression"
 			type="Impression_type"
-               minOccurs="0"
+               minOccurs="1"
                maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>URI for impression tracking</xs:documentation>
