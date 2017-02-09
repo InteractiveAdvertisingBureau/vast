@@ -5,7 +5,7 @@
            targetNamespace="http://www.iab.com/VAST"
 		   xmlns="http://www.iab.com/VAST"
 		   xmlns:vast="http://www.iab.com/VAST"
-           version="4.0.2"
+           version="4.0.3"
            xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	<!-- =================== Begin root VAST document structure ============= -->
 	<xs:element id="vast.root" name="VAST">
@@ -528,47 +528,15 @@
 						<xs:complexType>
 							<xs:sequence>
 								<xs:element name="MediaFile"
-                    minOccurs="3"
+                    minOccurs="1"
                     maxOccurs="unbounded">
 									<xs:annotation>
 										<xs:documentation>URI location of linear file. Content must be wrapped in CDATA tag.</xs:documentation>
 									</xs:annotation>
-									<xs:complexType mixed="true">
-										<xs:all>
-											<xs:element name="InteractiveCreativeFile"
-                       minOccurs="0"
-                       maxOccurs="1">
-												<xs:annotation>
-													<xs:documentation>
-														For any media file that uses APIs for advanced creative functionality, the
-														InteractivityCreativeFile element is used to identify the file and framework needed to
-														execute advanced functions for the ad.
-													</xs:documentation>
-												</xs:annotation>
-												<xs:complexType>
-													<xs:simpleContent>
-														<xs:extension base="xs:anyURI">
-															<xs:attribute name="type"
-                             type="xs:string"
-                             use="optional">
-																<xs:annotation>
-																	<xs:documentation>Identifies the MIME type of the file provided.</xs:documentation>
-																</xs:annotation>
-															</xs:attribute>
-															<xs:attribute name="APIframework"
-                             type="xs:string"
-                             use="optional">
-																<xs:annotation>
-																	<xs:documentation>identifies the API needed to execute the Creative file if applicable</xs:documentation>
-																</xs:annotation>
-															</xs:attribute>
-														</xs:extension>
-													</xs:simpleContent>
-												</xs:complexType>
-											</xs:element>
-											<xs:element name="value"
-                       type="xs:anyURI" />
-										</xs:all>
+									<xs:complexType>
+
+									<xs:simpleContent>
+									<xs:extension base="xs:anyURI">
 										<xs:attribute name="id"
                         type="xs:string"
                         use="optional">
@@ -671,6 +639,8 @@
 												<xs:documentation>Specifies if ad is formatted for adaptive streaming or not.</xs:documentation>
 											</xs:annotation>
 										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>								
 									</xs:complexType>
 								</xs:element>
 								<xs:element name="Mezzanine"
@@ -688,6 +658,34 @@
 										</xs:simpleContent>
 									</xs:complexType>
 								</xs:element>
+								<xs:element name="InteractiveCreativeFile"
+								   minOccurs="0"
+								   maxOccurs="unbounded">
+									<xs:annotation>
+										<xs:documentation>
+											For any media file that uses APIs for advanced creative functionality, the
+											InteractivityCreativeFile element is used to identify the file and framework needed to
+											execute advanced functions for the ad.
+										</xs:documentation>
+									</xs:annotation>
+									<xs:complexType>
+										<xs:simpleContent>
+											<xs:extension base="xs:anyURI">
+												<xs:attribute name="type" type="xs:string" use="optional">
+													<xs:annotation>
+														<xs:documentation>Identifies the MIME type of the file provided.</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+												<xs:attribute name="APIframework" type="xs:string" use="optional">
+													<xs:annotation>
+														<xs:documentation>identifies the API needed to execute the Creative file if applicable</xs:documentation>
+													</xs:annotation>
+												</xs:attribute>
+											</xs:extension>
+										</xs:simpleContent>
+									</xs:complexType>
+								</xs:element>
+
 							</xs:sequence>
 						</xs:complexType>
 					</xs:element>
