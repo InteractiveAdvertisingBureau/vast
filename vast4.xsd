@@ -676,7 +676,7 @@
 														<xs:documentation>Identifies the MIME type of the file provided.</xs:documentation>
 													</xs:annotation>
 												</xs:attribute>
-												<xs:attribute name="APIframework" type="xs:string" use="optional">
+												<xs:attribute name="apiFramework" type="xs:string" use="optional">
 													<xs:annotation>
 														<xs:documentation>identifies the API needed to execute the Creative file if applicable</xs:documentation>
 													</xs:annotation>
@@ -878,7 +878,7 @@
 						<xs:documentation>The apiFramework defines the method to use for communication with the companion</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
-				<xs:attribute name="adSlotId"
+				<xs:attribute name="adSlotID"
                   type="xs:string"
                   use="optional">
 					<xs:annotation>
@@ -1243,11 +1243,103 @@ impression.
 		</xs:attribute>
 </xs:complexType>
 	
+	<!-- ============ Simple Verification type used under Wrapper elements =============== -->
+	<xs:complexType name="Verification_type" id="vtype.ad.verificationbase">
+		<xs:annotation>
+			<xs:documentation>
+				Verification elements are nested under AdVerifications. The Verification element is used to contain the
+JavaScript or Flash code used to collect data. Multiple Verification elements may be used in
+cases where more than one verification vendor needs to collect data or when different API
+frameworks are used.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ViewableImpression"
+	  minOccurs="0"
+	  maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The name of the event to track for the element. 
+					The creativeView should always be requested when present.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:anyURI">
+							<xs:attribute name="id"
+								use="optional"
+								type="xs:string" />
+						</xs:extension>
+					</xs:simpleContent>								
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="vendor"
+	   type="xs:string"
+	   use="optional" />
+	</xs:complexType>
 	
-	
+<!-- ============ Verification type used under Inline elements =============== -->
+	<xs:complexType name="Verification_Inline_type">
+		<xs:annotation>
+			<xs:documentation>
+				Verification elements are nested under AdVerifications. The Verification element is used to contain the
+JavaScript or Flash code used to collect data. Multiple Verification elements may be used in
+cases where more than one verification vendor needs to collect data or when different API
+frameworks are used.
+
+When included, verification contents must be executed (if possible) BEFORE the
+media file or interactive creative file is executed, to ensure verification can track ad
+play as intended.
+			</xs:documentation>
+		</xs:annotation>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="ViewableImpression"
+		  minOccurs="0"
+		  maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>The name of the event to track for the element. 
+						The creativeView should always be requested when present.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="xs:anyURI">
+								<xs:attribute name="id"
+									use="optional"
+									type="xs:string" />
+							</xs:extension>
+						</xs:simpleContent>								
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="JavaScriptResource"
+			 minOccurs="0"
+			 maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="xs:anyURI">
+								<xs:attribute name="apiFramework"
+				   type="xs:string"
+				   use="optional" />
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="FlashResource"
+			 minOccurs="0"
+			 maxOccurs="1">
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="xs:anyURI">
+								<xs:attribute name="apiFramework"
+				   type="xs:string"
+				   use="optional" />
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+	</xs:complexType>
 	
 	<!-- ========== Definition of the AdVerifications element type ========== -->
-	<xs:complexType name="AdVerifications_type" id="vtype.ad.adverificationsbase">
+	<xs:complexType name="AdVerifications_Wrapper_type" id="vtype.ad.adverificationsbase">
 		<xs:annotation>
 			<xs:documentation>
 				The AdVerification element is used to initiate a controlled container where code can be
@@ -1256,69 +1348,29 @@ impression.
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="Verification"
+			type="vast:Verification_type"
                minOccurs="0"
                maxOccurs="unbounded">
-				<xs:complexType>
-					<xs:all>
-						<xs:element name="ViewableImpression"
-                  minOccurs="0"
-                  maxOccurs="1">
-							<xs:annotation>
-								<xs:documentation>The name of the event to track for the element. 
-								The creativeView should always be requested when present.</xs:documentation>
-							</xs:annotation>
-							<xs:complexType>
-								<xs:simpleContent>
-									<xs:extension base="xs:anyURI">
-										<xs:attribute name="id"
-											use="optional"
-											type="xs:string" />
-									</xs:extension>
-								</xs:simpleContent>								
-							</xs:complexType>
-						</xs:element>
-					</xs:all>
-					<xs:attribute name="vendor"
-                   type="xs:string"
-                   use="optional" />
-				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
+	
+	
 	<!-- ========== Definition of the AdVerifications Inline element type ========== -->
-	<xs:complexType name="AdVerifications_Inline_type">
-		<xs:complexContent>
-			<xs:extension base="vast:AdVerifications_type">
-				<xs:choice>
-					<xs:element name="JavaScriptResource"
-                 minOccurs="0"
-                 maxOccurs="1">
-						<xs:complexType>
-							<xs:simpleContent>
-								<xs:extension base="xs:anyURI">
-									<xs:attribute name="APIFramework"
-                       type="xs:string"
-                       use="optional" />
-								</xs:extension>
-							</xs:simpleContent>
-						</xs:complexType>
-					</xs:element>
-					<xs:element name="FlashResource"
-                 minOccurs="0"
-                 maxOccurs="1">
-						<xs:complexType>
-							<xs:simpleContent>
-								<xs:extension base="xs:anyURI">
-									<xs:attribute name="APIFramework"
-                       type="xs:string"
-                       use="optional" />
-								</xs:extension>
-							</xs:simpleContent>
-						</xs:complexType>
-					</xs:element>
-				</xs:choice>
-			</xs:extension>
-		</xs:complexContent>
+	<xs:complexType name="AdVerifications_Inline_type" id="vtype.ad.adverificationsinline">
+		<xs:annotation>
+			<xs:documentation>
+				The AdVerification element is used to initiate a controlled container where code can be
+				executed for collecting data to verify ad playback details.
+			</xs:documentation>
+		</xs:annotation>
+			<xs:sequence>
+			<xs:element name="Verification"
+			type="vast:Verification_Inline_type"
+               minOccurs="0"
+               maxOccurs="unbounded">
+				</xs:element>
+			</xs:sequence>
 	</xs:complexType>
 	<!-- ========== Definition of the Wrapper element type ========== -->
 	<xs:complexType name="Wrapper_type">
@@ -1326,7 +1378,7 @@ impression.
 			<xs:extension base="vast:AdDefinitionBase_type">
 				<xs:sequence>
 					<xs:element name="AdVerifications"
-						 type="vast:AdVerifications_type"
+						 type="vast:AdVerifications_Wrapper_type"
 						 minOccurs="0"
 						 maxOccurs="1" />
 					<xs:element name="VASTAdTagURI"
