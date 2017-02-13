@@ -10,7 +10,7 @@
 	<!-- =================== Begin root VAST document structure ============= -->
 	<xs:element id="vast.root" name="VAST">
 		<xs:annotation>
-			<xs:documentation>IAB VAST (Video Ad Serving Template), Version 4.0.2</xs:documentation>
+			<xs:documentation>IAB VAST (Video Ad Serving Template), Version 4.0.3</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:choice>
@@ -1157,8 +1157,29 @@
 				</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:any minOccurs="0"
-              maxOccurs="unbounded" />
+						<xs:element name="Extension"
+						   minOccurs="0"
+						   maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>
+									One instance of &lt;Extension&gt; should be used for each custom extension. The type attribute
+									identifies the MIME type of any code provided in the extension.
+								</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+							<xs:sequence>
+									<xs:any minOccurs="0"
+						  maxOccurs="unbounded" />
+								</xs:sequence>
+									<xs:attribute name="type"
+                       type="xs:string"
+                       use="optional">
+										<xs:annotation>
+											<xs:documentation>The MIME type of any code that might be included in the extension.</xs:documentation>
+										</xs:annotation>
+									</xs:attribute>
+							</xs:complexType>
+						</xs:element>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
