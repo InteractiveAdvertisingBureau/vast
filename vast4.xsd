@@ -1376,7 +1376,8 @@ play as intended.
 	<xs:complexType name="Wrapper_type">
 		<xs:complexContent>
 			<xs:extension base="vast:AdDefinitionBase_type">
-				<xs:sequence>
+				<xs:choice minOccurs="0"
+						 maxOccurs="unbounded">
 					<xs:element name="AdVerifications"
 						 type="vast:AdVerifications_Wrapper_type"
 						 minOccurs="0"
@@ -1394,7 +1395,7 @@ play as intended.
 						</xs:complexType>
 					</xs:element>
 					<xs:element name="Creatives"
-						 minOccurs="1"
+						 minOccurs="0"
 						 maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>
@@ -1410,7 +1411,7 @@ play as intended.
 							</xs:sequence>
 						</xs:complexType>
 					</xs:element>
-				</xs:sequence>
+				</xs:choice>
 				<xs:attribute name="followAdditionalWrappers"
                   type="xs:boolean">
 					<xs:annotation>
