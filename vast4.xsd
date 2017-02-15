@@ -5,12 +5,12 @@
            targetNamespace="http://www.iab.com/VAST"
 		   xmlns="http://www.iab.com/VAST"
 		   xmlns:vast="http://www.iab.com/VAST"
-           version="4.0.3"
+           version="4.0.4"
            xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	<!-- =================== Begin root VAST document structure ============= -->
 	<xs:element id="vast.root" name="VAST">
 		<xs:annotation>
-			<xs:documentation>IAB VAST (Video Ad Serving Template), Version 4.0.3</xs:documentation>
+			<xs:documentation>IAB VAST (Video Ad Serving Template), Version 4.0.4</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:choice>
@@ -1291,51 +1291,58 @@ media file or interactive creative file is executed, to ensure verification can 
 play as intended.
 			</xs:documentation>
 		</xs:annotation>
-			<xs:choice minOccurs="0" maxOccurs="unbounded">
-				<xs:element name="ViewableImpression"
-		  minOccurs="0"
-		  maxOccurs="1">
-					<xs:annotation>
-						<xs:documentation>The name of the event to track for the element. 
-						The creativeView should always be requested when present.</xs:documentation>
-					</xs:annotation>
-					<xs:complexType>
-						<xs:simpleContent>
-							<xs:extension base="xs:anyURI">
-								<xs:attribute name="id"
-									use="optional"
-									type="xs:string" />
-							</xs:extension>
-						</xs:simpleContent>								
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="JavaScriptResource"
-			 minOccurs="0"
-			 maxOccurs="unbounded">
-					<xs:complexType>
-						<xs:simpleContent>
-							<xs:extension base="xs:anyURI">
-								<xs:attribute name="apiFramework"
-				   type="xs:string"
-				   use="optional" />
-							</xs:extension>
-						</xs:simpleContent>
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="FlashResource"
-			 minOccurs="0"
-			 maxOccurs="1">
-					<xs:complexType>
-						<xs:simpleContent>
-							<xs:extension base="xs:anyURI">
-								<xs:attribute name="apiFramework"
-				   type="xs:string"
-				   use="optional" />
-							</xs:extension>
-						</xs:simpleContent>
-					</xs:complexType>
-				</xs:element>
-			</xs:choice>
+		<xs:sequence >
+			<xs:element name="ViewableImpression"
+	  minOccurs="0"
+	  maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The name of the event to track for the element. 
+					The creativeView should always be requested when present.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:anyURI">
+							<xs:attribute name="id"
+								use="optional"
+								type="xs:string" />
+						</xs:extension>
+					</xs:simpleContent>								
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="JavaScriptResource"
+		 minOccurs="0"
+		 maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:anyURI">
+							<xs:attribute name="apiFramework"
+			   type="xs:string"
+			   use="optional" />
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="FlashResource"
+		 minOccurs="0"
+		 maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:anyURI">
+							<xs:attribute name="apiFramework"
+			   type="xs:string"
+			   use="optional" />
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="vendor"
+			 type="xs:string"
+			 use="optional">
+			<xs:annotation>
+				<xs:documentation>The home page URL for the verification service provider that supplies the resource file.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 	</xs:complexType>
 	
 	<!-- ========== Definition of the AdVerifications element type ========== -->
