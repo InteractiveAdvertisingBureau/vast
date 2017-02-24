@@ -411,10 +411,10 @@
 						<xs:any minOccurs="0"
               maxOccurs="unbounded"
               namespace="##any"
-              processContents="lax" />
+              processContents="skip" />
 					</xs:sequence>
 					<xs:anyAttribute namespace="##any"
-                      processContents="lax" />
+                       processContents="skip" />
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
@@ -1111,7 +1111,7 @@
               </xs:annotation>
               <xs:complexType>
                 <xs:sequence>
-                  <xs:any minOccurs="0"
+                  <xs:any minOccurs="0" processContents="skip"
 						  maxOccurs="unbounded" />
                 </xs:sequence>
                 <xs:attribute name="type"
@@ -1468,7 +1468,7 @@ play as intended.
             </xs:annotation>
           </xs:element>
 					<xs:element name="Category"
-                 minOccurs="1"
+                 minOccurs="0"
                  maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>String providing category code or label</xs:documentation>
@@ -1487,6 +1487,7 @@ play as intended.
 							</xs:simpleContent>
 						</xs:complexType>
 					</xs:element>
+          
           <xs:element name="Creatives"
                  minOccurs="1"
                  maxOccurs="1">
