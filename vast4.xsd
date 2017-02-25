@@ -93,7 +93,7 @@
 		<xs:simpleContent>
 			<xs:extension base="xs:anyURI">
 				<xs:attribute name="id"
-                  type="xs:ID" />
+                  type="xs:string" />
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
@@ -167,7 +167,7 @@
 					<xs:simpleContent>
 						<xs:extension base="xs:anyURI">
 							<xs:attribute name="id"
-                     type="xs:ID"
+                     type="xs:string"
                      use="optional" />
 						</xs:extension>
 					</xs:simpleContent>
@@ -184,7 +184,7 @@
 					<xs:simpleContent>
 						<xs:extension base="xs:anyURI">
 							<xs:attribute name="id"
-                     type="xs:ID"
+                     type="xs:string"
                      use="optional" />
 						</xs:extension>
 					</xs:simpleContent>
@@ -207,7 +207,7 @@
 							<xs:simpleContent>
 								<xs:extension base="xs:anyURI">
 									<xs:attribute name="id"
-                       type="xs:ID"
+                       type="xs:string"
                        use="optional" />
 								</xs:extension>
 							</xs:simpleContent>
@@ -716,7 +716,7 @@
 					<xs:simpleContent>
 						<xs:extension base="xs:anyURI">
 							<xs:attribute name="id"
-                     type="xs:ID"
+                     type="xs:string"
                      use="optional">
 								<xs:annotation>
 									<xs:documentation>Identifier provided to ad server for click reports</xs:documentation>
@@ -761,7 +761,7 @@
               <xs:simpleContent>
                 <xs:extension base="xs:anyURI">
                   <xs:attribute name="id"
-                       type="xs:ID"
+                       type="xs:string"
                        use="optional">
                     <xs:annotation>
                       <xs:documentation>Identifier provided to ad server for click reports</xs:documentation>
@@ -795,20 +795,20 @@
               <xs:documentation>Alt text to be displayed when companion is rendered in HTML environment.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="CompanionClickTracking"
-                 type="xs:anyURI"
-                 minOccurs="0"
-                 maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>URLs to ping when user clicks on the the companion banner ad.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
           <xs:element name="CompanionClickThrough"
                  type="xs:anyURI"
                  minOccurs="0"
                  maxOccurs="1">
             <xs:annotation>
               <xs:documentation>URL to open as destination page when user clicks on the the companion banner ad.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CompanionClickTracking"
+                 type="xs:anyURI"
+                 minOccurs="0"
+                 maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>URLs to ping when user clicks on the the companion banner ad.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="CreativeExtensions"
@@ -825,7 +825,7 @@
 					</xs:element>
         </xs:sequence>
 				<xs:attribute name="id"
-                  type="xs:ID"
+                  type="xs:string"
                   use="optional">
 					<xs:annotation>
 						<xs:documentation>Optional identifier</xs:documentation>
@@ -1391,7 +1391,27 @@ play as intended.
 						 type="vast:AdVerifications_Wrapper_type"
 						 minOccurs="0"
 						 maxOccurs="1" />
+          
           <xs:element name="Creatives"
+                 minOccurs="1"
+                 maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>
+                A container for one or more Creative elements used to provide creative files for ad.
+              </xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Creative"
+                    type="vast:Creative_WrapperChild_type"
+                    minOccurs="1"
+                    maxOccurs="unbounded" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+
+<!--
+            <xs:element name="Creatives"
 						 minOccurs="0"
 						 maxOccurs="1">
             <xs:annotation>
@@ -1408,6 +1428,7 @@ play as intended.
               </xs:sequence>
             </xs:complexType>
           </xs:element>
+          -->
           <xs:element name="VASTAdTagURI"
 						 minOccurs="1"
 						 maxOccurs="1">
