@@ -1,6 +1,11 @@
 
 VAST Release Notes
 ===================
+4.0.5
+-----
+
+
+
 4.0.4
 -----
 * Reorganize XSD element order for alphabetical within a type.

@@ -198,7 +198,7 @@
 				<xs:sequence>
 					<xs:element name="ClickThrough"
                  minOccurs="0"
-                 maxOccurs="unbounded">
+                 maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>URL to open as destination page when user clicks on the video.
 							This can occur zero to many times. The XSD syntax can't represent that.</xs:documentation>
@@ -413,7 +413,14 @@
               namespace="##any"
               processContents="skip" />
 					</xs:sequence>
-					<xs:anyAttribute namespace="##any"
+          <xs:attribute name="type"
+              type="xs:string"
+              use="optional">
+            <xs:annotation>
+              <xs:documentation>The MIME type of any code that might be included in the extension.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:anyAttribute namespace="##any"
                        processContents="skip" />
 				</xs:complexType>
 			</xs:element>
@@ -433,15 +440,14 @@
 		</xs:simpleContent>
 	</xs:complexType>
 	<xs:complexType name="HTMLResource_type">
-		<xs:simpleContent>
-			<xs:extension base="xs:string">
-				<xs:attribute name="xmlEncoded"
-                  type="xs:boolean"
-                  use="optional">
-					<xs:annotation>
-						<xs:documentation>Specifies whether the HTML is XML-encoded</xs:documentation>
-					</xs:annotation>
-				</xs:attribute>
+    <xs:annotation>
+      <xs:documentation>
+        The URI to a static creative file to be used for the ad component identified in the parent
+        element, which is either: &lt;NonLinear&gt;, &lt;Companion&gt;, or &lt;Icon&gt;.
+       </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+			<xs:extension base="xs:string" >
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
@@ -1042,9 +1048,11 @@
               <xs:simpleContent>
                 <xs:extension base="xs:string">
                   <xs:attribute name="idRegistry"
-                       type="xs:string" />
+                       type="xs:string"
+                       use="required" />
                   <xs:attribute name="idValue"
-                       type="xs:string" />
+                       type="xs:string"
+                       use="required" />
                 </xs:extension>
               </xs:simpleContent>
             </xs:complexType>
@@ -1062,7 +1070,7 @@
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="AdSystem"
-               minOccurs="0"
+               minOccurs="1"
                maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>Indicates source ad server</xs:documentation>
@@ -1490,18 +1498,20 @@ play as intended.
           </xs:element>
 					<xs:element name="Category"
                  minOccurs="0"
-                 maxOccurs="1">
+                 maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation>String providing category code or label</xs:documentation>
+							<xs:documentation>A string that provides a category code or label that identifies the ad content.</xs:documentation>
 						</xs:annotation>
 						<xs:complexType>
 							<xs:simpleContent>
 								<xs:extension base="xs:string">
 									<xs:attribute name="authority"
                        type="xs:anyURI"
-                       use="optional">
+                       use="required">
 										<xs:annotation>
-											<xs:documentation>URI for the organizational authority that produced the category list and content</xs:documentation>
+											<xs:documentation>
+                        A URI for the organizational authority that produced the list being used to identify ad content.
+                      </xs:documentation>
 										</xs:annotation>
 									</xs:attribute>
 								</xs:extension>
