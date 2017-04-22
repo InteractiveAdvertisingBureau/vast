@@ -5,7 +5,7 @@
            targetNamespace="http://www.iab.com/VAST"
 		   xmlns="http://www.iab.com/VAST"
 		   xmlns:vast="http://www.iab.com/VAST"
-           version="4.0.4"
+           version="4.0.5"
            xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	<!-- =================== Begin root VAST document structure ============= -->
 	<xs:element id="vast.root" name="VAST">
@@ -299,7 +299,7 @@
 						<xs:complexType>
 							<xs:sequence>
 								<xs:element name="IconClickThrough"
-                    type="vast:IconTrackingUri_type"
+                    type="xs:anyURI"
                     minOccurs="0"
                     maxOccurs="1">
 									<xs:annotation>
@@ -307,7 +307,7 @@
 									</xs:annotation>
 								</xs:element>
 								<xs:element name="IconClickTracking"
-                    type="xs:anyURI"
+                    type="vast:IconTrackingUri_type"
                     minOccurs="0"
                     maxOccurs="unbounded">
 									<xs:annotation>
@@ -318,11 +318,11 @@
 						</xs:complexType>
 					</xs:element>
 					<xs:element name="IconViewTracking"
-                 type="vast:IconTrackingUri_type"
+                type="xs:anyURI"
                  minOccurs="0"
                  maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation>URLs to ping when icon is shown.</xs:documentation>
+							<xs:documentation>A URI for the tracking resource file to be called when the icon creative is displayed.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
@@ -651,6 +651,7 @@
 									</xs:complexType>
 								</xs:element>
 								<xs:element name="Mezzanine"
+                            type="xs:anyURI"
                     minOccurs="0"
                     maxOccurs="1">
 									<xs:annotation>
@@ -659,11 +660,6 @@
 											Content must be wrapped in CDATA tag.
 										</xs:documentation>
 									</xs:annotation>
-									<xs:complexType>
-										<xs:simpleContent>
-											<xs:extension base="xs:anyURI" />
-										</xs:simpleContent>
-									</xs:complexType>
 								</xs:element>
 								<xs:element name="InteractiveCreativeFile"
 								   minOccurs="0"
@@ -809,12 +805,25 @@
             </xs:annotation>
           </xs:element>
           <xs:element name="CompanionClickTracking"
-                 type="xs:anyURI"
                  minOccurs="0"
                  maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation>URLs to ping when user clicks on the the companion banner ad.</xs:documentation>
+              <xs:documentation>A URI to a tracking resource file used to track a companion clickthrough.</xs:documentation>
             </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:anyURI">
+                  <xs:attribute name="id"
+                      type="xs:string"
+                      use="required">
+                    <xs:annotation>
+                      <xs:documentation>An id provided by the ad server to track the click in reports.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                 </xs:extension>
+                </xs:simpleContent>
+            </xs:complexType>
+
           </xs:element>
           <xs:element name="CreativeExtensions"
                  type="vast:CreativeExtensions_type"
@@ -1252,7 +1261,7 @@ impression.
 </xs:complexType>
 	
 	<!-- ============ Simple Verification type used under Wrapper elements =============== -->
-	<xs:complexType name="Verification_type" id="vtype.ad.verificationbase">
+	<xs:complexType name="Verification_Wrapper_type" id="vtype.ad.verificationbase">
 		<xs:annotation>
 			<xs:documentation>
 				Verification elements are nested under AdVerifications. The Verification element is used to contain the
@@ -1365,7 +1374,7 @@ play as intended.
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="Verification"
-			type="vast:Verification_type"
+			type="vast:Verification_Wrapper_type"
                minOccurs="0"
                maxOccurs="unbounded">
 			</xs:element>
@@ -1400,7 +1409,7 @@ play as intended.
 						 maxOccurs="1" />
           
           <xs:element name="Creatives"
-                 minOccurs="1"
+                 minOccurs="0"
                  maxOccurs="1">
             <xs:annotation>
               <xs:documentation>
@@ -1437,16 +1446,12 @@ play as intended.
           </xs:element>
           -->
           <xs:element name="VASTAdTagURI"
+             type="xs:anyURI"
 						 minOccurs="1"
 						 maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>A URI to another VAST response that may be another VAST Wrapper or a VAST InLine ad.</xs:documentation>
 						</xs:annotation>
-						<xs:complexType>
-							<xs:simpleContent>
-								<xs:extension base="xs:anyURI" />
-							</xs:simpleContent>
-						</xs:complexType>
 					</xs:element>
 				</xs:sequence>
 				<xs:attribute name="followAdditionalWrappers"

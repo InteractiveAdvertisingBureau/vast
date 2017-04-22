@@ -6,7 +6,22 @@ VAST Release Notes
 * Updated tracking events to match spec (Issue #5)
 * UniversalAdId attributes are required
 * Multiple updates on Icon, MediFile, etc (Issue #6)
-
+	Item 1 - 3.10.1 - Fixed Clickthrough Bounding
+	Item 2 - 3.7.3 - Added attribute "type" explicitly to hold MIME type on CreativeExtension
+	Item 3 - 3.15.3 - Removed xmlEncoded incorrect attribute and added comment from spec on HTMLResource
+	Item 4 - 3.4.1 - Changed AdSystem to be bounded at 1 (required)
+	Item 5 - 3.4.4 - Multiple Category elements allowed
+	Item 6 - 3.7.1 - Attributes on UniversalAdId changed to required
+	Item 7 - 3.9.2 - Simplified Mezzanine
+	Item 8 - 3.9.1 - Removed adaptive streaming
+	Item 9 - 3.11 - Icons element is defined in Linear_Base_type, which is inherited from by both Wrapper/Linear and Inline/Linear, so no change
+	Item 10 - 3.11.1 - All Icon attributes now optional
+	Item 11 - 3.11.4 and 3.11.5 Adjusted to fix attributes.
+	Item 12 - 3.11.2 - Fixed IconViewTracking to only have simple uri
+	Item 13 - 3.13.4 - Modified to add id as required attribute to CompanionClickTracking
+	Item 14 - 3.19.1 - Simplified VASTAdTagURI element
+	Item 15 - 3.19 - Creatives under Wrapper no longer required
+	Item 16 - Renamed Verification_type' to 'VerificationWrapper_type'
 
 4.0.4
 -----
