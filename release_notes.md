@@ -3,7 +3,9 @@ VAST Release Notes
 ===================
 4.0.5
 -----
-
+* Updated tracking events to match spec (Issue #5)
+* UniversalAdId attributes are required
+* Multiple updates on Icon, MediFile, etc (Issue #6)
 
 
 4.0.4
