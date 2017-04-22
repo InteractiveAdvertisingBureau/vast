@@ -12,6 +12,8 @@ For more information about the VAST specification, visit the [Digital Video Ad S
 Other VAST Resources
 ====================
 
+* [IAB TechLab VAST tag Validator](https://iabtechlab.com/IABVAST/) 
+
 * [VAST Ad Tester](http://zutils.zedo.com/vastvalidator/)
 
 * [Google VAST Tester](https://developers.google.com/interactive-media-ads/docs/vastinspector_dual)
