@@ -12,12 +12,12 @@ For more information about the VAST specification, visit the [Digital Video Ad S
 Other VAST Resources
 ====================
 
-* [IAB TechLab VAST tag Validator](https://iabtechlab.com/IABVAST/) 
+* [IAB TechLab VAST tag Validator](https://vastvalidator.iabtechlab.com) 
 
 * [VAST Ad Tester](http://zutils.zedo.com/vastvalidator/)
 
 * [Google VAST Tester](https://developers.google.com/interactive-media-ads/docs/vastinspector_dual)
 
-* [Videology Ad Tester](http://http.videologygroup.com/admanager/superbuddha/demo/VideologyAdTester.html)
+* [Videology Ad Tester](http://videologygroup.com/admanager/superbuddha/demo/VideologyAdTester.html)
 
 
