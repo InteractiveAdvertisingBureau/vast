@@ -10,7 +10,7 @@
 	<!-- =================== Begin root VAST document structure ============= -->
 	<xs:element id="vast.root" name="VAST">
 		<xs:annotation>
-			<xs:documentation>IAB VAST (Video Ad Serving Template), Version 4.0.4</xs:documentation>
+			<xs:documentation>IAB VAST (Video Ad Serving Template), Version 4.0.5</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:choice>
@@ -1100,7 +1100,7 @@
       <xs:element name="Error"
                type="xs:anyURI"
                minOccurs="0"
-               maxOccurs="1">
+               maxOccurs="unbounded">
         <xs:annotation>
           <xs:documentation>URL to request if ad does not play due to error</xs:documentation>
         </xs:annotation>
