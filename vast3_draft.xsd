@@ -51,10 +51,10 @@
                               </xs:annotation>
                               <xs:simpleType>
                                 <xs:restriction base="xs:NMTOKEN">
-                                  <xs:enumeration value="cpc" />
-                                  <xs:enumeration value="cpm" />
-                                  <xs:enumeration value="cpe" />
-                                  <xs:enumeration value="cpv" />
+                                  <xs:enumeration value="cpc"/>
+                                  <xs:enumeration value="cpm"/>
+                                  <xs:enumeration value="cpe"/>
+                                  <xs:enumeration value="cpv"/>
                                 </xs:restriction>
                               </xs:simpleType>
                             </xs:attribute>
@@ -64,7 +64,7 @@
                               </xs:annotation>
                               <xs:simpleType>
                                 <xs:restriction base="xs:string">
-                                  <xs:pattern value="[a-zA-Z]{3}" />
+                                  <xs:pattern value="[a-zA-Z]{3}"/>
                                 </xs:restriction>
                               </xs:simpleType>
                             </xs:attribute>
@@ -82,7 +82,7 @@
                         <xs:documentation>URL to request if ad does not play due to error</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="Impression" type="Impression_type" maxOccurs="unbounded" minOccurs="1" />
+                    <xs:element name="Impression" type="Impression_type" maxOccurs="unbounded" minOccurs="1"/>
                     <xs:element maxOccurs="1" minOccurs="1" name="Creatives">
                       <xs:annotation>
                         <xs:documentation>Contains all creative elements within an InLine or Wrapper Ad</xs:documentation>
@@ -109,19 +109,19 @@
                                           </xs:sequence>
                                         </xs:complexType>
                                       </xs:element>
-                                      <xs:element name="CreativeExtensions" minOccurs="0" maxOccurs="1" type="CreativeExtensions_type" />
+                                      <xs:element name="CreativeExtensions" minOccurs="0" maxOccurs="1" type="CreativeExtensions_type"/>
                                       <xs:element name="Duration" type="xs:time" maxOccurs="1" minOccurs="1">
                                         <xs:annotation>
                                           <xs:documentation>Duration in standard time format, hh:mm:ss</xs:documentation>
                                         </xs:annotation>
                                       </xs:element>
-                                      <xs:element name="TrackingEvents" minOccurs="0" type="TrackingEvents_type" maxOccurs="1" />
+                                      <xs:element name="TrackingEvents" minOccurs="0" type="TrackingEvents_type" maxOccurs="1"/>
                                       <xs:element name="AdParameters" minOccurs="0" maxOccurs="1" type="AdParameters_type">
                                         <xs:annotation>
                                           <xs:documentation>Data to be passed into the video ad</xs:documentation>
                                         </xs:annotation>
                                       </xs:element>
-                                      <xs:element name="VideoClicks" minOccurs="0" type="VideoClicks_type" maxOccurs="1" />
+                                      <xs:element name="VideoClicks" minOccurs="0" type="VideoClicks_type" maxOccurs="1"/>
                                       <xs:element name="MediaFiles" minOccurs="0" maxOccurs="1">
                                         <xs:complexType>
                                           <xs:sequence>
@@ -143,15 +143,14 @@
                                                       </xs:annotation>
                                                       <xs:simpleType>
                                                         <xs:restriction base="xs:NMTOKEN">
-                                                          <xs:enumeration value="streaming" />
-                                                          <xs:enumeration value="progressive" />
+                                                          <xs:enumeration value="streaming"/>
+                                                          <xs:enumeration value="progressive"/>
                                                         </xs:restriction>
                                                       </xs:simpleType>
                                                     </xs:attribute>
                                                     <xs:attribute name="type" use="required" type="xs:string">
                                                       <xs:annotation>
-                                                        <xs:documentation>MIME type. Popular MIME types include, but are not limited to “video/x-ms-wmv” for Windows Media, and “video/x-flv” for Flash Video. Image ads or interactive ads can be included in the MediaFiles section with appropriate Mime
-                                                          types</xs:documentation>
+                                                        <xs:documentation>MIME type. Popular MIME types include, but are not limited to “video/x-ms-wmv” for Windows Media, and “video/x-flv” for Flash Video. Image ads or interactive ads can be included in the MediaFiles section with appropriate Mime types</xs:documentation>
                                                       </xs:annotation>
                                                     </xs:attribute>
                                                     <xs:attribute name="bitrate" type="xs:integer" use="optional">
@@ -191,8 +190,8 @@
                                                     </xs:attribute>
                                                     <xs:attribute name="apiFramework" type="xs:string" use="optional">
                                                       <xs:annotation>
-                                                        <xs:documentation>The apiFramework defines the method to use for communication if the MediaFile is interactive. Suggested values for this element are “VPAID”, “FlashVars” (for Flash/Flex), “initParams” (for Silverlight) and “GetVariables”
-                                                          (variables placed in key/value pairs on the asset request).</xs:documentation>
+                                                        <xs:documentation>The apiFramework defines the method to use for communication if the MediaFile is interactive. Suggested values for this element are “VPAID”, “FlashVars” (for Flash/Flex), “initParams” (for Silverlight) and “GetVariables” (variables
+                                                          placed in key/value pairs on the asset request).</xs:documentation>
                                                       </xs:annotation>
                                                     </xs:attribute>
                                                     <xs:attribute name="codec" use="optional" type="xs:string">
@@ -214,10 +213,10 @@
                                       </xs:annotation>
                                       <xs:simpleType>
                                         <xs:restriction base="xs:string">
-                                          <xs:pattern value="(\d{2}:[0-5]\d:[0-5]\d(\.\d\d\d)?|1?\d?\d(\.?\d)*%)" />
+                                          <xs:pattern value="(\d{2}:[0-5]\d:[0-5]\d(\.\d\d\d)?|1?\d?\d(\.?\d)*%)"/>
                                         </xs:restriction>
                                       </xs:simpleType>
-                                   </xs:attribute>
+                                    </xs:attribute>
                                   </xs:complexType>
                                 </xs:element>
                                 <xs:element name="CompanionAds" minOccurs="0" maxOccurs="1">
@@ -235,9 +234,9 @@
                                       </xs:annotation>
                                       <xs:simpleType>
                                         <xs:restriction base="xs:NMTOKEN">
-                                          <xs:enumeration value="all" />
-                                          <xs:enumeration value="any" />
-                                          <xs:enumeration value="none" />
+                                          <xs:enumeration value="all"/>
+                                          <xs:enumeration value="any"/>
+                                          <xs:enumeration value="none"/>
                                         </xs:restriction>
                                       </xs:simpleType>
                                     </xs:attribute>
@@ -246,7 +245,7 @@
                                 <xs:element name="NonLinearAds" minOccurs="0" maxOccurs="1">
                                   <xs:complexType>
                                     <xs:sequence>
-                                      <xs:element name="TrackingEvents" minOccurs="0" type="TrackingEvents_type" maxOccurs="1" />
+                                      <xs:element name="TrackingEvents" minOccurs="0" type="TrackingEvents_type" maxOccurs="1"/>
                                       <xs:element name="NonLinear" minOccurs="1" maxOccurs="unbounded" type="NonLinear_type">
                                         <xs:annotation>
                                           <xs:documentation>Any number of companions in any desired pixel dimensions.</xs:documentation>
@@ -256,7 +255,7 @@
                                   </xs:complexType>
                                 </xs:element>
                               </xs:choice>
-                              <xs:attribute name="id" type="xs:string" use="optional" />
+                              <xs:attribute name="id" type="xs:string" use="optional"/>
                               <xs:attribute name="sequence" type="xs:integer" use="optional">
                                 <xs:annotation>
                                   <xs:documentation>The preferred order in which multiple Creatives should be displayed</xs:documentation>
@@ -272,7 +271,7 @@
                         </xs:sequence>
                       </xs:complexType>
                     </xs:element>
-                    <xs:element name="Extensions" minOccurs="0" maxOccurs="1" type="Extensions_type" />
+                    <xs:element name="Extensions" minOccurs="0" maxOccurs="1" type="Extensions_type"/>
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
@@ -311,7 +310,7 @@
                                 <xs:element name="Linear" minOccurs="0" maxOccurs="1">
                                   <xs:complexType>
                                     <xs:sequence>
-                                      <xs:element name="CreativeExtensions" minOccurs="0" maxOccurs="1" type="CreativeExtensions_type" />
+                                      <xs:element name="CreativeExtensions" minOccurs="0" maxOccurs="1" type="CreativeExtensions_type"/>
                                       <xs:element name="Icons" minOccurs="0" maxOccurs="1">
                                         <xs:complexType>
                                           <xs:sequence>
@@ -323,7 +322,7 @@
                                           </xs:sequence>
                                         </xs:complexType>
                                       </xs:element>
-                                      <xs:element name="TrackingEvents" minOccurs="0" type="TrackingEvents_type" maxOccurs="1" />
+                                      <xs:element name="TrackingEvents" minOccurs="0" type="TrackingEvents_type" maxOccurs="1"/>
                                       <xs:element name="VideoClicks" minOccurs="0" maxOccurs="1">
                                         <xs:complexType>
                                           <xs:sequence>
@@ -334,7 +333,7 @@
                                               <xs:complexType>
                                                 <xs:simpleContent>
                                                   <xs:extension base="xs:anyURI">
-                                                    <xs:attribute name="id" type="xs:string" use="optional" />
+                                                    <xs:attribute name="id" type="xs:string" use="optional"/>
                                                   </xs:extension>
                                                 </xs:simpleContent>
                                               </xs:complexType>
@@ -346,7 +345,7 @@
                                               <xs:complexType>
                                                 <xs:simpleContent>
                                                   <xs:extension base="xs:anyURI">
-                                                    <xs:attribute name="id" type="xs:string" use="optional" />
+                                                    <xs:attribute name="id" type="xs:string" use="optional"/>
                                                   </xs:extension>
                                                 </xs:simpleContent>
                                               </xs:complexType>
@@ -371,7 +370,7 @@
                                 <xs:element name="NonLinearAds" minOccurs="0" maxOccurs="1">
                                   <xs:complexType>
                                     <xs:sequence>
-                                      <xs:element name="TrackingEvents" minOccurs="0" type="TrackingEvents_type" maxOccurs="1" />
+                                      <xs:element name="TrackingEvents" minOccurs="0" type="TrackingEvents_type" maxOccurs="1"/>
                                       <xs:element name="NonLinear" minOccurs="0" maxOccurs="unbounded" type="NonLinearWrapper_type">
                                         <xs:annotation>
                                           <xs:documentation>Any number of companions in any desired pixel dimensions.</xs:documentation>
@@ -381,7 +380,7 @@
                                   </xs:complexType>
                                 </xs:element>
                               </xs:choice>
-                              <xs:attribute name="id" type="xs:string" use="optional" />
+                              <xs:attribute name="id" type="xs:string" use="optional"/>
                               <xs:attribute name="sequence" type="xs:integer" use="optional">
                                 <xs:annotation>
                                   <xs:documentation>The preferred order in which multiple Creatives should be displayed</xs:documentation>
@@ -397,12 +396,12 @@
                         </xs:sequence>
                       </xs:complexType>
                     </xs:element>
-                    <xs:element name="Extensions" minOccurs="0" maxOccurs="1" type="Extensions_type" />
+                    <xs:element name="Extensions" minOccurs="0" maxOccurs="1" type="Extensions_type"/>
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
             </xs:choice>
-            <xs:attribute name="id" type="xs:string" use="optional" />
+            <xs:attribute name="id" type="xs:string" use="optional"/>
             <xs:attribute name="sequence" type="xs:integer" use="optional">
               <xs:annotation>
                 <xs:documentation>Identifies the sequence of multiple Ads and defines an Ad Pod.</xs:documentation>
@@ -433,25 +432,25 @@
                 </xs:annotation>
                 <xs:simpleType>
                   <xs:restriction base="xs:NMTOKEN">
-                    <xs:enumeration value="creativeView" />
-                    <xs:enumeration value="start" />
-                    <xs:enumeration value="firstQuartile" />
-                    <xs:enumeration value="midpoint" />
-                    <xs:enumeration value="thirdQuartile" />
-                    <xs:enumeration value="complete" />
-                    <xs:enumeration value="mute" />
-                    <xs:enumeration value="unmute" />
-                    <xs:enumeration value="pause" />
-                    <xs:enumeration value="rewind" />
-                    <xs:enumeration value="resume" />
-                    <xs:enumeration value="fullscreen" />
-                    <xs:enumeration value="exitFullscreen" />
-                    <xs:enumeration value="expand" />
-                    <xs:enumeration value="collapse" />
-                    <xs:enumeration value="acceptInvitation" />
-                    <xs:enumeration value="close" />
-                    <xs:enumeration value="skip" />
-                    <xs:enumeration value="progress" />
+                    <xs:enumeration value="creativeView"/>
+                    <xs:enumeration value="start"/>
+                    <xs:enumeration value="firstQuartile"/>
+                    <xs:enumeration value="midpoint"/>
+                    <xs:enumeration value="thirdQuartile"/>
+                    <xs:enumeration value="complete"/>
+                    <xs:enumeration value="mute"/>
+                    <xs:enumeration value="unmute"/>
+                    <xs:enumeration value="pause"/>
+                    <xs:enumeration value="rewind"/>
+                    <xs:enumeration value="resume"/>
+                    <xs:enumeration value="fullscreen"/>
+                    <xs:enumeration value="exitFullscreen"/>
+                    <xs:enumeration value="expand"/>
+                    <xs:enumeration value="collapse"/>
+                    <xs:enumeration value="acceptInvitation"/>
+                    <xs:enumeration value="close"/>
+                    <xs:enumeration value="skip"/>
+                    <xs:enumeration value="progress"/>
                   </xs:restriction>
                 </xs:simpleType>
               </xs:attribute>
@@ -461,7 +460,7 @@
                 </xs:annotation>
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:pattern value="(\d{2}:[0-5]\d:[0-5]\d(\.\d\d\d)?|1?\d?\d(\.?\d)*%)" />
+                    <xs:pattern value="(\d{2}:[0-5]\d:[0-5]\d(\.\d\d\d)?|1?\d?\d(\.?\d)*%)"/>
                   </xs:restriction>
                 </xs:simpleType>
               </xs:attribute>
@@ -480,7 +479,7 @@
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="xs:anyURI">
-              <xs:attribute name="id" type="xs:string" use="optional" />
+              <xs:attribute name="id" type="xs:string" use="optional"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -492,7 +491,7 @@
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="xs:anyURI">
-              <xs:attribute name="id" type="xs:string" use="optional" />
+              <xs:attribute name="id" type="xs:string" use="optional"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -504,7 +503,7 @@
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="xs:anyURI">
-              <xs:attribute name="id" type="xs:string" use="optional" />
+              <xs:attribute name="id" type="xs:string" use="optional"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -541,7 +540,7 @@
           </xs:annotation>
         </xs:element>
       </xs:choice>
-      <xs:element name="CreativeExtensions" minOccurs="0" maxOccurs="1" type="CreativeExtensions_type" />
+      <xs:element name="CreativeExtensions" minOccurs="0" maxOccurs="1" type="CreativeExtensions_type"/>
       <xs:element maxOccurs="1" minOccurs="0" name="TrackingEvents" type="TrackingEvents_type">
         <xs:annotation>
           <xs:documentation>The creativeView should always be requested when present. For Companions creativeView is the only supported event.</xs:documentation>
@@ -639,7 +638,7 @@
           </xs:annotation>
         </xs:element>
       </xs:choice>
-      <xs:element name="CreativeExtensions" minOccurs="0" maxOccurs="1" type="CreativeExtensions_type" />
+      <xs:element name="CreativeExtensions" minOccurs="0" maxOccurs="1" type="CreativeExtensions_type"/>
       <xs:element maxOccurs="1" minOccurs="0" name="TrackingEvents" type="TrackingEvents_type">
         <xs:annotation>
           <xs:documentation>The creativeView should always be requested when present. For Companions creativeView is the only supported event.</xs:documentation>
@@ -742,7 +741,7 @@
           </xs:annotation>
         </xs:element>
       </xs:choice>
-      <xs:element name="CreativeExtensions" minOccurs="0" maxOccurs="1" type="CreativeExtensions_type" />
+      <xs:element name="CreativeExtensions" minOccurs="0" maxOccurs="1" type="CreativeExtensions_type"/>
       <xs:element name="NonLinearClickTracking" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
           <xs:documentation>URLs to ping when user clicks on the the non-linear ad.</xs:documentation>
@@ -755,7 +754,8 @@
       </xs:element>
       <xs:element name="AdParameters" minOccurs="0" maxOccurs="1" type="AdParameters_type">
         <xs:annotation>
-          <xs:documentation>Data to be passed into the video ad. </xs:documentation>
+          <xs:documentation>Data to be passed into the video ad.
+          </xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
@@ -807,7 +807,7 @@
   </xs:complexType>
   <xs:complexType name="NonLinearWrapper_type">
     <xs:sequence>
-      <xs:element name="CreativeExtensions" minOccurs="0" maxOccurs="1" type="CreativeExtensions_type" />
+      <xs:element name="CreativeExtensions" minOccurs="0" maxOccurs="1" type="CreativeExtensions_type"/>
       <xs:element name="NonLinearClickTracking" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
           <xs:documentation>URLs to ping when user clicks on the the non-linear ad unit.</xs:documentation>
@@ -874,7 +874,7 @@
   <xs:complexType name="Impression_type">
     <xs:simpleContent>
       <xs:extension base="xs:anyURI">
-        <xs:attribute name="id" type="xs:string" use="optional" />
+        <xs:attribute name="id" type="xs:string" use="optional"/>
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
@@ -951,7 +951,7 @@
       </xs:annotation>
       <xs:simpleType>
         <xs:restriction base="xs:string">
-          <xs:pattern value='([0-9]*|left|right)' />
+          <xs:pattern value='([0-9]*|left|right)'/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -961,7 +961,7 @@
       </xs:annotation>
       <xs:simpleType>
         <xs:restriction base="xs:string">
-          <xs:pattern value='([0-9]*|top|bottom)' />
+          <xs:pattern value='([0-9]*|top|bottom)'/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -981,7 +981,7 @@
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
-  <xs:complexType name ="Extensions_type">
+  <xs:complexType name="Extensions_type">
     <xs:sequence>
       <xs:element name="Extension" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
@@ -989,14 +989,14 @@
         </xs:annotation>
         <xs:complexType>
           <xs:sequence>
-            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" namespace="##any" />
+            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" namespace="##any"/>
           </xs:sequence>
-          <xs:anyAttribute namespace="##any" processContents="lax" />
+          <xs:anyAttribute namespace="##any" processContents="lax"/>
         </xs:complexType>
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name ="CreativeExtensions_type">
+  <xs:complexType name="CreativeExtensions_type">
     <xs:sequence>
       <xs:element name="CreativeExtension" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
@@ -1004,9 +1004,9 @@
         </xs:annotation>
         <xs:complexType>
           <xs:sequence>
-            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" namespace="##any" />
+            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" namespace="##any"/>
           </xs:sequence>
-          <xs:anyAttribute namespace="##any" processContents="lax" />
+          <xs:anyAttribute namespace="##any" processContents="lax"/>
         </xs:complexType>
       </xs:element>
     </xs:sequence>
