@@ -38,7 +38,7 @@
 						</xs:attribute>
 					</xs:complexType>
 				</xs:element>
-				<xs:element id="vast.error" name="Error" type="xs:anyURI" minOccurs="0" maxOccurs="1">
+				<xs:element id="vast.error" name="Error" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded">
 					<xs:annotation>
 						<xs:documentation>
 							Used when there is no ad response. When the ad server does not or cannot return an Ad. If included the video player must send a request to the URI provided (Sec 3.2.1).
@@ -831,7 +831,7 @@
 					</xs:simpleContent>
 				</xs:complexType>
 			</xs:element>
-			<xs:element name="Error" type="xs:anyURI" minOccurs="0" maxOccurs="1">
+			<xs:element name="Error" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>URL to request if ad does not play due to error</xs:documentation>
 				</xs:annotation>
