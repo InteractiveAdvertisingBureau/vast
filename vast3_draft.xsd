@@ -452,6 +452,8 @@
                     <xs:enumeration value="close" />
                     <xs:enumeration value="skip" />
                     <xs:enumeration value="progress" />
+                    <xs:enumeration value="acceptInvitationLinear" />
+                    <xs:enumeration value="closeLinear" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:attribute>
