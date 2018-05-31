@@ -112,7 +112,37 @@
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<xs:complexType name="TrackingEvents_type" id="vtype.ad.creative.trackingevents">
+  <xs:complexType name="TrackingEvents_verification_type" id="vtype.ad.verification.trackingevents">
+    <xs:sequence>
+      <xs:element name="Tracking"
+               minOccurs="0"
+               maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>
+            Each &lt;Tracking&gt; element is used to define a single event to be tracked by the verification vendor. Multiple tracking elements may be used to define multiple events to be tracked, but may also be used to track events of the same type for multiple parties.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:anyURI">
+              <xs:attribute name="event"
+                            type="xs:string"
+                     use="required">
+                <xs:annotation>
+                  <xs:documentation>
+                    A string that defines the event being tracked.
+                    One event type is currently supported:
+                    verificationNotExecuted: the player did not or was not able to execute the provided verification code
+                  </xs:documentation>
+                </xs:annotation>
+              </xs:attribute>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TrackingEvents_type" id="vtype.ad.creative.trackingevents">
 		<xs:sequence>
 			<xs:element name="Tracking"
                minOccurs="0"
@@ -176,7 +206,26 @@
 	</xs:complexType>
 	<xs:complexType name="VideoClicks_Base_type" id="vtype.ad.creative.videoclicksbase">
 		<xs:sequence>
-			<xs:element name="ClickTracking"
+      <xs:element name="ClickThrough"
+             minOccurs="0"
+             maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>
+            URL to open as destination page when user clicks on the video.
+            This can occur zero to many times. The XSD syntax can't represent that.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:anyURI">
+              <xs:attribute name="id"
+                   type="xs:string"
+                   use="optional" />
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ClickTracking"
                minOccurs="0"
                maxOccurs="unbounded">
 				<xs:annotation>
@@ -211,31 +260,6 @@
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="VideoClicks_InlineChild_type" id="vtype.ad.creative.videoclicks.inline" >
-		<xs:complexContent>
-			<xs:extension base="vast:VideoClicks_Base_type">
-				<xs:sequence>
-					<xs:element name="ClickThrough"
-                 minOccurs="0"
-                 maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation>URL to open as destination page when user clicks on the video.
-							This can occur zero to many times. The XSD syntax can't represent that.</xs:documentation>
-						</xs:annotation>
-						<xs:complexType>
-							<xs:simpleContent>
-								<xs:extension base="xs:anyURI">
-									<xs:attribute name="id"
-                       type="xs:string"
-                       use="optional" />
-								</xs:extension>
-							</xs:simpleContent>
-						</xs:complexType>
-					</xs:element>
-				</xs:sequence>
-			</xs:extension>
-		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="Impression_type" id="vtype.ad.creative.impression">
 		<xs:simpleContent>
@@ -540,6 +564,9 @@
               <xs:documentation>
                 [Note: VPAID has been deprecated in VAST 4.1]
                 Data to be passed into the video ad. Used to pass VAST info to VPAID object.
+                When a VAST response is used to serve a VPAID ad unit, 
+                the &lt;AdParameters&gt; element is currently 
+                the only way to pass information from the VAST response into the VPAID object; no other mechanism is provided.
               </xs:documentation>
             </xs:annotation>
           </xs:element>
@@ -866,7 +893,10 @@
 	</xs:complexType>
 	<xs:complexType name="NonLinearAd_Base_type">
 		<xs:annotation>
-			<xs:documentation>An ad that is overlain on top of video content during playback</xs:documentation>
+			<xs:documentation>
+        [Deprecated in 4.1]
+        An ad that is overlain on top of video content during playback
+      </xs:documentation>
 		</xs:annotation>
 		<xs:all>
 			<xs:element name="NonLinearClickTracking"
@@ -895,7 +925,10 @@
 	</xs:complexType>
 	<xs:complexType name="NonLinearAd_InlineChild_type">
 		<xs:annotation>
-			<xs:documentation>An ad that is overlain on top of video content during playback</xs:documentation>
+			<xs:documentation>
+        [Deprecated in 4.1]
+        An ad that is overlain on top of video content during playback
+      </xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="vast:CreativeResource_NonVideo_type">
@@ -913,10 +946,10 @@
                  minOccurs="0"
                  maxOccurs="1">
 						<xs:annotation>
-							<xs:documentation>URI to advertiser page opened on viewer clicks through.</xs:documentation>
+							<xs:documentation>[Deprecated in 4.1]URI to advertiser page opened on viewer clicks through.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-          <xs:element name="NonLinearClickTracking"
+          <xs:element name="[Deprecated in 4.1]NonLinearClickTracking"
                  minOccurs="0"
                  maxOccurs="unbounded">
             <xs:annotation>
@@ -949,7 +982,7 @@
                  minOccurs="0"
                  maxOccurs="1">
             <xs:annotation>
-              <xs:documentation>Data to be passed into the companion ads. The apiFramework defines the method to use for communication (e.g. “FlashVar”)</xs:documentation>
+              <xs:documentation>Data to be passed into the companion ads. The apiFramework defines the method to use for communication.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="AltText"
@@ -1181,7 +1214,9 @@
                     minOccurs="0"
                     maxOccurs="unbounded">
 									<xs:annotation>
-										<xs:documentation>Any number of companions in any desired pixel dimensions.</xs:documentation>
+										<xs:documentation>
+                      [Deprecated in 4.1]
+                      Any number of companions in any desired pixel dimensions.</xs:documentation>
 									</xs:annotation>
 								</xs:element>
 							</xs:sequence>
@@ -1228,7 +1263,8 @@
                     minOccurs="0"
                     maxOccurs="unbounded">
 									<xs:annotation>
-										<xs:documentation>Any number of companions in any desired pixel dimensions.</xs:documentation>
+										<xs:documentation>[Deprecated in 4.1]
+                    Any number of companions in any desired pixel dimensions.</xs:documentation>
 									</xs:annotation>
 								</xs:element>
 							</xs:sequence>
@@ -1451,56 +1487,24 @@ impression.
 		</xs:attribute>
 </xs:complexType>
 	
-	<!-- ============ Simple Verification type used under Wrapper elements =============== -->
-	<xs:complexType name="Verification_Wrapper_type" id="vtype.ad.verificationbase">
-		<xs:annotation>
-			<xs:documentation>
-				Verification elements are nested under AdVerifications. The Verification element is used to contain the
-JavaScript or Flash code used to collect data. Multiple Verification elements may be used in
-cases where more than one verification vendor needs to collect data or when different API
-frameworks are used.
-			</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="ViewableImpression"
-	  minOccurs="0"
-	  maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>The name of the event to track for the element. 
-					The creativeView should always be requested when present.</xs:documentation>
-				</xs:annotation>
-				<xs:complexType>
-					<xs:simpleContent>
-						<xs:extension base="xs:anyURI">
-							<xs:attribute name="id"
-								use="optional"
-								type="xs:string" />
-						</xs:extension>
-					</xs:simpleContent>								
-				</xs:complexType>
-			</xs:element>
-		</xs:sequence>
-		<xs:attribute name="vendor"
-	   type="xs:string"
-	   use="optional" />
-	</xs:complexType>
 	
 <!-- ============ Verification type used under Inline elements =============== -->
-	<xs:complexType name="Verification_Inline_type">
+	<xs:complexType name="Verification_type">
 		<xs:annotation>
 			<xs:documentation>
-				Verification elements are nested under AdVerifications. The Verification element is used to contain the
-JavaScript or Flash code used to collect data. Multiple Verification elements may be used in
-cases where more than one verification vendor needs to collect data or when different API
-frameworks are used.
+        Verification elements are nested under AdVerifications. The Verification element is used to contain the
+        executable and bootstrapping required to run the measurement code for a single verification vendor.
+        Multiple Verification elements may be used in cases where more than one verification vendor needs to collect data
+        or when different API frameworks are used. At lease one JavaScriptResource or ExecutableResource should be provided.
+        At most one of these resources should selected for execution, as best matches the technology available in the current environment.
 
-When included, verification contents must be executed (if possible) BEFORE the
-media file or interactive creative file is executed, to ensure verification can track ad
-play as intended.
+        If the player is willing and able to run one of these resources, 
+        it should execute them BEFORE creative playback begins. 
+        Otherwise, if no resource can be executed, any appropriate tracking events listed under the &lt;Verification&gt; element must be fired.
 			</xs:documentation>
 		</xs:annotation>
 		<xs:sequence >
-      <xs:element name="FlashResource"
+      <xs:element name="ExecutableResource"
 		 minOccurs="0"
 		 maxOccurs="unbounded">
         <xs:complexType>
@@ -1526,55 +1530,35 @@ play as intended.
 					</xs:simpleContent>
 				</xs:complexType>
 			</xs:element>
-      <xs:element name="ViewableImpression"
+      <xs:element name="TrackingEvents"
+               type="vast:TrackingEvents_verification_type"
+               minOccurs="0"
+               maxOccurs="1" />
+      <xs:element name="VerificationParameters"
+                  type="xs:string"
 	  minOccurs="0"
 	  maxOccurs="1">
         <xs:annotation>
           <xs:documentation>
-            The name of the event to track for the element.
-            The creativeView should always be requested when present.
+            CDATA-wrapped metadata string for the verification executable.
           </xs:documentation>
         </xs:annotation>
-        <xs:complexType>
-          <xs:simpleContent>
-            <xs:extension base="xs:anyURI">
-              <xs:attribute name="id"
-								use="optional"
-								type="xs:string" />
-            </xs:extension>
-          </xs:simpleContent>
-        </xs:complexType>
       </xs:element>
 		</xs:sequence>
 		<xs:attribute name="vendor"
 			 type="xs:string"
 			 use="optional">
 			<xs:annotation>
-				<xs:documentation>The home page URL for the verification service provider that supplies the resource file.</xs:documentation>
+				<xs:documentation>
+          An identifier for the verification vendor. The recommended format is [domain]-[useCase], to avoid name collisions. 
+          For example, &quot;company.com-omid&quot;. 
+        </xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
 	
 	<!-- ========== Definition of the AdVerifications element type ========== -->
-	<xs:complexType name="AdVerifications_Wrapper_type" id="vtype.ad.adverificationsbase">
-		<xs:annotation>
-			<xs:documentation>
-				The AdVerification element is used to initiate a controlled container where code can be
-				executed for collecting data to verify ad playback details.
-			</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="Verification"
-			type="vast:Verification_Wrapper_type"
-               minOccurs="0"
-               maxOccurs="unbounded">
-			</xs:element>
-		</xs:sequence>
-	</xs:complexType>
-	
-	
-	<!-- ========== Definition of the AdVerifications Inline element type ========== -->
-	<xs:complexType name="AdVerifications_Inline_type" id="vtype.ad.adverificationsinline">
+	<xs:complexType name="AdVerifications_type" id="vtype.ad.adverifications">
 		<xs:annotation>
 			<xs:documentation>
 				The AdVerification element is used to initiate a controlled container where code can be
@@ -1595,7 +1579,7 @@ play as intended.
 			<xs:extension base="vast:AdDefinitionBase_type">
 				<xs:sequence>
 					<xs:element name="AdVerifications"
-						 type="vast:AdVerifications_Wrapper_type"
+						 type="vast:AdVerifications_type"
 						 minOccurs="0"
 						 maxOccurs="1" />
           
@@ -1684,7 +1668,7 @@ play as intended.
 						</xs:annotation>
 					</xs:element>
           <xs:element name="AdVerifications"
-                 type="vast:AdVerifications_Inline_type"
+                 type="vast:AdVerifications_type"
                  minOccurs="0"
                  maxOccurs="1" />
           <xs:element name="Advertiser"
@@ -1759,6 +1743,14 @@ play as intended.
                  maxOccurs="1">
             <xs:annotation>
               <xs:documentation>Longer description of ad</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Expires"
+                 type="xs:integer"
+                 minOccurs="0"
+                 maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>An integer value that defines the expiry period (in seconds).</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="Survey"
