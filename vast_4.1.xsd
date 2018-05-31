@@ -5,12 +5,12 @@
            targetNamespace="http://www.iab.com/VAST"
 		   xmlns="http://www.iab.com/VAST"
 		   xmlns:vast="http://www.iab.com/VAST"
-           version="4.0.5"
+           version="4.1"
            xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	<!-- =================== Begin root VAST document structure ============= -->
 	<xs:element id="vast.root" name="VAST">
 		<xs:annotation>
-			<xs:documentation>IAB VAST (Video Ad Serving Template), Version 4.0.4</xs:documentation>
+			<xs:documentation>IAB VAST (Video Ad Serving Template), Version 4.1</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:choice>
@@ -56,9 +56,24 @@
                     type="xs:boolean"
                     use="optional">
 							<xs:annotation>
-								<xs:documentation>A Boolean value that identifies a conditional ad.</xs:documentation>
+								<xs:documentation>[Deprecated in VAST 4.1 with apiFramework]
+								A Boolean value that identifies a conditional ad.</xs:documentation>
 							</xs:annotation>
 						</xs:attribute>
+						<xs:attribute name="adType"
+                    use="optional">
+							<xs:annotation>
+								<xs:documentation>An optional string that identifies the type of ad. This allows VAST to support audio ad scenarios.
+								The default value is video.</xs:documentation>
+							</xs:annotation>
+              <xs:simpleType>
+                <xs:restriction base="xs:token">
+                  <xs:enumeration value="video" />
+                  <xs:enumeration value="audio" />
+                  <xs:enumeration value="hybrid" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
 					</xs:complexType>
 				</xs:element>
 				<xs:element id="vast.error"
@@ -78,7 +93,7 @@
                  type="xs:string"
                  use="required">
 				<xs:annotation>
-					<xs:documentation>Current version is 4.0</xs:documentation>
+					<xs:documentation>Current version is 4.1</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
 		</xs:complexType>
@@ -123,14 +138,14 @@
                     <xs:enumeration value="skip" />
                     <xs:enumeration value="playerExpand" />
                     <xs:enumeration value="playerCollapse" />
+                    <xs:enumeration value="loaded" />
                     <xs:enumeration value="start" />
 										<xs:enumeration value="firstQuartile" />
 										<xs:enumeration value="midpoint" />
 										<xs:enumeration value="thirdQuartile" />
 										<xs:enumeration value="complete" />
-                    <xs:enumeration value="acceptInvitationLinear" />
-                    <xs:enumeration value="timeSpentViewing" />
 										<xs:enumeration value="progress" />
+                    <xs:enumeration value="closeLinear" />
                     <xs:enumeration value="creativeView" />
                     <xs:enumeration value="acceptInvitation" />
                     <xs:enumeration value="adExpand" />
@@ -480,7 +495,13 @@
                type="vast:TrackingEvents_type"
                minOccurs="0"
                maxOccurs="1" />
-		</xs:sequence>
+      <xs:element name="VideoClicks"
+         type="vast:VideoClicks_Base_type"
+         minOccurs="0"
+         maxOccurs="1" />
+
+
+    </xs:sequence>
 		<xs:attribute name="skipoffset"
                 use="optional">
 			<xs:annotation>
@@ -499,12 +520,8 @@
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="vast:Linear_Base_type">
-				<xs:sequence>
-					<xs:element name="VideoClicks"
-                 type="vast:VideoClicks_Base_type"
-                 minOccurs="0"
-                 maxOccurs="1" />
-				</xs:sequence>
+        <xs:sequence>
+        </xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
@@ -514,15 +531,18 @@
 		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="vast:Linear_Base_type">
-				<xs:sequence>
-					<xs:element name="AdParameters"
+        <xs:sequence>
+          <xs:element name="AdParameters"
                  type="vast:AdParameters_type"
                  minOccurs="0"
                  maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation>Data to be passed into the video ad. Used to pass VAST info to VPAID object.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
+            <xs:annotation>
+              <xs:documentation>
+                [Note: VPAID has been deprecated in VAST 4.1]
+                Data to be passed into the video ad. Used to pass VAST info to VPAID object.
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
           <xs:element name="Duration"
                  type="xs:time"
                  minOccurs="1"
@@ -534,171 +554,315 @@
           <xs:element name="MediaFiles"
                  minOccurs="1"
                  maxOccurs="1">
-						<xs:complexType>
-							<xs:sequence>
-								<xs:element name="MediaFile"
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="MediaFile"
                     minOccurs="1"
                     maxOccurs="unbounded">
-									<xs:annotation>
-										<xs:documentation>URI location of linear file. Content must be wrapped in CDATA tag.</xs:documentation>
-									</xs:annotation>
-									<xs:complexType>
+                  <xs:annotation>
+                    <xs:documentation>URI location of linear file. Content must be wrapped in CDATA tag.</xs:documentation>
+                  </xs:annotation>
+                  <xs:complexType>
 
-									<xs:simpleContent>
-									<xs:extension base="xs:anyURI">
-										<xs:attribute name="id"
-                        type="xs:string"
-                        use="optional">
-											<xs:annotation>
-												<xs:documentation>Optional identifier</xs:documentation>
-											</xs:annotation>
-										</xs:attribute>
-										<xs:attribute name="delivery"
-                        use="required">
-											<xs:annotation>
-												<xs:documentation>
-                          Either &quot;progressive&quot; for progressive download protocols (such as HTTP) or
-                          &quot;streaming&quot; for streaming protocols.
-                        </xs:documentation>
-											</xs:annotation>
-											<xs:simpleType>
-												<xs:restriction base="xs:token">
-													<xs:enumeration value="streaming" />
-													<xs:enumeration value="progressive" />
-												</xs:restriction>
-											</xs:simpleType>
-										</xs:attribute>
-										<xs:attribute name="type"
-                        type="xs:string"
-                        use="required">
-											<xs:annotation>
-												<xs:documentation>
-													MIME type. Popular MIME types include, but are not limited to &quot;video/x-ms-wmv&quot; for Windows Media, and &quot;video/x-flv&quot; for Flash Video. 
-                          Image ads or interactive ads can be included in the MediaFiles section with appropriate Mime
-													types
-												</xs:documentation>
-											</xs:annotation>
-										</xs:attribute>
-                    <xs:attribute name="width"
-                        type="xs:integer"
-                        use="required">
-                      <xs:annotation>
-                        <xs:documentation>Pixel dimensions of video</xs:documentation>
-                      </xs:annotation>
-                    </xs:attribute>
-                    <xs:attribute name="height"
-                        type="xs:integer"
-                        use="required">
-                      <xs:annotation>
-                        <xs:documentation>Pixel dimensions of video</xs:documentation>
-                      </xs:annotation>
-                    </xs:attribute>
-                    <xs:attribute name="codec"
-                        type="xs:string"
-                        use="optional">
-                      <xs:annotation>
-                        <xs:documentation>The codec used to produce the media file as specified in RFC 4281.</xs:documentation>
-                      </xs:annotation>
-                    </xs:attribute>
-                    <xs:attribute name="bitrate"
-                        type="xs:integer"
-                        use="optional">
-											<xs:annotation>
-												<xs:documentation>Bitrate of encoded video in Kbps. If bitrate is supplied, minBitrate and maxBitrate should not be supplied.</xs:documentation>
-											</xs:annotation>
-										</xs:attribute>
-										<xs:attribute name="minBitrate"
-                        type="xs:integer"
-                        use="optional">
-											<xs:annotation>
-												<xs:documentation>Minimum bitrate of an adaptive stream in Kbps. If minBitrate is supplied, maxBitrate must be supplied and bitrate should not be supplied.</xs:documentation>
-											</xs:annotation>
-										</xs:attribute>
-										<xs:attribute name="maxBitrate"
-                        type="xs:integer"
-                        use="optional">
-											<xs:annotation>
-												<xs:documentation>Maximum bitrate of an adaptive stream in Kbps. If maxBitrate is supplied, minBitrate must be supplied and bitrate should not be supplied.</xs:documentation>
-											</xs:annotation>
-										</xs:attribute>
-										<xs:attribute name="scalable"
-                        type="xs:boolean"
-                        use="optional">
-											<xs:annotation>
-												<xs:documentation>Whether it is acceptable to scale the image.</xs:documentation>
-											</xs:annotation>
-										</xs:attribute>
-										<xs:attribute name="maintainAspectRatio"
-                        type="xs:boolean"
-                        use="optional">
-											<xs:annotation>
-												<xs:documentation>Whether the ad must have its aspect ratio maintained when scales</xs:documentation>
-											</xs:annotation>
-										</xs:attribute>
-										<xs:attribute name="apiFramework"
-                        type="xs:string"
-                        use="optional">
-											<xs:annotation>
-												<xs:documentation>
-                          identifies the API needed to execute an interactive media file, but current
-                          support is for backward compatibility. Please use the
-                          &lt;InteractiveCreativeFile&gt; element to include files that require an API for execution.
-												</xs:documentation>
-											</xs:annotation>
-										</xs:attribute>
-									</xs:extension>
-								</xs:simpleContent>								
-									</xs:complexType>
-								</xs:element>
-								<xs:element name="Mezzanine"
-                            type="xs:anyURI"
+                    <xs:simpleContent>
+                      <xs:extension base="xs:anyURI">
+                        <xs:attribute name="id"
+                            type="xs:string"
+                            use="optional">
+                          <xs:annotation>
+                            <xs:documentation>Optional identifier</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="delivery"
+                            use="required">
+                          <xs:annotation>
+                            <xs:documentation>
+                              Either &quot;progressive&quot; for progressive download protocols (such as HTTP) or
+                              &quot;streaming&quot; for streaming protocols.
+                            </xs:documentation>
+                          </xs:annotation>
+                          <xs:simpleType>
+                            <xs:restriction base="xs:token">
+                              <xs:enumeration value="streaming" />
+                              <xs:enumeration value="progressive" />
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="type"
+                            type="xs:string"
+                            use="required">
+                          <xs:annotation>
+                            <xs:documentation>
+                              MIME type. Popular MIME types include, but are not limited to &quot;video/x-ms-wmv&quot; for Windows Media, and &quot;video/x-flv&quot; for Flash Video.
+                              Image ads or interactive ads can be included in the MediaFiles section with appropriate Mime
+                              types. Flash support was deprecated in January 2017 and is now being removed.
+                            </xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="width"
+                            type="xs:integer"
+                            use="required">
+                          <xs:annotation>
+                            <xs:documentation>Pixel dimensions of video, or 0 for audio ads</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="height"
+                            type="xs:integer"
+                            use="required">
+                          <xs:annotation>
+                            <xs:documentation>Pixel dimensions of video, or 0 for audio ads</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="codec"
+                            type="xs:string"
+                            use="optional">
+                          <xs:annotation>
+                            <xs:documentation>The codec used to produce the media file as specified in RFC 4281.</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="bitrate"
+                            type="xs:integer"
+                            use="optional">
+                          <xs:annotation>
+                            <xs:documentation>Bitrate of encoded video in Kbps. If bitrate is supplied, minBitrate and maxBitrate should not be supplied.</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="minBitrate"
+                            type="xs:integer"
+                            use="optional">
+                          <xs:annotation>
+                            <xs:documentation>Minimum bitrate of an adaptive stream in Kbps. If minBitrate is supplied, maxBitrate must be supplied and bitrate should not be supplied.</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="maxBitrate"
+                            type="xs:integer"
+                            use="optional">
+                          <xs:annotation>
+                            <xs:documentation>Maximum bitrate of an adaptive stream in Kbps. If maxBitrate is supplied, minBitrate must be supplied and bitrate should not be supplied.</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="scalable"
+                            type="xs:boolean"
+                            use="optional">
+                          <xs:annotation>
+                            <xs:documentation>Whether it is acceptable to scale the image.</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="maintainAspectRatio"
+                            type="xs:boolean"
+                            use="optional">
+                          <xs:annotation>
+                            <xs:documentation>Whether the ad must have its aspect ratio maintained when scales</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="fileSize"
+                            type="xs:integer"
+                            use="optional">
+                          <xs:annotation>
+                            <xs:documentation>
+                              Optional field that helps eliminate the need to calculate the size based on bitrate and duration.
+                              Units - Bytes
+                            </xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="mediaType"
+                                      type="xs:string"
+                            use="optional">
+                          <xs:annotation>
+                            <xs:documentation>
+                              Type of media file (2D / 3D / 360 / etc).
+                              Default value = 2D
+                            </xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="apiFramework"
+                            type="xs:string"
+                            use="optional">
+                          <xs:annotation>
+                            <xs:documentation>
+                              [Deprecated in 4.1 in preparation for VPAID being phased out].
+                              identifies the API needed to execute an interactive media file, but current
+                              support is for backward compatibility. Please use the
+                              &lt;InteractiveCreativeFile&gt; element to include files that require an API for execution.
+                            </xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                      </xs:extension>
+                    </xs:simpleContent>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="Mezzanine"
                     minOccurs="0"
-                    maxOccurs="1">
-									<xs:annotation>
-										<xs:documentation>
-											URI location to raw, high-quality media file for high-resolution environments.
-											Content must be wrapped in CDATA tag.
-										</xs:documentation>
-									</xs:annotation>
-								</xs:element>
-								<xs:element name="InteractiveCreativeFile"
+                    maxOccurs="unbounded">
+                  <xs:annotation>
+                    <xs:documentation>
+                      URI location to raw, high-quality media file for high-resolution environments or to transcode video
+                      or audio files at quality levels specific to the needs of certain environments.
+                      Content must be wrapped in CDATA tag.
+                    </xs:documentation>
+                  </xs:annotation>
+                  <xs:complexType>
+                    <xs:simpleContent>
+                      <xs:extension base="xs:anyURI">
+                        <xs:attribute name="id"
+                            type="xs:string"
+                            use="optional">
+                          <xs:annotation>
+                            <xs:documentation>Optional identifier</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="delivery"
+                            use="required">
+                          <xs:annotation>
+                            <xs:documentation>
+                              Either &quot;progressive&quot; for progressive download protocols (such as HTTP) or
+                              &quot;streaming&quot; for streaming protocols.
+                            </xs:documentation>
+                          </xs:annotation>
+                          <xs:simpleType>
+                            <xs:restriction base="xs:token">
+                              <xs:enumeration value="streaming" />
+                              <xs:enumeration value="progressive" />
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="type"
+                            type="xs:string"
+                            use="required">
+                          <xs:annotation>
+                            <xs:documentation>
+                              MIME type. Popular MIME types include, but are not limited to &quot;video/x-ms-wmv&quot; for Windows Media, and &quot;video/x-flv&quot; for Flash Video.
+                              Image ads or interactive ads can be included in the MediaFiles section with appropriate Mime
+                              types. Flash support was deprecated in January 2017 and is now being removed.
+                            </xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="width"
+                            type="xs:integer"
+                            use="required">
+                          <xs:annotation>
+                            <xs:documentation>Pixel dimensions of video, or 0 for audio ads</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="height"
+                            type="xs:integer"
+                            use="required">
+                          <xs:annotation>
+                            <xs:documentation>Pixel dimensions of video, or 0 for audio ads</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="codec"
+                            type="xs:string"
+                            use="optional">
+                          <xs:annotation>
+                            <xs:documentation>The codec used to produce the media file as specified in RFC 4281.</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="fileSize"
+                            type="xs:integer"
+                            use="optional">
+                          <xs:annotation>
+                            <xs:documentation>
+                              Optional field that helps eliminate the need to calculate the size based on bitrate and duration.
+                              Units - Bytes
+                            </xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="mediaType"
+                                      type="xs:string"
+                            use="optional">
+                          <xs:annotation>
+                            <xs:documentation>
+                              Type of media file (2D / 3D / 360 / etc).
+                              Default value = 2D
+                            </xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                      </xs:extension>
+                    </xs:simpleContent>
+                  </xs:complexType>
+                </xs:element>
+
+                <xs:element name="InteractiveCreativeFile"
 								   minOccurs="0"
 								   maxOccurs="unbounded">
-									<xs:annotation>
-										<xs:documentation>
-											For any media file that uses APIs for advanced creative functionality, the
-											InteractivityCreativeFile element is used to identify the file and framework needed to
-											execute advanced functions for the ad.
-										</xs:documentation>
-									</xs:annotation>
-									<xs:complexType>
-										<xs:simpleContent>
-											<xs:extension base="xs:anyURI">
-												<xs:attribute name="type" type="xs:string" use="optional">
-													<xs:annotation>
-														<xs:documentation>Identifies the MIME type of the file provided.</xs:documentation>
-													</xs:annotation>
-												</xs:attribute>
-												<xs:attribute name="apiFramework" type="xs:string" use="optional">
-													<xs:annotation>
-														<xs:documentation>identifies the API needed to execute the Creative file if applicable</xs:documentation>
-													</xs:annotation>
-												</xs:attribute>
-											</xs:extension>
-										</xs:simpleContent>
-									</xs:complexType>
-								</xs:element>
+                  <xs:annotation>
+                    <xs:documentation>
+                      For any media file that uses APIs for advanced creative functionality, the
+                      InteractivityCreativeFile element is used to identify the file and framework needed to
+                      execute advanced functions for the ad.
+                    </xs:documentation>
+                  </xs:annotation>
+                  <xs:complexType>
+                    <xs:simpleContent>
+                      <xs:extension base="xs:anyURI">
+                        <xs:attribute name="type" type="xs:string" use="optional">
+                          <xs:annotation>
+                            <xs:documentation>Identifies the MIME type of the file provided.</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="apiFramework" type="xs:string" use="optional">
+                          <xs:annotation>
+                            <xs:documentation>identifies the API needed to execute the Creative file if applicable</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="variableDuration" type="xs:boolean" use="optional">
+                          <xs:annotation>
+                            <xs:documentation>
+                              Useful for interactive use cases. Identifies whether the ad always drops when the duration is reached,
+                              or if it can potentially extend the duration by pausing the underlying video or delaying the adStopped
+                              call after adVideoComplete.  If it set to true the extension of the duration should be user-initiated
+                              (typically by engaging with an interactive element to view additional content).
+                            </xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                      </xs:extension>
+                    </xs:simpleContent>
+                  </xs:complexType>
+                </xs:element>
 
-							</xs:sequence>
-						</xs:complexType>
-					</xs:element>
-					<xs:element name="VideoClicks"
-                 type="vast:VideoClicks_InlineChild_type"
-                 minOccurs="0"
-                 maxOccurs="1" />
-				</xs:sequence>
-			</xs:extension>
-		</xs:complexContent>
+                <xs:element name="ClosedCaptionFiles"
+       minOccurs="1"
+       maxOccurs="1">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="ClosedCaptionFile"
+                          minOccurs="0"
+                          maxOccurs="unbounded">
+                        <xs:annotation>
+                          <xs:documentation>A CDATA-wrapped URI to a file providing Closed Caption info for the media file.</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                          <xs:simpleContent>
+                            <xs:extension base="xs:anyURI">
+                              <xs:attribute name="type"
+                                  type="xs:string"
+                                  use="optional">
+                                <xs:annotation>
+                                  <xs:documentation>Identifies the MIME type of the file provided.</xs:documentation>
+                                </xs:annotation>
+                              </xs:attribute>
+                              <xs:attribute name="language"
+                                  type="xs:string"
+                                  use="optional">
+                                <xs:annotation>
+                                  <xs:documentation>Language of the Closed Caption File using ISO 631-1 codes. An optional locale suffix can also be provided.</xs:documentation>
+                                </xs:annotation>
+                              </xs:attribute>
+                            </xs:extension>
+                          </xs:simpleContent>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+
+        </xs:sequence>
+        </xs:extension>
+    </xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="NonLinearAd_Base_type">
 		<xs:annotation>
@@ -908,8 +1072,21 @@
 							An ad intended for display on a device with a pixel ratio that is twice that of a standard 1:1 
 							pixel ratio would use the value "2" Default value is "1"</xs:documentation>
 					</xs:annotation>
-				</xs:attribute>
-			</xs:extension>
+        </xs:attribute>
+        <xs:attribute name="renderingMode"
+                    use="optional">
+          <xs:annotation>
+            <xs:documentation>Used to indicate when and where to use this companion ad. If this field is empty or not given, default will be used.</xs:documentation>
+          </xs:annotation>
+          <xs:simpleType>
+            <xs:restriction base="xs:token">
+              <xs:enumeration value="default" />
+              <xs:enumeration value="end-of-card" />
+              <xs:enumeration value="concurrent" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="CompanionAds_Collection_type">
@@ -986,7 +1163,14 @@
           <xs:element name="NonLinearAds"
                  minOccurs="0"
                  maxOccurs="1">
-						<xs:complexType>
+            <xs:annotation>
+              <xs:documentation>
+                [Deprecated as of 4.1]
+                As of 4.1, the Digital Video Technical Working Group is positing that NonLinear Ads are not  being used and therefore should be removed in order to simplify VAST
+                NonLinearAds are not applicable to Audio use cases.
+              </xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
 							<xs:sequence>
 								<xs:element name="TrackingEvents"
                     type="vast:TrackingEvents_type"
@@ -1026,7 +1210,14 @@
           <xs:element name="NonLinearAds"
                  minOccurs="0"
                  maxOccurs="1">
-						<xs:complexType>
+            <xs:annotation>
+              <xs:documentation>
+                [Deprecated as of 4.1]
+                As of 4.1, the Digital Video Technical Working Group is positing that NonLinear Ads are not  being used and therefore should be removed in order to simplify VAST
+                NonLinearAds are not applicable to Audio use cases.
+              </xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
 							<xs:sequence>
 								<xs:element name="TrackingEvents"
                     type="vast:TrackingEvents_type"
@@ -1408,6 +1599,30 @@ play as intended.
 						 minOccurs="0"
 						 maxOccurs="1" />
           
+          <xs:element name="BlockedAdCategories"
+						 minOccurs="0"
+						 maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>A string that provides a category code or label that identifies the ad content.</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="authority"
+                       type="xs:anyURI"
+                       >
+                    <xs:annotation>
+                      <xs:documentation>
+                        A URL for the organizational authority that produced the list being used to identify ad content.
+                        Optional unless the publisher requires ad categories. The authority attribute is required if categories are provided.
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+
           <xs:element name="Creatives"
                  minOccurs="0"
                  maxOccurs="1">
@@ -1480,7 +1695,25 @@ play as intended.
               <xs:documentation>Name of advertiser as defined by the ad serving party</xs:documentation>
             </xs:annotation>
           </xs:element>
-					<xs:element name="Category"
+          <xs:element name="AdServingId"
+                 minOccurs="1"
+                 maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>
+                Any ad server that returns a VAST containing an &lt;InLine&gt;
+                  ad must generate a pseudo-unique identifier that is appropriate for all involved parties to track the lifecycle of that ad. 
+                  This should be inserted into the &lt;AdServingId&gt; element, and also be included on all outgoing tracking pixels.
+                  The value should be different for each Inline in a VAST. Usage of a GUID is recommended.
+                  </xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Category"
                  minOccurs="0"
                  maxOccurs="unbounded">
 						<xs:annotation>
