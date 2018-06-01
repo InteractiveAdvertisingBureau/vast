@@ -1,6 +1,22 @@
 
 VAST Release Notes
 ===================
+4.1
+---
+Updated to match 4.1 draft for public comment June 4, 2018.
+Recommend you diff files "vast_4.1.xsd" and "vast4.xsd".
+
+* Deprecation of VPAID related features
+* Removal of Flash references and support
+* Simplification of Tracking and Clickthrough elements
+* Simplification of Verification elements to be common across Inline and Wrapper elements
+* Generalization of some elements to support Audio media in VAST
+* Addition of adType to Ad element
+* Addition of BlockedAdCategories element
+* Addition of AdServingId element to Inline type
+* Addition of Expires element to Inline type
+
+
 4.0.5
 -----
 * Updated tracking events to match spec (Issue #5)

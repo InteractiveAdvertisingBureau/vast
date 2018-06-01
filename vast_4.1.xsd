@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<!--Created with Liquid XML Studio Developer Bundle Edition (Trial) (http://www.liquid-technologies.com)-->
 <xs:schema attributeFormDefault="unqualified"
 		   elementFormDefault="qualified"
            targetNamespace="http://www.iab.com/VAST"
