@@ -56,7 +56,7 @@
                     type="xs:boolean"
                     use="optional">
 							<xs:annotation>
-								<xs:documentation>[Deprecated in VAST 4.1 with apiFramework]
+								<xs:documentation>&#91;@Deprecated in VAST 4.1 with apiFramework]
 								A Boolean value that identifies a conditional ad.</xs:documentation>
 							</xs:annotation>
 						</xs:attribute>
@@ -562,7 +562,7 @@
                  maxOccurs="1">
             <xs:annotation>
               <xs:documentation>
-                [Note: VPAID has been deprecated in VAST 4.1]
+                &#91;Note: VPAID has been deprecated in VAST 4.1 &#93;
                 Data to be passed into the video ad. Used to pass VAST info to VPAID object.
                 When a VAST response is used to serve a VPAID ad unit, 
                 the &lt;AdParameters&gt; element is currently 
@@ -707,7 +707,7 @@
                             use="optional">
                           <xs:annotation>
                             <xs:documentation>
-                              [Deprecated in 4.1 in preparation for VPAID being phased out].
+                              &#91;@Deprecated in 4.1 in preparation for VPAID being phased out].
                               identifies the API needed to execute an interactive media file, but current
                               support is for backward compatibility. Please use the
                               &lt;InteractiveCreativeFile&gt; element to include files that require an API for execution.
@@ -894,7 +894,7 @@
 	<xs:complexType name="NonLinearAd_Base_type">
 		<xs:annotation>
 			<xs:documentation>
-        [Deprecated in 4.1]
+        &#91;@Deprecated in 4.1 &#93;
         An ad that is overlain on top of video content during playback
       </xs:documentation>
 		</xs:annotation>
@@ -926,7 +926,7 @@
 	<xs:complexType name="NonLinearAd_InlineChild_type">
 		<xs:annotation>
 			<xs:documentation>
-        [Deprecated in 4.1]
+        &#91;@Deprecated in 4.1 &#93;
         An ad that is overlain on top of video content during playback
       </xs:documentation>
 		</xs:annotation>
@@ -946,14 +946,17 @@
                  minOccurs="0"
                  maxOccurs="1">
 						<xs:annotation>
-							<xs:documentation>[Deprecated in 4.1]URI to advertiser page opened on viewer clicks through.</xs:documentation>
+							<xs:documentation>&#91;@Deprecated in 4.1 &#93;
+							URI to advertiser page opened on viewer clicks through.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-          <xs:element name="[Deprecated in 4.1]NonLinearClickTracking"
+          <xs:element name="NonLinearClickTracking"
                  minOccurs="0"
                  maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation>URLs to ping when user clicks on the the non-linear ad unit.</xs:documentation>
+              <xs:documentation>
+			  &#91;@Deprecated in 4.1 &#93;
+			  URLs to ping when user clicks on the the non-linear ad unit.</xs:documentation>
             </xs:annotation>
             <xs:complexType>
               <xs:simpleContent>
@@ -1198,7 +1201,7 @@
                  maxOccurs="1">
             <xs:annotation>
               <xs:documentation>
-                [Deprecated as of 4.1]
+                &#91;@Deprecated as of 4.1 &#93;
                 As of 4.1, the Digital Video Technical Working Group is positing that NonLinear Ads are not  being used and therefore should be removed in order to simplify VAST
                 NonLinearAds are not applicable to Audio use cases.
               </xs:documentation>
@@ -1215,7 +1218,7 @@
                     maxOccurs="unbounded">
 									<xs:annotation>
 										<xs:documentation>
-                      [Deprecated in 4.1]
+                      &#91;@Deprecated in 4.1 &#93;
                       Any number of companions in any desired pixel dimensions.</xs:documentation>
 									</xs:annotation>
 								</xs:element>
@@ -1247,7 +1250,7 @@
                  maxOccurs="1">
             <xs:annotation>
               <xs:documentation>
-                [Deprecated as of 4.1]
+                &#91;@Deprecated as of 4.1 &#93;
                 As of 4.1, the Digital Video Technical Working Group is positing that NonLinear Ads are not  being used and therefore should be removed in order to simplify VAST
                 NonLinearAds are not applicable to Audio use cases.
               </xs:documentation>
@@ -1263,7 +1266,7 @@
                     minOccurs="0"
                     maxOccurs="unbounded">
 									<xs:annotation>
-										<xs:documentation>[Deprecated in 4.1]
+										<xs:documentation>&#91;@Deprecated in 4.1 &#93;
                     Any number of companions in any desired pixel dimensions.</xs:documentation>
 									</xs:annotation>
 								</xs:element>
@@ -1567,7 +1570,7 @@ impression.
 		</xs:annotation>
 			<xs:sequence>
 			<xs:element name="Verification"
-			type="vast:Verification_Inline_type"
+			type="vast:Verification_type"
                minOccurs="0"
                maxOccurs="unbounded">
 				</xs:element>
