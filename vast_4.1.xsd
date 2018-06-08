@@ -518,13 +518,13 @@
                type="vast:TrackingEvents_type"
                minOccurs="0"
                maxOccurs="1" />
-      <xs:element name="VideoClicks"
-         type="vast:VideoClicks_Base_type"
-         minOccurs="0"
-         maxOccurs="1" />
+		  <xs:element name="VideoClicks"
+			 type="vast:VideoClicks_Base_type"
+			 minOccurs="0"
+			 maxOccurs="1" />
 
 
-    </xs:sequence>
+		</xs:sequence>
 		<xs:attribute name="skipoffset"
                 use="optional">
 			<xs:annotation>
@@ -848,7 +848,7 @@
                 </xs:element>
 
                 <xs:element name="ClosedCaptionFiles"
-       minOccurs="1"
+       minOccurs="0"
        maxOccurs="1">
                   <xs:complexType>
                     <xs:sequence>
@@ -1661,26 +1661,6 @@ impression.
 		<xs:complexContent>
 			<xs:extension base="vast:AdDefinitionBase_type">
 				<xs:sequence>
-					<xs:element name="AdTitle"
-                 type="xs:string"
-                 minOccurs="1"
-                 maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation>Common name of ad</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-          <xs:element name="AdVerifications"
-                 type="vast:AdVerifications_type"
-                 minOccurs="0"
-                 maxOccurs="1" />
-          <xs:element name="Advertiser"
-                 type="xs:string"
-                 minOccurs="0"
-                 maxOccurs="1">
-            <xs:annotation>
-              <xs:documentation>Name of advertiser as defined by the ad serving party</xs:documentation>
-            </xs:annotation>
-          </xs:element>
           <xs:element name="AdServingId"
                  minOccurs="1"
                  maxOccurs="1">
@@ -1698,6 +1678,26 @@ impression.
                 </xs:extension>
               </xs:simpleContent>
             </xs:complexType>
+          </xs:element>
+          <xs:element name="AdTitle"
+                 type="xs:string"
+                 minOccurs="1"
+                 maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Common name of ad</xs:documentation>
+						</xs:annotation>
+          </xs:element>
+          <xs:element name="AdVerifications"
+                 type="vast:AdVerifications_type"
+                 minOccurs="0"
+                 maxOccurs="1" />
+          <xs:element name="Advertiser"
+                 type="xs:string"
+                 minOccurs="0"
+                 maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>Name of advertiser as defined by the ad serving party</xs:documentation>
+            </xs:annotation>
           </xs:element>
           <xs:element name="Category"
                  minOccurs="0"
