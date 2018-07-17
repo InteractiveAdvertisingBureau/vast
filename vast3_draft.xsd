@@ -150,8 +150,7 @@
                                                     </xs:attribute>
                                                     <xs:attribute name="type" use="required" type="xs:string">
                                                       <xs:annotation>
-                                                        <xs:documentation>MIME type. Popular MIME types include, but are not limited to “video/x-ms-wmv” for Windows Media, and “video/x-flv” for Flash Video. Image ads or interactive ads can be included in the MediaFiles section with appropriate Mime
-                                                          types</xs:documentation>
+                                                        <xs:documentation>MIME type. Popular MIME types include, but are not limited to “video/x-ms-wmv” for Windows Media, and “video/x-flv” for Flash Video. Image ads or interactive ads can be included in the MediaFiles section with appropriate Mime types</xs:documentation>
                                                       </xs:annotation>
                                                     </xs:attribute>
                                                     <xs:attribute name="bitrate" type="xs:integer" use="optional">
@@ -191,8 +190,7 @@
                                                     </xs:attribute>
                                                     <xs:attribute name="apiFramework" type="xs:string" use="optional">
                                                       <xs:annotation>
-                                                        <xs:documentation>The apiFramework defines the method to use for communication if the MediaFile is interactive. Suggested values for this element are “VPAID”, “FlashVars” (for Flash/Flex), “initParams” (for Silverlight) and “GetVariables”
-                                                          (variables placed in key/value pairs on the asset request).</xs:documentation>
+                                                        <xs:documentation>The apiFramework defines the method to use for communication if the MediaFile is interactive. Suggested values for this element are “VPAID”, “FlashVars” (for Flash/Flex), “initParams” (for Silverlight) and “GetVariables” (variables placed in key/value pairs on the asset request).</xs:documentation>
                                                       </xs:annotation>
                                                     </xs:attribute>
                                                     <xs:attribute name="codec" use="optional" type="xs:string">
@@ -217,7 +215,7 @@
                                           <xs:pattern value="(\d{2}:[0-5]\d:[0-5]\d(\.\d\d\d)?|1?\d?\d(\.?\d)*%)" />
                                         </xs:restriction>
                                       </xs:simpleType>
-                                   </xs:attribute>
+                                    </xs:attribute>
                                   </xs:complexType>
                                 </xs:element>
                                 <xs:element name="CompanionAds" minOccurs="0" maxOccurs="1">
@@ -757,7 +755,7 @@
       </xs:element>
       <xs:element name="AdParameters" minOccurs="0" maxOccurs="1" type="AdParameters_type">
         <xs:annotation>
-          <xs:documentation>Data to be passed into the video ad. </xs:documentation>
+          <xs:documentation>Data to be passed into the video ad.</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
@@ -953,7 +951,7 @@
       </xs:annotation>
       <xs:simpleType>
         <xs:restriction base="xs:string">
-          <xs:pattern value='([0-9]*|left|right)' />
+          <xs:pattern value="([0-9]*|left|right)" />
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -963,7 +961,7 @@
       </xs:annotation>
       <xs:simpleType>
         <xs:restriction base="xs:string">
-          <xs:pattern value='([0-9]*|top|bottom)' />
+          <xs:pattern value="([0-9]*|top|bottom)" />
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -983,7 +981,7 @@
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
-  <xs:complexType name ="Extensions_type">
+  <xs:complexType name="Extensions_type">
     <xs:sequence>
       <xs:element name="Extension" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
@@ -998,7 +996,7 @@
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name ="CreativeExtensions_type">
+  <xs:complexType name="CreativeExtensions_type">
     <xs:sequence>
       <xs:element name="CreativeExtension" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
