@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--Created with Liquid XML Studio Developer Bundle Edition (Trial) (http://www.liquid-technologies.com)-->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.iab.com/VAST" xmlns:vast="http://www.iab.com/VAST" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.iab.com/VAST" version="4.0.5">
   <!-- =================== Begin root VAST document structure ============= -->
   <xs:element name="VAST" id="vast.root">
     <xs:annotation>
-      <xs:documentation>IAB VAST (Video Ad Serving Template), Version 4.0.5</xs:documentation>
+      <xs:documentation>IAB VAST (Video Ad Serving Template), Version 4.0</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:choice>
