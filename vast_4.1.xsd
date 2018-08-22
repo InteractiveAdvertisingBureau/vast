@@ -900,7 +900,6 @@
               <xs:simpleContent>
                 <xs:extension base="xs:string">
                   <xs:attribute name="idRegistry" type="xs:string" use="required" />
-                  <xs:attribute name="idValue" type="xs:string" use="required" />
                 </xs:extension>
               </xs:simpleContent>
             </xs:complexType>
