@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.iab.com/VAST" xmlns:vast="http://www.iab.com/VAST" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.iab.com/VAST" version="4.1">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.iab.com/VAST" xmlns:vast="http://www.iab.com/VAST" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.iab.com/VAST" version="4.1.0">
   <!-- =================== Begin root VAST document structure ============= -->
   <xs:element name="VAST" id="vast.root">
     <xs:annotation>
@@ -154,18 +154,6 @@
   </xs:complexType>
   <xs:complexType name="VideoClicks_Base_type" id="vtype.ad.creative.videoclicksbase">
     <xs:sequence>
-      <xs:element name="ClickThrough" minOccurs="0" maxOccurs="1">
-        <xs:annotation>
-          <xs:documentation>URL to open as destination page when user clicks on the video. This can occur zero to many times. The XSD syntax can't represent that.</xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-          <xs:simpleContent>
-            <xs:extension base="xs:anyURI">
-              <xs:attribute name="id" type="xs:string" use="optional" />
-            </xs:extension>
-          </xs:simpleContent>
-        </xs:complexType>
-      </xs:element>
       <xs:element name="ClickTracking" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
           <xs:documentation>URL to request for tracking purposes when user clicks on the video.</xs:documentation>
@@ -191,6 +179,26 @@
         </xs:complexType>
       </xs:element>
     </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="VideoClicks_InlineChild_type" id="vtype.ad.creative.videoclicks.inline">
+    <xs:complexContent>
+      <xs:extension base="vast:VideoClicks_Base_type">
+        <xs:sequence>
+          <xs:element name="ClickThrough" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation>URL to open as destination page when user clicks on the video. This can occur zero to many times. The XSD syntax can't represent that.</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:anyURI">
+                  <xs:attribute name="id" type="xs:string" use="optional" />
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="Impression_type" id="vtype.ad.creative.impression">
     <xs:simpleContent>
@@ -377,7 +385,6 @@
         </xs:complexType>
       </xs:element>
       <xs:element name="TrackingEvents" minOccurs="0" maxOccurs="1" type="vast:TrackingEvents_type" />
-      <xs:element name="VideoClicks" minOccurs="0" maxOccurs="1" type="vast:VideoClicks_Base_type" />
     </xs:sequence>
     <xs:attribute name="skipoffset" use="optional">
       <xs:annotation>
@@ -396,7 +403,9 @@
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="vast:Linear_Base_type">
-        <xs:sequence />
+        <xs:sequence>
+          <xs:element name="VideoClicks" minOccurs="0" maxOccurs="1" type="vast:VideoClicks_Base_type" />
+        </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -620,6 +629,7 @@
               </xs:sequence>
             </xs:complexType>
           </xs:element>
+          <xs:element name="VideoClicks" minOccurs="0" maxOccurs="1" type="vast:VideoClicks_InlineChild_type" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -783,7 +793,7 @@
           <xs:simpleType>
             <xs:restriction base="xs:token">
               <xs:enumeration value="default" />
-              <xs:enumeration value="end-of-card" />
+              <xs:enumeration value="end-card" />
               <xs:enumeration value="concurrent" />
             </xs:restriction>
           </xs:simpleType>
@@ -890,7 +900,6 @@
               <xs:simpleContent>
                 <xs:extension base="xs:string">
                   <xs:attribute name="idRegistry" type="xs:string" use="required" />
-                  <xs:attribute name="idValue" type="xs:string" use="required" />
                 </xs:extension>
               </xs:simpleContent>
             </xs:complexType>
