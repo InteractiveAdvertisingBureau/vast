@@ -1191,7 +1191,7 @@
               <xs:documentation>Longer description of ad</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="Expires" minOccurs="0" maxOccurs="unbounded" type="xs:integer">
+          <xs:element name="Expires" minOccurs="0" maxOccurs="1" type="xs:integer">
             <xs:annotation>
               <xs:documentation>An integer value that defines the expiry period (in seconds).</xs:documentation>
             </xs:annotation>
