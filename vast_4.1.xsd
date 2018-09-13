@@ -636,7 +636,7 @@
   </xs:complexType>
   <xs:complexType name="NonLinearAd_Base_type">
     <xs:annotation>
-      <xs:documentation>[@Deprecated in 4.1 ] An ad that is overlain on top of video content during playback</xs:documentation>
+      <xs:documentation>An ad that is overlain on top of video content during playback</xs:documentation>
     </xs:annotation>
     <xs:all>
       <xs:element name="NonLinearClickTracking" minOccurs="0" maxOccurs="1">
@@ -659,7 +659,7 @@
   </xs:complexType>
   <xs:complexType name="NonLinearAd_InlineChild_type">
     <xs:annotation>
-      <xs:documentation>[@Deprecated in 4.1 ] An ad that is overlain on top of video content during playback</xs:documentation>
+      <xs:documentation>An ad that is overlain on top of video content during playback</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
       <xs:extension base="vast:CreativeResource_NonVideo_type">
@@ -671,12 +671,12 @@
           </xs:element>
           <xs:element name="NonLinearClickThrough" minOccurs="0" maxOccurs="1" type="xs:anyURI">
             <xs:annotation>
-              <xs:documentation>[@Deprecated in 4.1 ] URI to advertiser page opened on viewer clicks through.</xs:documentation>
+              <xs:documentation>URI to advertiser page opened on viewer clicks through.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="NonLinearClickTracking" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation>[@Deprecated in 4.1 ] URLs to ping when user clicks on the the non-linear ad unit.</xs:documentation>
+              <xs:documentation>URLs to ping when user clicks on the the non-linear ad unit.</xs:documentation>
             </xs:annotation>
             <xs:complexType>
               <xs:simpleContent>
@@ -852,15 +852,12 @@
           <xs:element name="CompanionAds" minOccurs="0" maxOccurs="1" type="vast:CompanionAds_Collection_type" />
           <xs:element name="Linear" minOccurs="0" maxOccurs="1" type="vast:Linear_WrapperChild_type" />
           <xs:element name="NonLinearAds" minOccurs="0" maxOccurs="1">
-            <xs:annotation>
-              <xs:documentation>[@Deprecated as of 4.1 ] As of 4.1, the Digital Video Technical Working Group is positing that NonLinear Ads are not  being used and therefore should be removed in order to simplify VAST NonLinearAds are not applicable to Audio use cases.</xs:documentation>
-            </xs:annotation>
             <xs:complexType>
               <xs:sequence>
                 <xs:element name="TrackingEvents" minOccurs="0" maxOccurs="1" type="vast:TrackingEvents_type" />
                 <xs:element name="NonLinear" minOccurs="0" maxOccurs="unbounded" type="vast:NonLinearAd_Base_type">
                   <xs:annotation>
-                    <xs:documentation>[@Deprecated in 4.1 ] Any number of companions in any desired pixel dimensions.</xs:documentation>
+                    <xs:documentation>Any number of companions in any desired pixel dimensions.</xs:documentation>
                   </xs:annotation>
                 </xs:element>
               </xs:sequence>
@@ -878,15 +875,12 @@
           <xs:element name="CreativeExtensions" minOccurs="0" maxOccurs="1" type="vast:CreativeExtensions_type" />
           <xs:element name="Linear" minOccurs="0" maxOccurs="1" type="vast:Linear_InlineChild_type" />
           <xs:element name="NonLinearAds" minOccurs="0" maxOccurs="1">
-            <xs:annotation>
-              <xs:documentation>[@Deprecated as of 4.1 ] As of 4.1, the Digital Video Technical Working Group is positing that NonLinear Ads are not  being used and therefore should be removed in order to simplify VAST NonLinearAds are not applicable to Audio use cases.</xs:documentation>
-            </xs:annotation>
             <xs:complexType>
               <xs:sequence>
                 <xs:element name="TrackingEvents" minOccurs="0" maxOccurs="1" type="vast:TrackingEvents_type" />
                 <xs:element name="NonLinear" minOccurs="0" maxOccurs="unbounded" type="vast:NonLinearAd_InlineChild_type">
                   <xs:annotation>
-                    <xs:documentation>[@Deprecated in 4.1 ] Any number of companions in any desired pixel dimensions.</xs:documentation>
+                    <xs:documentation>Any number of companions in any desired pixel dimensions.</xs:documentation>
                   </xs:annotation>
                 </xs:element>
               </xs:sequence>
