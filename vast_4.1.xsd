@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vast="http://www.iab.com/VAST" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.iab.com/VAST" version="4.1.1">
   <!-- =================== Begin root VAST document structure ============= -->
-  <xs:element name="VAST" id="vast.root">
+  <xs:element name="VAST" >
     <xs:annotation>
       <xs:documentation>IAB VAST (Video Ad Serving Template), Version 4.1</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:choice>
-        <xs:element name="Ad" minOccurs="0" maxOccurs="unbounded" id="vast.ad">
+        <xs:element name="Ad" minOccurs="0" maxOccurs="unbounded" >
           <xs:annotation>
             <xs:documentation>Top-level element, wraps each ad in the response or ad unit in an ad pod. This MUST be present unless an Error element is present.</xs:documentation>
           </xs:annotation>
@@ -49,7 +49,7 @@
             </xs:attribute>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Error" minOccurs="0" maxOccurs="unbounded" type="xs:anyURI" id="vast.error">
+        <xs:element name="Error" minOccurs="0" maxOccurs="unbounded" type="xs:anyURI" >
           <xs:annotation>
             <xs:documentation>Used when there is no ad response. When the ad server does not or cannot return an Ad. If included the video player must send a request to the URI provided (Sec 3.2.1).</xs:documentation>
           </xs:annotation>
@@ -74,7 +74,7 @@
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
-  <xs:complexType name="TrackingEvents_verification_type" id="vtype.ad.verification.trackingevents">
+  <xs:complexType name="TrackingEvents_verification_type" >
     <xs:sequence>
       <xs:element name="Tracking" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
@@ -94,7 +94,7 @@
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="TrackingEvents_type" id="vtype.ad.creative.trackingevents">
+  <xs:complexType name="TrackingEvents_type" >
     <xs:sequence>
       <xs:element name="Tracking" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
@@ -152,7 +152,7 @@
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="VideoClicks_Base_type" id="vtype.ad.creative.videoclicksbase">
+  <xs:complexType name="VideoClicks_Base_type" >
     <xs:sequence>
       <xs:element name="ClickTracking" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
@@ -180,7 +180,7 @@
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="VideoClicks_InlineChild_type" id="vtype.ad.creative.videoclicks.inline">
+  <xs:complexType name="VideoClicks_InlineChild_type" >
     <xs:complexContent>
       <xs:extension base="vast:VideoClicks_Base_type">
         <xs:sequence>
@@ -200,7 +200,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="Impression_type" id="vtype.ad.creative.impression">
+  <xs:complexType name="Impression_type" >
     <xs:simpleContent>
       <xs:extension base="xs:anyURI">
         <xs:attribute name="id" type="xs:string" use="optional">
@@ -999,7 +999,7 @@
       <xs:element name="ViewableImpression" minOccurs="0" maxOccurs="1" type="vast:ViewableImpression_type" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="ViewableImpression_type" id="vtype.ad.viewableimpression">
+  <xs:complexType name="ViewableImpression_type" >
     <xs:annotation>
       <xs:documentation>The ViewableImpression element allows for tracking URIs to report viewability</xs:documentation>
     </xs:annotation>
@@ -1064,7 +1064,7 @@
     </xs:attribute>
   </xs:complexType>
   <!-- ========== Definition of the AdVerifications element type ========== -->
-  <xs:complexType name="AdVerifications_type" id="vtype.ad.adverifications">
+  <xs:complexType name="AdVerifications_type" >
     <xs:annotation>
       <xs:documentation>The AdVerification element is used to initiate a controlled container where code can be executed for collecting data to verify ad playback details.</xs:documentation>
     </xs:annotation>
