@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.iab.com/VAST" xmlns:vast="http://www.iab.com/VAST" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.iab.com/VAST" version="4.0.5">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vast="http://www.iab.com/VAST" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.iab.com/VAST" version="4.0.6">
   <!-- =================== Begin root VAST document structure ============= -->
   <xs:element name="VAST" id="vast.root">
     <xs:annotation>
@@ -816,7 +816,7 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="Impression" minOccurs="1" maxOccurs="unbounded" type="Impression_type">
+      <xs:element name="Impression" minOccurs="1" maxOccurs="unbounded" type="vast:Impression_type">
         <xs:annotation>
           <xs:documentation>URI for impression tracking</xs:documentation>
         </xs:annotation>
