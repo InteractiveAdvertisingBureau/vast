@@ -64,7 +64,7 @@
   </xs:element>
   <!-- =================== End root VAST document structure ============= -->
   <!-- =================  VAST internal type definitions ==================== -->
-  <xs:complexType name="IconTrackingUri_type">
+  <xs:complexType name="IconClickTracking_type">
     <xs:annotation>
       <xs:documentation>URLs to ping when icon action occurs.</xs:documentation>
     </xs:annotation>
@@ -74,7 +74,7 @@
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
-  <xs:complexType name="TrackingEvents_verification_type" >
+  <xs:complexType name="TrackingEvents_Verification_type" >
     <xs:sequence>
       <xs:element name="Tracking" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
@@ -180,7 +180,7 @@
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="VideoClicks_InlineChild_type" >
+  <xs:complexType name="VideoClicks_Inline_type" >
     <xs:complexContent>
       <xs:extension base="vast:VideoClicks_Base_type">
         <xs:sequence>
@@ -211,7 +211,7 @@
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
-  <xs:complexType name="CreativeResource_NonVideo_type">
+  <xs:complexType name="CreativeResource_type">
     <xs:annotation>
       <xs:documentation>A base creative resource type (sec 3.13) for non-video creative content. This specifies static, IFrame, or HTML content, or a combination thereof</xs:documentation>
     </xs:annotation>
@@ -246,7 +246,7 @@
   </xs:complexType>
   <xs:complexType name="Icon_type">
     <xs:complexContent>
-      <xs:extension base="vast:CreativeResource_NonVideo_type">
+      <xs:extension base="vast:CreativeResource_type">
         <xs:sequence>
           <xs:element name="IconClicks" minOccurs="0" maxOccurs="1">
             <xs:complexType>
@@ -256,7 +256,7 @@
                     <xs:documentation>URL to open as destination page when user clicks on the icon.</xs:documentation>
                   </xs:annotation>
                 </xs:element>
-                <xs:element name="IconClickTracking" minOccurs="0" maxOccurs="unbounded" type="vast:IconTrackingUri_type">
+                <xs:element name="IconClickTracking" minOccurs="0" maxOccurs="unbounded" type="vast:IconClickTracking_type">
                   <xs:annotation>
                     <xs:documentation>URLs to ping when user clicks on the the icon.</xs:documentation>
                   </xs:annotation>
@@ -397,7 +397,7 @@
       </xs:simpleType>
     </xs:attribute>
   </xs:complexType>
-  <xs:complexType name="Linear_WrapperChild_type">
+  <xs:complexType name="Linear_Wrapper_type">
     <xs:annotation>
       <xs:documentation>Video formatted ad that plays linearly</xs:documentation>
     </xs:annotation>
@@ -409,7 +409,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="Linear_InlineChild_type">
+  <xs:complexType name="Linear_Inline_type">
     <xs:annotation>
       <xs:documentation>Video formatted ad that plays linearly</xs:documentation>
     </xs:annotation>
@@ -629,7 +629,7 @@
               </xs:sequence>
             </xs:complexType>
           </xs:element>
-          <xs:element name="VideoClicks" minOccurs="0" maxOccurs="1" type="vast:VideoClicks_InlineChild_type" />
+          <xs:element name="VideoClicks" minOccurs="0" maxOccurs="1" type="vast:VideoClicks_Inline_type" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -657,12 +657,12 @@
       </xs:element>
     </xs:all>
   </xs:complexType>
-  <xs:complexType name="NonLinearAd_InlineChild_type">
+  <xs:complexType name="NonLinearAd_Inline_type">
     <xs:annotation>
       <xs:documentation>An ad that is overlain on top of video content during playback</xs:documentation>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="vast:CreativeResource_NonVideo_type">
+      <xs:extension base="vast:CreativeResource_type">
         <xs:sequence>
           <xs:element name="AdParameters" minOccurs="0" maxOccurs="1" type="vast:AdParameters_type">
             <xs:annotation>
@@ -696,7 +696,7 @@
   </xs:complexType>
   <xs:complexType name="CompanionAd_type">
     <xs:complexContent>
-      <xs:extension base="vast:CreativeResource_NonVideo_type">
+      <xs:extension base="vast:CreativeResource_type">
         <xs:sequence>
           <xs:element name="AdParameters" minOccurs="0" maxOccurs="1" type="vast:AdParameters_type">
             <xs:annotation>
@@ -845,12 +845,12 @@
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
-  <xs:complexType name="Creative_WrapperChild_type">
+  <xs:complexType name="Creative_Wrapper_type">
     <xs:complexContent>
       <xs:extension base="vast:Creative_Base_type">
         <xs:sequence>
           <xs:element name="CompanionAds" minOccurs="0" maxOccurs="1" type="vast:CompanionAds_Collection_type" />
-          <xs:element name="Linear" minOccurs="0" maxOccurs="1" type="vast:Linear_WrapperChild_type" />
+          <xs:element name="Linear" minOccurs="0" maxOccurs="1" type="vast:Linear_Wrapper_type" />
           <xs:element name="NonLinearAds" minOccurs="0" maxOccurs="1">
             <xs:complexType>
               <xs:sequence>
@@ -867,18 +867,18 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="Creative_InlineChild_type">
+  <xs:complexType name="Creative_Inline_type">
     <xs:complexContent>
       <xs:extension base="vast:Creative_Base_type">
         <xs:all>
           <xs:element name="CompanionAds" minOccurs="0" maxOccurs="1" type="vast:CompanionAds_Collection_type" />
           <xs:element name="CreativeExtensions" minOccurs="0" maxOccurs="1" type="vast:CreativeExtensions_type" />
-          <xs:element name="Linear" minOccurs="0" maxOccurs="1" type="vast:Linear_InlineChild_type" />
+          <xs:element name="Linear" minOccurs="0" maxOccurs="1" type="vast:Linear_Inline_type" />
           <xs:element name="NonLinearAds" minOccurs="0" maxOccurs="1">
             <xs:complexType>
               <xs:sequence>
                 <xs:element name="TrackingEvents" minOccurs="0" maxOccurs="1" type="vast:TrackingEvents_type" />
-                <xs:element name="NonLinear" minOccurs="0" maxOccurs="unbounded" type="vast:NonLinearAd_InlineChild_type">
+                <xs:element name="NonLinear" minOccurs="0" maxOccurs="unbounded" type="vast:NonLinearAd_Inline_type">
                   <xs:annotation>
                     <xs:documentation>Any number of companions in any desired pixel dimensions.</xs:documentation>
                   </xs:annotation>
@@ -1050,7 +1050,7 @@
           </xs:simpleContent>
         </xs:complexType>
       </xs:element>
-      <xs:element name="TrackingEvents" minOccurs="0" maxOccurs="1" type="vast:TrackingEvents_verification_type" />
+      <xs:element name="TrackingEvents" minOccurs="0" maxOccurs="1" type="vast:TrackingEvents_Verification_type" />
       <xs:element name="VerificationParameters" minOccurs="0" maxOccurs="1" type="xs:string">
         <xs:annotation>
           <xs:documentation>CDATA-wrapped metadata string for the verification executable.</xs:documentation>
@@ -1100,7 +1100,7 @@
             </xs:annotation>
             <xs:complexType>
               <xs:sequence>
-                <xs:element name="Creative" minOccurs="1" maxOccurs="unbounded" type="vast:Creative_WrapperChild_type" />
+                <xs:element name="Creative" minOccurs="1" maxOccurs="unbounded" type="vast:Creative_Wrapper_type" />
               </xs:sequence>
             </xs:complexType>
           </xs:element>
@@ -1171,7 +1171,7 @@
             </xs:annotation>
             <xs:complexType>
               <xs:sequence>
-                <xs:element name="Creative" minOccurs="1" maxOccurs="unbounded" type="vast:Creative_InlineChild_type" />
+                <xs:element name="Creative" minOccurs="1" maxOccurs="unbounded" type="vast:Creative_Inline_type" />
               </xs:sequence>
             </xs:complexType>
           </xs:element>
