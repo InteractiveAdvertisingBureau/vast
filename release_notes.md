@@ -16,6 +16,15 @@ Recommend you diff files "vast_4.1.xsd" and "vast4.xsd".
 * Addition of AdServingId element to Inline type
 * Addition of Expires element to Inline type
 
+4.0.7
+-----
+* Modify some type names to align with 4.1 xsd type name changes
+* Removed id attributes from types as they are no longer needed for development
+
+4.0.6
+-----
+* Cleanup and simplification of xmlns 
+* Standardize xsd versioning representation
 
 4.0.5
 -----
