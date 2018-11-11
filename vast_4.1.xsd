@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vast="http://www.iab.com/VAST" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.iab.com/VAST" version="4.1.1">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vast="http://www.iab.com/VAST" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.iab.com/VAST" version="4.1.2">
   <!-- =================== Begin root VAST document structure ============= -->
   <xs:element name="VAST" >
     <xs:annotation>
@@ -976,7 +976,8 @@
       </xs:element>
       <xs:element name="Extensions" minOccurs="0" maxOccurs="1">
         <xs:annotation>
-          <xs:documentation>XML node for custom extensions, as defined by the ad server. When used, a custom element should be nested under &lt;Extensions&gt; to help separate custom XML elements from VAST elements.</xs:documentation>
+          <xs:documentation>XML node for custom extensions, as defined by the ad server. When used, a custom element should be nested under &lt;Extensions&gt; to help separa
+		  te custom XML elements from VAST elements.</xs:documentation>
         </xs:annotation>
         <xs:complexType>
           <xs:sequence>
@@ -1000,7 +1001,10 @@
       </xs:element>
       <xs:element name="Impression" minOccurs="1" maxOccurs="unbounded" type="vast:Impression_type">
         <xs:annotation>
-          <xs:documentation>URI for impression tracking</xs:documentation>
+          <xs:documentation>A URI that directs the media player to a tracking resource file that the media player must
+use to notify the ad server when the impression occurs. If there is no reason to include
+an Impression element, the placeholder &quot;about:blank&quot; should be used instead of a
+tracking URL</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="Pricing" minOccurs="0" maxOccurs="1">
