@@ -429,6 +429,33 @@
           <xs:element name="MediaFiles" minOccurs="1" maxOccurs="1">
             <xs:complexType>
               <xs:sequence>
+                <xs:element name="ClosedCaptionFiles" minOccurs="0" maxOccurs="1">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="ClosedCaptionFile" minOccurs="0" maxOccurs="unbounded">
+                        <xs:annotation>
+                          <xs:documentation>A CDATA-wrapped URI to a file providing Closed Caption info for the media file.</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                          <xs:simpleContent>
+                            <xs:extension base="xs:anyURI">
+                              <xs:attribute name="type" type="xs:string" use="optional">
+                                <xs:annotation>
+                                  <xs:documentation>Identifies the MIME type of the file provided.</xs:documentation>
+                                </xs:annotation>
+                              </xs:attribute>
+                              <xs:attribute name="language" type="xs:string" use="optional">
+                                <xs:annotation>
+                                  <xs:documentation>Language of the Closed Caption File using ISO 631-1 codes. An optional locale suffix can also be provided.</xs:documentation>
+                                </xs:annotation>
+                              </xs:attribute>
+                            </xs:extension>
+                          </xs:simpleContent>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
                 <xs:element name="MediaFile" minOccurs="1" maxOccurs="unbounded">
                   <xs:annotation>
                     <xs:documentation>URI location of linear file. Content must be wrapped in CDATA tag.</xs:documentation>
@@ -597,33 +624,6 @@
                         </xs:attribute>
                       </xs:extension>
                     </xs:simpleContent>
-                  </xs:complexType>
-                </xs:element>
-                <xs:element name="ClosedCaptionFiles" minOccurs="0" maxOccurs="1">
-                  <xs:complexType>
-                    <xs:sequence>
-                      <xs:element name="ClosedCaptionFile" minOccurs="0" maxOccurs="unbounded">
-                        <xs:annotation>
-                          <xs:documentation>A CDATA-wrapped URI to a file providing Closed Caption info for the media file.</xs:documentation>
-                        </xs:annotation>
-                        <xs:complexType>
-                          <xs:simpleContent>
-                            <xs:extension base="xs:anyURI">
-                              <xs:attribute name="type" type="xs:string" use="optional">
-                                <xs:annotation>
-                                  <xs:documentation>Identifies the MIME type of the file provided.</xs:documentation>
-                                </xs:annotation>
-                              </xs:attribute>
-                              <xs:attribute name="language" type="xs:string" use="optional">
-                                <xs:annotation>
-                                  <xs:documentation>Language of the Closed Caption File using ISO 631-1 codes. An optional locale suffix can also be provided.</xs:documentation>
-                                </xs:annotation>
-                              </xs:attribute>
-                            </xs:extension>
-                          </xs:simpleContent>
-                        </xs:complexType>
-                      </xs:element>
-                    </xs:sequence>
                   </xs:complexType>
                 </xs:element>
               </xs:sequence>
