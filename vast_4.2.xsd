@@ -947,7 +947,7 @@
   <xs:complexType name="Creative_Inline_type">
     <xs:complexContent>
       <xs:extension base="vast:Creative_Base_type">
-        <xs:all>
+        <xs:sequence>
           <xs:element name="CompanionAds" minOccurs="0" maxOccurs="1" type="vast:CompanionAds_Collection_type" />
           <xs:element name="CreativeExtensions" minOccurs="0" maxOccurs="1" type="vast:CreativeExtensions_type" />
           <xs:element name="Linear" minOccurs="0" maxOccurs="1" type="vast:Linear_Inline_type" />
@@ -975,7 +975,7 @@
               </xs:simpleContent>
             </xs:complexType>
           </xs:element>
-        </xs:all>
+        </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>

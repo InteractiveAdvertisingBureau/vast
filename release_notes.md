@@ -1,6 +1,17 @@
 
 VAST Release Notes
 ===================
+4.2
+---
+Updated for compliance with 4.2 spec Aug 1, 2019.
+You may diff files "vast_4.1.xsd" and "vast_4.2.xsd"
+
+* Allow multiple UniversalAdId elements
+* Modify Creative_Base_type to use sequence instead of all to allow for multiple UniversalAdId values
+* Addition of IconClickFallbackImages element and sub elements
+* Modify Icons element to use sequence instead of all to allow for multiple Icon values
+* Updated with references to SIMID in notes.
+
 4.1
 ---
 Updated to match 4.1 draft for public comment June 4, 2018.
