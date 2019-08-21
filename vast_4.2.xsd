@@ -152,11 +152,23 @@
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="VideoClicks_Base_type" >
+  <xs:complexType name="VideoClicks_type" >
     <xs:sequence>
       <xs:element name="ClickTracking" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
           <xs:documentation>URL to request for tracking purposes when user clicks on the video.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:anyURI">
+              <xs:attribute name="id" type="xs:string" use="optional" />
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ClickThrough" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>URL to open as destination page when user clicks on the video. This can occur zero to many times. The XSD syntax can't represent that.</xs:documentation>
         </xs:annotation>
         <xs:complexType>
           <xs:simpleContent>
@@ -179,26 +191,6 @@
         </xs:complexType>
       </xs:element>
     </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="VideoClicks_Inline_type" >
-    <xs:complexContent>
-      <xs:extension base="vast:VideoClicks_Base_type">
-        <xs:sequence>
-          <xs:element name="ClickThrough" minOccurs="0" maxOccurs="1">
-            <xs:annotation>
-              <xs:documentation>URL to open as destination page when user clicks on the video. This can occur zero to many times. The XSD syntax can't represent that.</xs:documentation>
-            </xs:annotation>
-            <xs:complexType>
-              <xs:simpleContent>
-                <xs:extension base="xs:anyURI">
-                  <xs:attribute name="id" type="xs:string" use="optional" />
-                </xs:extension>
-              </xs:simpleContent>
-            </xs:complexType>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="Impression_type" >
     <xs:simpleContent>
@@ -436,7 +428,7 @@
     <xs:complexContent>
       <xs:extension base="vast:Linear_Base_type">
         <xs:sequence>
-          <xs:element name="VideoClicks" minOccurs="0" maxOccurs="1" type="vast:VideoClicks_Base_type" />
+          <xs:element name="VideoClicks" minOccurs="0" maxOccurs="1" type="vast:VideoClicks_type" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -661,7 +653,7 @@
               </xs:sequence>
             </xs:complexType>
           </xs:element>
-          <xs:element name="VideoClicks" minOccurs="0" maxOccurs="1" type="vast:VideoClicks_Inline_type" />
+          <xs:element name="VideoClicks" minOccurs="0" maxOccurs="1" type="vast:VideoClicks_type" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
