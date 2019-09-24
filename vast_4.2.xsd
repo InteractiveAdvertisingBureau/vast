@@ -133,6 +133,7 @@
                     <xs:enumeration value="close" />
                     <xs:enumeration value="overlayViewDuration" />
                     <xs:enumeration value="otherAdInteraction" />
+                    <xs:enumeration value="interactiveStart" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:attribute>
