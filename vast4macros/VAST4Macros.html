@@ -1,0 +1,2876 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>VAST 4.x Macros</title>
+        <style>
+            body{
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 1em;
+                line-height: 1.5em;
+            }
+
+            code, pre{
+                font-family: 'Courier New', Courier, monospace;
+            }
+
+            table.macro-spec{
+                width: 100%;
+                border-collapse: collapse;
+                margin: 0 0 1.5em 0;
+                border: 1px solid #cccccc;
+            }
+
+            table.macro-spec th:nth-child(1){
+                width: 20%;
+                height: 0;
+            }
+            table.macro-spec th:nth-child(2){
+                width: 80%;
+                height: 0;
+            }
+
+            table.macro-spec tr:nth-child(1){
+                background-color: #cccccc !important;
+            }
+
+            table.macro-spec tr:nth-child(even){
+                background-color: #eeeeee;
+            }
+
+            table.macro-spec tr:nth-child(2){
+                background-color: #cccccc;
+            }
+
+            table.macro-spec tr td{
+                vertical-align: top;
+                border: 0px solid #000;
+                padding: 0.5em;
+            }
+
+            table.macro-spec tr td:nth-child(1){
+                font-weight: 700;
+
+            }
+            table.macro-spec tr:nth-child(2) td:nth-child(1)::before{
+                content: "Macro";
+            }
+            table.macro-spec tr:nth-child(2) td:nth-child(2){
+                font-family: 'Courier New', Courier, monospace;
+            }
+            table.macro-spec tr:nth-child(3) td:nth-child(1)::before{
+                content: "Type";
+            }
+            table.macro-spec tr:nth-child(3) td:nth-child(2){
+                font-family: 'Courier New', Courier, monospace;
+            }
+            table.macro-spec tr:nth-child(4) td:nth-child(1)::before{
+                content: "Introduced In";
+            }
+            table.macro-spec tr:nth-child(5) td:nth-child(1)::before{
+                content: "Support Status";
+            }
+            table.macro-spec tr:nth-child(6) td:nth-child(1)::before{
+                content: "Contexts";
+            }
+
+            table.macro-spec ul{
+                margin: 0;
+            }
+            table.macro-spec tr:nth-child(7) td:nth-child(1)::before{
+                content: "Description";
+            }
+
+            table.macro-spec tr:nth-child(8) td:nth-child(1)::before{
+                content: "Example";
+            }
+
+            table.example{
+                width: 100%;
+                border-collapse: collapse;
+                margin: 0 0 1.5em 0;
+            }
+
+            table.example th, td{
+                text-align: left;
+            }
+
+            table.example th, td{
+                vertical-align: top;
+                border: 1px solid #000;
+                padding: 0.5em;
+            }
+
+            table.example th{
+                background-color: rgba(0, 0, 0, 0.1);
+            }
+
+        </style>
+    </head>
+    <body>
+
+        <h1>VAST 4.x Macros</h1>
+        
+        This page contains the latest/current list of the "official" macros defined by the IAB Tech Lab's Digital Video Technical Working Group. 
+        The purpose of this page is to allow new Macros to be added to the supported list without requiring a new version of VAST to be released.
+        Support for those macros are going to be optional, but having them listed here allows for faster adoption of these macros (instead of requiring a new VAST version to be released).
+<p>
+        Process: 
+<ol>
+        <li>New macros (approved by the IAB Tech Lab's Digital Video Technical Working Group) will be added to the top of this page in "Section 0". </li>
+        <li>When the next version of VAST is released, they will be included in the official set of macros for that version, and this page will be updated by moving those macros to the relevant sections.</li>
+</ol>                 
+        
+
+        
+        <h2>0. New Macros (post VAST 4.2) </h2>
+        <table class="macro-spec">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>[STOREID]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Next VAST release
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Optional
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>All tracking pixels</li>
+                            <li>VAST request URIs</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                            For app ads, a platform-specific app store ID such as iTunes store ID.  Could be the same as app bundle on some platforms.
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>iOS/tvOS - 886445756</li>
+                            <li>Android - com.tubitv</li>
+                            <li>Roku - 41468</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>        
+        <table class="macro-spec">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>[STOREURL]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Next VAST release
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Optional
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>All tracking pixels</li>
+                            <li>VAST request URIs</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                            For app ads, the app store URL for the installed app.
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>iOS/tvOS - https://apps.apple.com/us/app/tubi-watch-movies-tv-shows/id886445756</li>
+                            <li>Android - com.tubitv</li>
+                            <li>Roku - 41468</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>   
+        
+        
+        <h2>1. Generic Macros</h2>
+        <table class="macro-spec">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>[TIMESTAMP]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>string</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        VAST 4.0
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Required
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>All tracking pixels</li>
+                            <li>VAST request URIs</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        The date and time at which the URI using this macro is accessed. Used wherever a time stamp is needed, the macro is replaced with the date and time using the formatting conventions of ISO 8601.
+                        <p>To add milliseconds, use the convention <code>.mmm</code> at the end of the time provided and before any time zone indicator.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        January 17, 2016 at 8:15:07 and 127 milliseconds, Eastern Time would be formatted as follows:<br>
+                        Unencoded: <code>2016-01-17T8:15:07.127-05</code><br>
+                        Encoded: <code>2016-01-17T8%3A15%3A07.127-05</code>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="macro-spec">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                 <tr>
+                    <td></td>
+                    <td>[CACHEBUSTING]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>integer</td>
+                 </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        VAST 3.0
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Required
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>All tracking pixels</li>
+                            <li>VAST request URIs</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        To be replaced with a random 8-digit number
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <code>12345678</code>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>2. Ad Break Info</h2>
+        <table class="macro-spec">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                    <tr>
+                    <td></td>
+                    <td>[CONTENTPLAYHEAD]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>timecode</td>
+                    </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        VAST 3.0
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <span style="color: red;font-weight: 700;">Deprecated in VAST 4.1</span>, replaced by <code>[ADPLAYHEAD]</code> and <code>[MEDIAPLAYHEAD]</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>All tracking pixels</li>
+                            <li>VAST request URIs</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Replaced with the current time offset “HH:MM:SS.mmm” of the video or audio content.
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Unencoded: <code>00:05:21.123</code><br>
+                        Encoded: <code>00%3A05%3A21.123</code>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="macro-spec">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                    <tr>
+                    <td></td>
+                    <td>[MEDIAPLAYHEAD]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>timecode</td>
+                    </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        VAST 4.1
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Optional
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>All tracking pixels</li>
+                            <li>VAST request URIs</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Playhead for the video or audio content (NOT the ad creative). Replaced with the current time offset “HH:MM:SS.mmm” of the underlying video/audio content that the ad is playing within.
+                        <p>Not relevant for out-stream ads.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Unencoded: <code>00:05:21.123</code><br>
+                        Encoded: <code>00%3A05%3A21.123</code>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="macro-spec">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                    <tr>
+                    <td></td>
+                    <td>[BREAKPOSITION]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>integer</td>
+                    </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        VAST 4.1
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Optional
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>All tracking pixels</li>
+                            <li>VAST request URIs</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Indicates the position of the ad break within the underlying video/audio content that the ad is playing within.
+                        <p>Replace with one of the following values:</p>
+                        <ul>
+                            <li><code>1</code> for pre-roll</li>
+                            <li><code>2</code> for mid-roll</li>
+                            <li><code>3</code> for post-roll</li>
+                            <li><code>4</code> for standalone</li>
+                            <li><code>0</code> for none of the above/other</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <code>2</code>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="macro-spec">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                    <tr>
+                    <td></td>
+                    <td>[BLOCKEDADCATEGORIES]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Array&lt;string&gt;</td>
+                    </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        VAST 4.1
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Optional
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>VAST request URIs</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                            List of blocked ad categories. Encoded with <code>IABN-N</code> values as specified in the "Content Categories" list of AdCOM 1.0.<br>
+                            Values must be taken from the BlockedCategory element (3.19.2) in Wrapper ad elements.
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <code>IAB1-6,IAB1-7</code>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="macro-spec">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                    <tr>
+                    <td></td>
+                    <td>[ADCATEGORIES]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Array&lt;string&gt;</td>
+                    </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        VAST 4.1
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Optional
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>VAST request URIs</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        List of desired ad categories. Encoded with <code>IABN-N</code> values as specified in the "Content Categories" list of AdCOM 1.0.
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <code>IAB1-6,IAB1-7</code>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="macro-spec">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                    <tr>
+                    <td></td>
+                    <td>[ADCOUNT]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>integer</td>
+                    </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        VAST 4.1
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Optional
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>All tracking pixels</li>
+                            <li>VAST request URIs</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        For VAST requests: the number of ads expected by the player
+                        <p>For tracking pixels: the number of <code>&lt;InLine&gt;</code> ads played within the current chain or tree of VASTs, including the executing one. 
+                        That is, this value starts at 1 and increments for each video played, whether it was pulled from a Pod, buffet, nested Pod, etc. 
+                        In standard non-Pod VAST responses with a single <code>&lt;InLine&gt;</code> ad, this value is always 1.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <code>2</code>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="example">
+            <tbody>
+                <tr>
+                    <th>
+                        Example: <i>A VAST containing an Ad Pod with two ads with a buffet of three standalone ads.</i>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <pre>
+&lt;VAST&gt;
+    &lt;Ad sequence="1" id="one"&gt;...&lt;/Ad&gt;
+    &lt;Ad sequence="2" id="two"&gt;...&lt;/Ad&gt;
+    &lt;Ad id="three"&gt;...&lt;/Ad&gt;
+    &lt;Ad id="four"&gt;...&lt;/Ad&gt;
+    &lt;Ad id="five"&gt;...&lt;/Ad&gt;
+&lt;/VAST&gt;
+                        </pre>
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        The player plays ads "one" and "two" from the Pod, then chooses to also play ad "four". The player would fill the <code>[ADCOUNT]</code> macro with "1", "2 and "3" respectively for tracking events during playback of the individual ads. The <code>[PODSEQUENCE]</code> value would be "1", "2", and "".
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="macro-spec">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                    <tr>
+                    <td></td>
+                    <td>[TRANSACTIONID]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>uuid</td>
+                    </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        VAST 4.1
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Optional
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>All tracking pixels</li>
+                            <li>VAST request URIs</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        An identifier used to correlate a chain of ad requests from the origination (supply) end. This ID is generated by the initiating player and subsequent ad requests along the chain must pass the same ID along. This ID must be a UUID. Note that this is unique to the initial request, even if there are multiple ads in the response, as in VMAP and VAST Ad Pod cases.
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <code>123e4567-e89b-12d3-a456-426655440000</code>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="macro-spec">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                    <tr>
+                    <td></td>
+                    <td>[PLACEMENTTYPE]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>integer</td>
+                    </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        VAST 4.1
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Optional
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>All tracking pixels</li>
+                            <li>VAST request URIs</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Indicates the type of ad placement. Refer to the Placement Subtypes - Video list in AdCOM.
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <code>1</code>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="macro-spec">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                    <tr>
+                    <td></td>
+                    <td>[ADTYPE]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>string</td>
+                    </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        VAST 4.1
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Optional
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>All tracking pixels</li>
+                            <li>VAST request URIs</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Indicates whether the ad’s intended use case was video, audio, or hybrid, as defined in the adType attribute of the VAST <code>&lt;Ad&gt;</code> element.
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <code>video</code>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="macro-spec">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                    <tr>
+                    <td></td>
+                    <td>[UNIVERSALADID]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>string</td>
+                    </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        VAST 4.1
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Optional
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>All tracking pixels</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Indicates the creative, using <code>UniversalAdId</code> values described in section 3.7.1. <br>
+                        Format: <code>registryID idvalue</code> - with a space separating registryID and value. 
+                        
+                        <p>Multiple <code>UniversalAdId</code>s can be supported with a comma-separating them.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Unencoded: <code>ad-id.org CNPA0484000H</code><br>
+                        Encoded: <code>ad-id.org%20CNPA0484000H</code>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="macro-spec">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                    <tr>
+                    <td></td>
+                    <td>[BREAKMAXDURATION]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>integer</td>
+                    </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        VAST 4.2
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Optional
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>All tracking pixels</li>
+                            <li>VAST request URIs</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Indicates the maximum length allowed for the ad break in seconds.
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <code>30</code> - 30 seconds max total length allowed in the break.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="macro-spec">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                    <tr>
+                    <td></td>
+                    <td>[BREAKMINDURATION]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>integer</td>
+                    </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        VAST 4.2
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Optional
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>All tracking pixels</li>
+                            <li>VAST request URIs</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Indicates the minimum length allowed for the ad break in seconds.
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <code>30</code> - 30 seconds min total length needed for the break.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="macro-spec">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                    <tr>
+                    <td></td>
+                    <td>[BREAKMAXADS]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>integer</td>
+                    </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        VAST 4.2
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Optional
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>All tracking pixels</li>
+                            <li>VAST request URIs</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Indicates the maximum number of ads allowed in the ad break.
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <code>2</code> - 2 ads max in the break.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="macro-spec">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                    <tr>
+                    <td></td>
+                    <td>[BREAKMINADLENGTH]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>integer</td>
+                    </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        VAST 4.2
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Optional
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>All tracking pixels</li>
+                            <li>VAST request URIs</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Indicates the minimum length allowed for any individual ad in the ad break in seconds.
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <code>5</code> - 5 seconds is the min duration of any ad allowed in the break.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="macro-spec">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                    <tr>
+                    <td></td>
+                    <td>[BREAKMAXADLENGTH]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>integer</td>
+                    </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        VAST 4.2
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Optional
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>All tracking pixels</li>
+                            <li>VAST request URIs</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Indicates the maximum length allowed for any individual ad in the ad break in seconds.
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <code>15</code> - 15 seconds is the maximum duration of any ad allowed in the break.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>3. Client Info</h2>
+        <table class="macro-spec">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                    <tr>
+                    <td></td>
+                    <td>[IFA]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>uuid</td>
+                    </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        VAST 4.1
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Optional
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>All tracking pixels</li>
+                            <li>VAST request URIs</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        A resettable advertising ID from a device-specific advertising ID scheme, such as Apple’s ID for Advertisers or Android’s Advertising ID in UUID format or based on the <a href="https://iabtechlab.com/standards/guidelines-identifier-advertising-over-the-top-platforms/">IAB Tech Lab’s Guidelines for IFA on OTT platforms</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <code>123e4567-e89b-12d3-a456-426655440000</code>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="macro-spec">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                    <tr>
+                    <td></td>
+                    <td>[IFATYPE]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>string</td>
+                    </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        VAST 4.1
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Optional
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>All tracking pixels</li>
+                            <li>VAST request URIs</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        String value indicating the type of IFA included in the <code>[IFA]</code> macro. More details in the <a href="https://iabtechlab.com/standards/guidelines-identifier-advertising-over-the-top-platforms/">IAB Tech Lab’s Guidelines for IFA on OTT platforms</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <code>1rida</code>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="macro-spec">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                    <tr>
+                    <td></td>
+                    <td>[CLIENTUA]</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>string</td>
+                    </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        VAST 4.1
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Optional
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <ul>
+                            <li>All tracking pixels</li>
+                            <li>VAST request URIs</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        An identifier of the player and VAST client used. This will allow creative providers to identify the client code used to process and render video creatives. <br>
+                        If player name is not available, use "unknown".
+                        
+                        <p>Suggested format:<br>
+                            <code>{player name}/{player version} {plugin name}/{plugin version}</code>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Unencoded:
+                        <code>MyPlayer/7.1 MyPlayerVastPlugin/1.1.2</code><br>
+                        Encoded:
+                        <code>MyPlayer%2F7.1%20MyPlayerVastPlugin%2F1.1.2</code>
+                        <p>
+                        Unencoded:
+                        <code>unknown MyPlayerVastPlugin/1.1.2</code><br>
+                        Encoded:
+                        <code>unknown%20MyPlayerVastPlugin%2F1.1.2</code>
+                        </p>
+                            
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[SERVERUA]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>string</td>
+                        </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Optional
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>All tracking pixels</li>
+                                <li>VAST request URIs</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            User-Agent of the server making the request on behalf of a client. 
+                            <p>Only relevant when another device (server) is making the request on behalf of that client.</p>
+                            <p>The goal is to allow ad servers to identify who is making the request, so don’t use generic HTTP server names like <code>Apache</code>, but rather identify the company and product or service making the request.</p>
+                            <p>Suggested format:<br>
+                            <code>{service name}/{version} ({URL to vendor info})</code></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Unencoded:
+                            <code>MyServer/3.0 (+https://myserver.com/contact)</code><br>
+                            Encoded:
+                            <code>MyServer%2F3.0%20(%2Bhttps%3A%2F%2Fmyserver.com%2Fcontact)</code>
+                            <p>
+                            Unencoded:
+                            <code>AdsBot-Google (+http://www.google.com/adsbot.html)</code><br>
+                            Encoded:
+                            <code>AdsBot-Google%20(%2Bhttp%3A%2F%2Fwww.google.com%2Fadsbot.html)</code>
+                            </p>
+                                
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[DEVICEUA]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>string</td>
+                        </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Optional
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>All tracking pixels</li>
+                                <li>VAST request URIs</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            User-Agent of the device that is rendering the ad to the end user. 
+                            <p>Only relevant when another device (server) is making the request on behalf of that client.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Unencoded:
+                            <code>Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36</code><br>
+                            Encoded:
+                            <code>Mozilla%2F5.0%20(X11%3B%20Linux%20x86_64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F51.0.2704.103%20Safari%2F537.36</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[SERVERSIDE]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>integer</td>
+                        </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Optional
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>All tracking pixels</li>
+                                <li>VAST request URIs</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Value indicating if a URL is requested from a client device or a server. This value may be set differently on the request versus tracking URLs, as the request may be made from a server (value of <code>1</code> or <code>2</code>) while tracking URLs may be fired from the client (value of <code>0</code>).
+                            <p>Values:<br>
+                                <code>0</code> - Client fires request or tracking call without server intermediary.<br>
+                                <code>1</code> - Server fires request or tracking call on behalf of a client. The client told the server to act on its behalf.<br>
+                                <code>2</code> - Server fires request or tracking call on behalf of another server, unknown party, or based on its own decision, without an explicit signal from the client.
+                            </p>
+                            <code>0</code> is the default value if macro is missing.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                           <code>1</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[DEVICEIP]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>string</td>
+                        </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Optional
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>All tracking pixels</li>
+                                <li>VAST request URIs</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            IP address of the device that is rendering the ad to the end user.
+                            <p>Only relevant when another device (server) is making the request on behalf of that client.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            IPv4: <code>8.8.8.8</code>
+                            <p>
+                                IPv6 unencoded: <code>2001:0db8:85a3:0000:0000:8a2e:0370:7334</code><br>
+                                IPv6 encoded: <code>2001%3A0db8%3A85a3%3A0000%3A0000%3A8a2e%3A0370%3A7334</code>
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[LATLONG]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Array&lt;number&gt;</td>
+                        </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Optional
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>All tracking pixels</li>
+                                <li>VAST request URIs</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Mobile detected geolocation info of the end user, numeric latitude and longitude separated by a ",".
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <code>51.004703,3.754806</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2>4. Publisher Info</h2>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[DOMAIN]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>string</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Optional
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>All tracking pixels</li>
+                                <li>VAST request URIs</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Domain of the top level page where the end user will view the ad.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <code>www.mydomain.com</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[PAGEURL]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>string</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Required if OM for Web is supported, otherwise Optional.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>All tracking pixels</li>
+                                <li>VAST request URIs</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            The full URL of the top level page where the end user will view the ad. Where required and applicable, but unknown or unavailable, <code>-1</code> or <code>-2</code> must be set, as described in 6.1. When required and not applicable (such as in an app), <code>0</code> must be set.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Unencoded:
+                            <code>https://www.mydomain.com/article/page</code><br>
+                            Encoded:
+                            <code>https%3A%2F%2Fwww.mydomain.com%2Farticle%2Fpage</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[APPBUNDLE]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>string</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Required if OM for App is supported, otherwise Optional.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>All tracking pixels</li>
+                                <li>VAST request URIs</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            For app ads, a platform-specific application identifier, bundle or package name and should not be an app store ID such as iTunes store ID.  Where required and applicable, but unknown or unavailable, <code>-1</code> or <code>-2</code> must be set, as described in 6.1. When required and not applicable (such as in an app), <code>0</code> must be set.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <code>com.example.myapp</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2>5. Capabilities Info</h2>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[VASTVERSIONS]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Array&lt;number&gt;</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Optional.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>VAST request URIs</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            List of VAST versions supported by the player. Values are defined in the AdCOM 1.0 "Creative Subtypes" list. The relevant IDs have been copied here for convenience.
+                            <p></p>
+                            <code>11</code> for VAST 4.1<br>
+                            <code>12</code> for VAST 4.1 Wrapper
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <code>2,3,5,6,7,8,11</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[APIFRAMEWORKS]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Array&lt;number&gt;</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Optional.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>VAST request URIs</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            List of frameworks supported by the player. Values are defined in the AdCOM 1.0 "API Frameworks" list.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <code>2,7</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[EXTENSIONS]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Array&lt;string&gt;</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Optional.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>VAST request URIs</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            List of VAST Extensions type attribute values that the player / client supports. Can be used to indicate support for the OMID AdVerifications extension, proprietary extensions, or future standardized extensions.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <code>AdVerifications,extensionA,extensionB</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[VERIFICATIONVENDORS]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Array&lt;string&gt;</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Optional.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>VAST request URIs</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            List of VAST Verification vendor attribute values that the player / client supports.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <code>moat.com-omid,ias.com-omid,doubleverify.com-omid</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[OMIDPARTNER]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>string</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Required (if OM is supported).
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>All tracking pixels</li>
+                                <li>VAST request URIs</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            An identifier of the OM SDK integration. This is the same as the “name” and “versionString” parameters of the OMID Partner object. This will allow creative providers to determine if the OM partner integration is acceptable.
+
+                            <p>Note - This value is essential for communicating the certification status of the OMID integration. If partner ID is not shared, verification vendors will not be able to properly measure and report on this inventory.</p>
+                            
+                            <p>If partner name is not available, use “unknown”.</p>
+                            
+                            <p>Required format: <code>{partner name}/{partner version}</code></p>
+                                
+                                
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Unencoded: <code>MyIntegrationPartner/7.1</code><br>
+                            Encoded: <code>MyIntegrationPartner%2F7.1</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[MEDIAMIME]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Array&lt;string&gt;</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Optional.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>VAST request URIs</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            List of media MIME types supported by the player.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Unencoded: <code>video/mp4,application/x-mpegURL</code><br>
+                            Encoded: <code>video%2Fmp4,application%2Fx-mpegURL</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[PLAYERCAPABILITIES]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Array&lt;string&gt;</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Optional.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>All tracking pixels</li>
+                                <li>VAST request URIs</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            List of values that describe the player capabilities:
+                            <ul>
+                                <li><code>skip</code> - to indicate the user's ability to skip the ad.</li>
+                                <li><code>mute</code> - to indicate the user's ability to mute/unmute audio.</li>
+                                <li><code>autoplay</code> - to indicate the player's ability to autoplay media with audio, also implies mautoplay.</li>
+                                <li><code>mautoplay</code> -  to indicate the player's ability to autoplay media when muted.</li>
+                                <li><code>fullscreen</code> -  to indicate the user's ability to enter fullscreen.</li>
+                                <li> <code>icon</code> -  to indicate the player's ability to render NAI icons from VAST.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <code>mautoplay,fullscreen,icon</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[CLICKTYPE]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>integer</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Optional.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>All tracking pixels</li>
+                                <li>VAST request URIs</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>   
+                            Indicates the type of clickthrough supported by the player. 
+                            <ul>
+                                <li><code>0</code> - not clickable.</li>
+                                <li><code>1</code> - clickable on full area of video.</li>
+                                <li><code>2</code> - clickable only on associated button or link.</li>
+                                <li><code>3</code> - clickable with confirmation dialog.</li>
+                            </ul>
+                            <code>3</code> supersedes <code>2</code> in the case that there are both a link and a confirmation dialog.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <code>2</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2>6. Player State Info</h2>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[PLAYERSTATE]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Array&lt;string&gt;</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Optional.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>All tracking pixels</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>   
+                            List of options indicating the current state of the player. Possible values:
+                            <ul>
+                                <li><code>muted</code> - to indicate the player is currently muted.</li>
+                                <li><code>fullscreen</code> - to indicate the player is currently fullscreen.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <code>muted,fullscreen</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[INVENTORYSTATE]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Array&lt;string&gt;</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Optional.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>All tracking pixels</li>
+                                <li>VAST request URIs</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>   
+                            List of options indicating attributes of the inventory. Possible values:
+                            <ul>
+                                <li><code>skippable</code> - to indicate the ad can be skipped.</li>
+                                <li><code>autoplayed</code> - to indicate the ad is autoplayed with audio unmuted.</li>
+                                <li><code>mautoplayed</code> - to indicate the ad is autoplayed with audio muted.</li>
+                                <li><code>optin</code> - to indicate the user takes an explicit action to knowingly start playback of the ad.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <code>autoplayed,fullscreen</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[PLAYERSIZE]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Array&lt;integer&gt;</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Optional.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>All tracking pixels</li>
+                                <li>VAST request URIs</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>   
+                            Integer width and height of the player, separated by a ",", measured in css pixels (device-independent).
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <code>640,360</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[ADPLAYHEAD]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>timecode</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Optional.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>All tracking pixels</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>   
+                            Playhead for ad video or audio. Replaced with the current time offset “HH:MM:SS.mmm”.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Unencoded: <code>00:00:11.355</code><br>
+                            Encoded: <code>00%3A00%3A11.355</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[ASSETURI]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>string</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 3.0
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Optional.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>All tracking pixels</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>   
+                            The URI of the ad asset currently being played.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Unencoded: <code>https://myadserver.com/video.mp4</code><br>
+                            Encoded: <code>https%3A%2F%2Fmyadserver.com%2Fvideo.mp4</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[CONTENTID]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>string</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Optional.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>All tracking pixels</li>
+                                <li>VAST request URIs</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>   
+                            The publisher-specific content identifier for the content asset into which the ad is being loaded or inserted. Only applicable to in-stream ads.
+                            <p>The format of this field is similar to the [UNIVERSALADID] macro, consisting of a registry identifier and a registry-specific content identifier. If you are not using a public registry, you can use your own domain name as the registry identifier.</p>
+                            <p></p>If this macro is provided, the provided content identifier should uniquely define a specific content asset.</p>
+                            Format: <code>registry_id id_value</code> - with a space separating <code>registry_id</code> and <code>id_value</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Unencoded: <code>my-domain.com my-video-123</code><br>
+                            Encoded: <code>my-domain.com%20my-video-123</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[CONTENTURI]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>string</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Optional.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>All tracking pixels</li>
+                                <li>VAST request URIs</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>   
+                            The URI of the main media content asset into which the ad is being loaded or inserted. Only applicable to in-stream ads.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Unencoded: <code>https://mycontentserver.com/video.mp4</code><br>
+                            Encoded: <code>https%3A%2F%2Fmycontentserver.com%2Fvideo.mp4</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[PODSEQUENCE]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>integer</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Optional.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>All tracking pixels</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>   
+                            The value of the sequence attribute on the <code>&lt;Ad&gt;</code> that is currently playing, if one is provided.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <code>1</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[ADSERVINGID]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>string</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Optional.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>All tracking pixels</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>   
+                            The value of the <code>&lt;AdServingId&gt;</code> for the currently playing ad, as passed from the ad server.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <code>ServerName-47ed3bac-1768-4b9a-9d0e-0b92422ab066</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2>7. Click Info</h2>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[CLICKPOS]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>integer,integer</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Optional.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li><code>ClickTracking</code> tracking pixels.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>   
+                            Coordinates of the click relative to the area defined by the <code>[PLAYERSIZE]</code> macro, measured in css (device-independent) pixels. 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <code>315,204</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2>8. Error Info</h2>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[ERRORCODE]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>integer</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 3.0
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Required.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li><code>Error</code> tracking pixels.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>   
+                            VAST Error Code. Replaced with one of the error codes listed in section 2.3.6.3 when the associated error occurs; reserved for error tracking URIs. 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <code>900</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2>9. Verification Info</h2>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[REASON]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>integer</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Required.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li><code>verificationNotExecuted</code> tracking pixels.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>   
+                            Reason code for not executing verification. 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <code>1</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2>10. Regulation Info</h2>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[LIMITADTRACKING]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>integer</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Required.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>All tracking pixels</li>
+                                <li>VAST request URIs</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>   
+                            The limit ad tracking setting of a device-specific advertising ID scheme. This value is a boolean, with “1” indicating that a user has opted for limited ad tracking, and “0” indicating that they have not.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <code>0</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[REGULATIONS]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Array&lt;string&gt;</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Optional.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>All tracking pixels</li>
+                                <li>VAST request URIs</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>   
+                                List of applicable regulations. Possible values:
+                            <ul>
+                                <li><code>coppa</code></li>
+                                <li><code>gdpr</code></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <code>gdpr</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="macro-spec">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                        <tr>
+                        <td></td>
+                        <td>[GDPRCONSENT]</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>string</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            VAST 4.1
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            Optional.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ul>
+                                <li>All tracking pixels</li>
+                                <li>VAST request URIs</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>   
+                            Base64-encoded Cookie Value of <a href="https://github.com/InteractiveAdvertisingBureau/GDPR-Transparency-and-Consent-Framework/blob/master/Draft_for_Public_Comment_Transparency%20&%20Consent%20Framework%20-%20cookie%20and%20vendor%20list%20format%20specification%20v1.0a.pdf">IAB GDPR consent info</a>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <code>BOLqFHuOLqFHuAABAENAAAAAAAAoAAA</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+    </body>
+</html>
