@@ -7,94 +7,25 @@
             (
                 function(){
                     const config = {
-                        //jsonURI: "http://127.0.0.1/iab/macros-data.json"
-                        jsonURI: "data/macros-data.json"
+                        //jsonURI: "http://127.0.0.1/iab/macros-data.json",
+                        jsonURI: "data/macros-data.json",
+                        main: "main",
+                        nav: "nav",
+                        singletons: ["body", "main", "nav"]
                     }
 
-                    class IDGenerator{
-                        constructor(){
-                            // list of values generated during session - to assure true uniqueness
-                            this.sessionValues = [null,undefined];
-                            // store chars in arrays - mainly to reuse them for greater degree of randomization.
-                            // alpha array
-                            this.letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-                            // hex chars
-                            this.hex = "0123456789ABCDEF".split("");
-                            // integers array
-                            this.ints = "1234567890".split("");
-                        }
-
-                        // gimmick - just implements UUID 8-4-4-4-12 octets convention with hex numbers.
-                        getUUID(allcaps = false){
-                            var populate = this.populate.bind(this);
-                            var values = this.hex;
-                            var list = [populate(8, values), populate(4, values), populate(4, values), populate(4, values), populate(12, values)].join("-");
-                            return allcaps ? list.toUpperCase() : list.toLowerCase();
-                        }
-
-                        // generates integer of any length - except for JS integer limitations.
-                        getInteger(length = 8){
-                            var list = [];
-                            // cannot start with zero
-                            while(!list[0]){
-                                this.shuffle(this.ints);
-                                list[0] = this.ints[0];
-                            }
-
-                            return this.populate(length, this.ints, list);
-                        }
-                        // radom alphabetical chars
-                        getString(length = 16, allcaps = false){
-                            let res = this.populate(length, this.letters);
-                            return allcaps ? res.toUpperCase() : res.toLowerCase();
-                        }
-
-                        /**
-                        * generates random string out of values
-                        * @param length - length of result
-                        * @param value - list of values used to get individial element value
-                        * @param list - optional array to pupulate
-                        **/
-                        populate(length, values, list = []){
-                            while(list.length < length){
-                                this.shuffle(values);
-                                list.push(values[0]);
-                            }
-                            var value = list.join("");
-                            while(this.sessionValues.includes(value)){
-                                value = this.populate(length, values);
-                            }
-                            // store value globally
-                            this.sessionValues.push(value);
-                            return value;
-                        }
-
-                        // Fisher–Yates shuffle
-                        shuffle(input){
-                            if(input.length === 1) return input;
-                            for (let i = input.length - 1; i >= 0; i--){
-                                let ri = ~~(Math.random() * (i + 1));
-                                let iai = input[ri];
-                                input[ri] = input[i];
-                                input[i] = iai;
-                            }
-                        }
-
-                    }
                     class Main{
                         constructor(dependencies = {}){
                             this.builder = dependencies.builder;
                             this.config = dependencies.config;
-                            this.uids = dependencies.uids;
+                            this.device = dependencies.device;
+                            this.utils = dependencies.utils;
+                            this.json;
                             this.init();
-
                         }
 
                         init(){
-                            if(document.readyState != "complete"){
-                                window.addEventListener("load", () => {this.start()})
-                            }
-                            else{this.start()}
+                            document.readyState === "complete" ? this.start() : window.addEventListener("load", () => {this.start()});
                             this.loadData(this.config.jsonURI);
                         }
 
@@ -106,195 +37,199 @@
                         }
 
                         start(){
-                            if(document.readyState == "complete" && this.json){
-                                this.builder.build(this.json, this.uids);
+                            if(document.readyState === "complete" && this.json){
+                                // initialization sequence is important - REFACTOR
+                                this.utils.init();
+                                this.device.init();
+                                this.builder.build(this.json);
+                                
                             }
                         }
-
                     }
-
+                    /**
+                    * Constructs content
+                    **/
                     class Builder{
-                        constructor(){
-                            this.data = null;
+                        constructor(config, utils){
+                            this.config = config;
+                            this.utils = utils;
                         }
 
-                        build(data, uids){
+                        build(data){
+                            // sort presentation data
                             data.categories.sort(
-                                (a, b) => {
-                                    return a.index - b.index
-                                }
+                                (a, b) => {return a.index - b.index;}
                             );
                             data.macros.sort(
-                                (a, b) => {
-                                    return a.name.localeCompare(b.name);
-                                }
+                                (a, b) => {return a.name.localeCompare(b.name);}
                             );
+                            // buildContent called first as data is post-processed for TOC generation.
                             this.buildContent(data);
                             this.buildTOC(data);
                         }
-
+                        // constructs content sections
                         buildContent(data){
-                            let main = document.querySelector("main");
-                            let sections = [];
-                            let labelsMap = {};
-                            let labels = data.labels;
-                            for(let i in labels){
-                                labelsMap[labels[i].property] = labels[i].label;
-                            }
-                            
-                            let categories = data.categories;
-                            let macros = data.macros;
+                            let utils = this.utils, labelsMap = {}, sections = [];
+                            let gel = utils.getElement.bind(utils), concat = utils.concat, main = gel("main");
+                            for(let item of data.labels) labelsMap[item.property] = item.label;
                             // restrict data display
-                            let displayColumns = [];
-                            for(let i in data.displaycolumns){
-                                displayColumns.push(data.displaycolumns[i].column);
-                            }
+                            let displayRows = [];
+                            for(let item of data.displaycolumns) displayRows.push(item.column);
                             let subsections = [];
-                            // create sections
-                            for(let i in categories){
-                                let item = categories[i];
-                                let section = sections[item.index] = document.createElement("section");
-                                let h2 = document.createElement("h2");
-                                h2.id = ["section", item.name.toLowerCase().replace(/\s/g, "-")].join("-");;
-                                h2.innerHTML = [item.index, ". ", item.name].join("");
-                                section.appendChild(h2);
+                            // create categories sections
+                            for(let item of data.categories){
+                                let i = item.index, section = sections[i] = gel("section");
+                                section.appendChild(gel("h2", {id: concat("-", "section", item.name.toLowerCase().replace(/\s/g, "-"))}, concat("", i, ". ", item.name)));
                                 main.appendChild(section);
-                                subsections[item.index] = 0;
+                                // initilize subsection numbering
+                                subsections[i] = 0;
                             }
 
-                            // create content by appending related to sections macros info
-                            for(let i in macros){
-                                let item = macros[i];
-                                subsections[item.categoryindex]++;
-                                // add subsection numbering
-                                item.subsection = [item.categoryindex, ".", subsections[item.categoryindex]].join("");
-                                let spec = document.createElement("div");
-                                spec.setAttribute("macro-spec", "");
-                                spec.id = ["macro-spec", item.name.toLowerCase()].join("-");
-                                // determine if the item has possible values
-                                let h3 = document.createElement("h3");
-                                h3.innerText = [item.subsection, " [", item.name, "]"].join("");
-                                let section = sections[item.categoryindex];
-                                console.log("item.categoryindex", subsections[item.categoryindex])
-                                section.appendChild(h3);
+                            // add content by appending related to sections macros info
+                            for(let item of data.macros){
+                                let ci = item.categoryindex, spec = gel("div", {"macro-spec": ""}), section = sections[ci];
+                                // increment subsection number
+                                subsections[ci]++;
+                                // add subsection numbering - used in TOC as well
+                                item.subsection = concat("", ci, ".", subsections[ci]);
+                                section.appendChild(gel("h3", {id:concat("-", "macro-spec", item.name.toLowerCase())}, concat("", item.subsection, " [", item.name, "]")));
+                                section.appendChild(spec);
+                                // iterate through properties
                                 for(let p in item){
-                                    if(!displayColumns.includes(p)) continue;
-                                    let label = document.createElement("label");
-                                    label.innerHTML = labelsMap[p];
-                                    let desc = document.createElement("div");
-                                    let val = item[p];
+                                    // process only allowed rows
+                                    if(!displayRows.includes(p)) continue;
+                                    let value = item[p], desc = gel("div");
+                                    spec.appendChild(gel("label", {}, labelsMap[p]));
+                                    spec.appendChild(desc);
                                     switch(p){
                                         case "name":
                                         case "datatype":
                                         case "introversion":
                                         case "format":
-                                            let codeId, codeText = item[p];
+                                            let props = {}; 
+                                            value = value.replace(/\</g, "&lt;").replace(/\>/g, "&gt;");
                                             if(p === "name") {
-                                                codeId = ["macro-spec",item[p].toLowerCase()].join("-");
-                                                codeText = ["[", item[p], "]"].join("");
+                                                props.id = concat("-", "macro-spec",value.toLowerCase());
+                                                value = concat("", "[", value, "]");
                                             };
-                                            desc.appendChild(this.codeWrapper(codeText, codeId));
+                                            desc.appendChild(gel("code", props, value));
                                         break;
                                         case "contexts":
-                                            let list = val.split(",");
-                                            let ul = document.createElement("ul");
-                                            for(let j in list){
-                                                let li = document.createElement("li");
-                                                li.innerHTML = list[j];
-                                                ul.appendChild(li);
+                                            let ul = desc.appendChild(gel("ul", {"contexts":""}));
+                                            for(let d of value.split(",")){
+                                                ul.appendChild(gel("li", {}, d));
                                             }
-                                            desc.appendChild(ul);
                                         break;
                                         case "values":
                                             let values = data[item.name + "_values"];
                                             if(values){
-                                                let ul = document.createElement("ul");
-                                                ul.setAttribute("macro-values", "")
-                                                for(let v in values){
-                                                   // console.log(values[v].value, values[v].description);
-                                                    let li = document.createElement("li");
-                                                    let span = document.createElement("span");
-                                                    span.innerText = values[v].description ? ": " + values[v].description : "";
-                                                    li.appendChild(this.codeWrapper(values[v].value));
-                                                    li.appendChild(span); 
-                                                    ul.appendChild(li);
+                                                let ul = desc.appendChild(gel("ul", {"macro-values":""}));
+                                                for(let item of values){
+                                                    let li = ul.appendChild(gel("li"));
+                                                    li.appendChild(gel("code", {}, item.value));
+                                                    li.appendChild(gel("span", {}, item.description ? ": " + item.description : ""));
                                                 }
-
-                                                desc.appendChild(ul);
                                             }
                                            
                                         break;
                                         default:
-                                            desc.innerHTML = val;
+                                            desc.innerHTML = value;
                                     } 
-                                    spec.appendChild(label);
-                                    spec.appendChild(desc);
+                                   
                                 }
-                                section.appendChild(spec);
                             }
                         }
-
+                        // builds table of contents
                         buildTOC(data){
-                            let nav = document.querySelector("nav");
-                            let sections = [];
-                            let ol = document.createElement("ol");
-
-                            let cats = data.categories;
-                            let macros = data.macros;
-                            let item, li;
-                            for(let c in cats){
-                                item = cats[c];
-                                li = document.createElement("li");
-                                let h3 = document.createElement("h3");
-                                let a = document.createElement("a");
-                                let href = a.href = ["#section", item.name.toLowerCase().replace(/\s/g, "-")].join("-");
-                                a.innerText = [item.index, ". "].join("");
-                                let an = document.createElement("a");
-                                an.href = href;
-                                an.innerText = item.name;
-                                h3.appendChild(a);
-                                h3.appendChild(an);
-                                li.appendChild(h3);
-                                let group = sections[item.index] = document.createElement("ul");
-                                li.appendChild(group);
-                                ol.appendChild(li);
-                               
+                            let utils = this.utils, gel = utils.getElement.bind(utils), concat = utils.concat, sections = [], ol = gel("nav").appendChild(gel("ol"));
+                            for(let item of data.categories){
+                                let name = item.name, i = item.index, li = ol.appendChild(gel("li")), h3 = li.appendChild(gel("h3")); 
+                                let href = {"href": concat("-", "#section", name.toLowerCase().replace(/\s/g, "-"))};
+                                h3.appendChild(gel("a", href, concat("", i, ". ")));
+                                h3.appendChild(gel("a", href, name));
+                                // initilize  container for further population it with subheaders
+                                sections[i] = li.appendChild(gel("ul"));
                             }
 
-                            for(let m in macros){
-                                item = macros[m];
-                                let macro = item.name;
-                                let index = item.categoryindex;
-                                let container = sections[index];
-                                let line = document.createElement("li");
-                                let link = document.createElement("a");
-                                link.href = ["#macro","spec", macro.toLowerCase()].join("-");
-                                let num = document.createElement("span");
-                                num.innerText = item.subsection;
-                                let text = document.createElement("span");
-                                text.innerText = ["[", macro, "]"].join("");
-                               // link.innerText = [item.subsection, " [", macro, "]"].join("");
-                                link.appendChild(num);
-                                link.appendChild(text);
-                                line.appendChild(link);
-                                container.appendChild(line);
-
+                            for(let item of data.macros){
+                                let name = item.name, link = gel("a", {"href": concat("-", "#macro","spec", name.toLowerCase())});
+                                link.appendChild(gel("span", {}, item.subsection));
+                                link.appendChild(gel("span", {}, concat("", "[", name, "]")));
+                                sections[item.categoryindex].appendChild(gel("li")).appendChild(link);
                             }
-                            nav.appendChild(ol);
+                            
+                        }
+                    }
+
+                    class DeviceManager{
+                        constructor(config, utils){
+                            this.config = config;
+                            this.utils = utils;
                         }
 
-                        codeWrapper(text, id){
-                            let code = document.createElement("code");
-                            code.innerText = text;
-                            if(id) code.id = id;
-                            return code;
+                        init(){
+                            let utils = this.utils;
+                            let body = utils.getElement("body");
+                            let nav = utils.getElement("nav");
+                            let wrapper = document.querySelector("#toc");
+                            let main = utils.getElement("main");
+                            window.addEventListener("resize", resize);
+                            resize();
+                            function resize(){
+                                if(window.innerWidth < 900){
+                                    body.setAttribute("narrow", "");
+                                    wrapper.appendChild(nav);
+                                }
+                                else{
+                                    body.removeAttribute("narrow");
+                                    body.insertBefore(nav, main);
+                                }
+                            }
+                        }
+                    }
+
+                    class Utils{
+                        constructor(config){
+                            this.config = config;
+                            this.elements = {};
+                        }
+
+                        init(){
+                            let elems = this.config.singletons;
+                            for(let p in elems){
+                                this.elements[elems[p]] = document.querySelector(elems[p]);
+                            }
+                            
+                        }
+
+                        getElement(name, props = {}, html = ""){
+                            let elems = this.config.singletons;
+                            if(elems.includes(name)){
+                                return this.elements[name];
+                            }
+                            else{
+                                if(!this.elements[name]) this.elements[name] = [];
+                                if(this.elements[name].length === 0) while(this.elements[name].length < 400) this.elements[name].push(document.createElement(name));
+                                let el = this.elements[name].shift();
+                                el.innerHTML = html;
+                                for(let p in props) el.setAttributeNS(null, p, props[p]);
+                                return el;
+                            }
+                        }
+
+                        concat(delim = "", ...rest){
+                            return rest.join(delim);
                         }
 
                     }
 
+                    const utils = new Utils(config);
+
+
                     const dependencies = {
-                        builder: new Builder(),
-                        uids: new IDGenerator(),
+                        builder: new Builder(config, utils),
+                        device: new DeviceManager(config, utils),
+                        utils: utils,
                         config: config
                     }
 
@@ -305,194 +240,247 @@
         </script>
 
         <style>
-
             body{
+                margin: 10px;
+            }
+
+            * {
+                box-sizing: border-box;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 100%;
+                line-height: 1.5em;
+            }
+
+            h1{
+                font-size: 170%;
+            }
+
+            #section-intro h1{
+                color: #005A9C;
+            }
+
+            h2{
+                font-size: 150%;
+            }
+
+            [macro-spec]{
+                display: grid;
+                grid-template-columns: 8em auto;
+                grid-template-rows: auto;
+                border: 1px solid #cccccc;
+                max-width: 960px;
+                margin-bottom: 1em;
+            }
+
+            [macro-spec] > div, label{
+                border: 1px solid #cccccc;
+                padding: 0.5em;
+            }
+
+            [macro-spec] > label{
+                font-weight: 700;
+            }
+
+            [macro-spec] ul{
+                margin: 0;
+                padding: 0 0 0 1em;;
+            }
+
+            section div{
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                -ms-word-break: break-all;
+                /* This is the dangerous one in WebKit, as it breaks things wherever */
+                word-break: break-all;
+                /* Instead use this non-standard one: */
+                word-break: break-word;
+                /* Adds a hyphen where the word breaks, if supported (No Blink) */
+                -ms-hyphens: auto;
+                -moz-hyphens: auto;
+                -webkit-hyphens: auto;
+                hyphens: auto;
+            }
+
+            section h3{
+                color: #000000;
+                
+            }
+
+            div#section-intro{
+                position: relative;
+                max-width: 960px;
+                border: 1px solid #ffffff;
+            }
+
+            code{
+                font-family: 'Courier New', Courier, monospace;
+            }
+
+            main{
+                position: relative;
+                width: calc(100% - 410px);
+                margin-left: 405px;
+                padding: 10px 0 10px 0;
+                border: 1px solid #ffffff;
+            }
+
+            body[narrow] main{
+                margin-left: 0;
+                width: 100%;
+            }
+
+            footer{
+                border: 1px solid red;
+                width: calc(100% - 410px);
+                margin-left: 405px;
+            }
+
+            ul[contexts]{
+                list-style: none;
+                padding: 0;
+            }
+
+            ul[contexts] li:before {
+                content: "\2023";
+                margin-right: 0.5em;
+                font-size: 1.5em;
+               
+                left: 0;
+            }
+
+            ul[macro-values]{
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                line-height: 5em !important;
+            }
+
+            ul[macro-values] li{
+                line-height: 2em !important;
+               
+            }
+
+            ul[macro-values] li:nth-child(even){
+                background-color: #eeeeee;
+            }
+
+            ul[macro-values] li:last-child{
+                border-width: 0;
+            }
+
+            ul[macro-values] code{
+                padding-left: 0.5em;
+                font-weight: 700;
+            }
+
+            nav{
+                background-color: rgb(247, 245, 242);
+                height: 100%;
+                width: 350px;
+                position: fixed;
+                overflow: auto;
+                margin: -10px 0 0 -10px;
+            }
+
+            body[narrow] nav{
+                position: relative;
+                margin-left: 0;
+                width: 100%;
+                background-color: #FFF;
+            }
+
+            nav ol{
+                list-style: none;
+                line-height: 1.5em;
+                margin-left: 1.5em;
+                padding: 0;
+            }
+
+            nav ol h3{
+                display: grid;
+                grid-template-columns: 1.75em auto;
+            }
+
+            nav ol h3 a:first-child{
+                text-align: right;
+                margin-right: 0.25em;
+                font-variant-numeric: tabular-nums;
+                font-size: 0.9em;
+            }
+
+            nav h3{
                 margin: 0;
             }
 
-       * {
-           box-sizing: border-box;
-           font-family: Arial, Helvetica, sans-serif;
-           font-size: 100%;
-           line-height: 1.5em;
-        }
+            nav ul{
+                margin-left: 1.7em;
+                padding: 0;
+                list-style: none;
+                line-height: 2em;
+            }
 
-        h1{
-            font-size: 170%;
-        }
+            nav ul li a{
+                display: grid;
+                grid-template-columns: 2.5em auto;
+            }
 
-        h2{
-            font-size: 150%;
-        }
+            nav ul li a span:first-child{
+                text-align: right;
+                margin-right: 0.5em;
+                font-size: 0.9em;
+                font-variant-numeric: tabular-nums;
+            }
 
-        [macro-spec]{
-            display: grid;
-            grid-template-columns: 8em auto;
-            grid-template-rows: auto;
-            border: 1px solid #cccccc;
-            max-width: 960px;
-            margin-bottom: 1em;
-        }
+            nav a{
+                text-decoration: none;
+                color: #000000;
+            }
 
-        [macro-spec] > div, label{
-            border: 1px solid #cccccc;
-            padding: 0.5em;
-        }
+            nav a:hover{
+                background-color: #e0dede;
+            }
 
-        [macro-spec] > label{
-            font-weight: 700;
-        }
+            nav > h2{
+                margin-left: 0.5em;
+                color: #585858;
+                font-variant: small-caps;
+            }
 
-        [macro-spec] ul{
-            margin: 0;
-            padding: 0 0 0 1em;;
-        }
+            body[narrow] nav > h2{
+                color: #000000;
+                font-variant: normal;
+            }
 
-        section div{
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-
-            -ms-word-break: break-all;
-            /* This is the dangerous one in WebKit, as it breaks things wherever */
-            word-break: break-all;
-            /* Instead use this non-standard one: */
-            word-break: break-word;
-
-            /* Adds a hyphen where the word breaks, if supported (No Blink) */
-            -ms-hyphens: auto;
-            -moz-hyphens: auto;
-            -webkit-hyphens: auto;
-            hyphens: auto;
-        }
-
-        section h3{
-            color: #000000;
-            
-        }
-
-        #section-intro{
-            border: 1px solid #FFF;
-            position: relative;
-        }
-
-        code{
-            font-family: 'Courier New', Courier, monospace;
-        }
-
-        main{
-            position: relative;
-            width: calc(100% - 410px);
-            margin-left: 405px;
-            padding: 10px 0 10px 0;
-        }
-
-        footer{
-            border: 1px solid red;
-            width: calc(100% - 410px);
-            margin-left: 405px;
-        }
-
-        
-
-        ul[macro-values]{
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        nav{
-            background-color: rgb(247, 245, 242);
-            height: 100%;
-            width: 350px;
-            position: fixed;
-            overflow: auto;
-        }
-
-        nav ol{
-            list-style: none;
-            line-height: 1.5em;
-            margin-left: 1.5em;
-            padding: 0;
-        }
-
-        nav ol h3{
-            display: grid;
-            grid-template-columns: 1.75em auto;
-
-        }
-
-        nav ol h3 a:first-child{
-            text-align: right;
-            margin-right: 0.25em;
-            font-variant-numeric: tabular-nums;
-            font-size: 0.9em;
-        }
-
-        nav h3{
-            margin: 0;
-        }
-
-        nav ul{
-            margin-left: 1.7em;
-            padding: 0;
-            list-style: none;
-            line-height: 2em;
            
-        }
-
-        nav ul li a{
-            display: grid;
-            grid-template-columns: 2.5em auto;
-        }
-
-        nav ul li a span:first-child{
-            text-align: right;
-            margin-right: 0.5em;
-            font-size: 0.9em;
-            font-variant-numeric: tabular-nums;
-        }
-
-        nav a{
-            text-decoration: none;
-            color: #000000;
-        }
-
-        nav a:hover{
-            font-size: 1.05em;
-        }
-
-        nav > h2{
-            margin-left: 0.5em;
-            color: #585858;
-            font-variant: small-caps;
-        }
         </style>
     </head>
 <body>
-    <nav id="toc">
+    
+    <nav>
         <h2>Table of Contents</h2>
     </nav>
+    
     <main>
         <img src="https://interactiveadvertisingbureau.github.io/SIMID/images/IABTechLabLogo.jpg">
         <div id="section-intro">
-            <h1>VAST Macros</h1>
+            <h1>VAST 4.x Macros</h1>
+            <p>This page contains the latest/current list of the "official" macros defined by the IAB Tech Lab's Digital Video Technical Working Group. The purpose of this page is to allow new Macros to be added to the supported list without requiring a new version of VAST to be released. Support for those macros are going to be optional, but having them listed here allows for faster adoption of these macros (instead of requiring a new VAST version to be released).</p>
 
-            
-        
-        This page contains the latest/current list of the "official" macros defined by the IAB Tech Lab's Digital Video Technical Working Group. 
-        The purpose of this page is to allow new Macros to be added to the supported list without requiring a new version of VAST to be released.
-        Support for those macros are going to be optional, but having them listed here allows for faster adoption of these macros (instead of requiring a new VAST version to be released).
-<p>
-        Process: 
-<ol>
-        <li>New macros (approved by the IAB Tech Lab's Digital Video Technical Working Group) will be added to the top of this page in "Section 0". </li>
-        <li>When the next version of VAST is released, they will be included in the official set of macros for that version, and this page will be updated by moving those macros to the relevant sections.</li>
-</ol>                 
-            
+            Process:
+            <ol>
+                <li>New macros (approved by the IAB Tech Lab's Digital Video Technical Working Group) will be added to the top of this page in section 1 New Macros.</li>
+                <li>When the next version of VAST is released, they will be included in the official set of macros for that version, and this page will be updated by moving those macros to the relevant sections.</li>
+
+            </ol>
+
+
+
 
         </div>
+       
+        <div id="toc"></div>
     </main>
 </body>
 
