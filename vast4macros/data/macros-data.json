@@ -733,7 +733,7 @@
             "support": "Optional",
             "contexts": "All tracking pixels,VAST request URIs",
             "description": "For app ads, a platform-specific app store ID such as iTunes store ID. Could be the same as app bundle on some platforms.",
-            "descriptionformatted": "For app ads, a platform-specific app store ID such as iTunes store ID. Could be the same as app bundle on some platforms.",
+            "descriptionformatted": "For app ads, a platform-specific app store ID such as iTunes store ID. Could be the same as app bundle on some platforms. This macro belongs in the 'Publisher Info' section longer term.",
             "example": "<ul><li>iOS/tvOS - 886445756</li><li>Android - com.tubitv</li><li>Roku - 41468</li></ul>"
         },
         {
@@ -747,7 +747,7 @@
             "support": "Optional",
             "contexts": "All tracking pixels,VAST request URIs",
             "description": "For app ads, the app store URL for the installed app.",
-            "descriptionformatted": "For app ads, the app store URL for the installed app.",
+            "descriptionformatted": "For app ads, the app store URL for the installed app. This macro belongs in the 'Publisher Info' section longer term.",
             "example": "<ul><li>iOS/tvOS - https://apps.apple.com/us/app/tubi-watch-movies-tv-shows/id886445756</li><li>Android - com.tubitv</li><li>Roku - 41468</li></ul>"
         }
     ],
