@@ -18,12 +18,13 @@ For the latest set of VAST4 macros, please visit http://interactiveadvertisingbu
 Other VAST Resources
 ====================
 
-* [IAB TechLab VAST tag Validator](https://vastvalidator.iabtechlab.com) 
+* [IAB TechLab VAST tag XML Validator](https://vastvalidator.iabtechlab.com) 
+
+* [IAB TechLab VAST tag tester - execute VAST tag](https://vasttester.iabtechlab.com/) 
 
 * [VAST Ad Tester](http://zutils.zedo.com/vastvalidator/)
 
 * [Google VAST Tester](https://developers.google.com/interactive-media-ads/docs/vastinspector_dual)
 
-* [Videology Ad Tester](http://videologygroup.com/admanager/superbuddha/demo/VideologyAdTester.html)
 
 
