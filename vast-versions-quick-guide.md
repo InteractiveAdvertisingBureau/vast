@@ -2896,6 +2896,20 @@ This guide is a quick reference tool for those looking to upgrade to the latest 
       <td align="center">4.x</td>
     </tr>
     <tr>
+      <td><del>fullscreen</del></td>
+      <td><del>Player Operation</del></td>
+      <td align="center"><del>2.0</del></td>
+      <td align="center"><del>3.0</del></td>
+      <td align="center">-</td>
+    </tr>
+    <tr>
+      <td><del>exitFullscreen</del></td>
+      <td><del>Player Operation</del></td>
+      <td align="center">-</td>
+      <td align="center"><del>3.0</del></td>
+      <td align="center">-</td>
+    </tr>
+    <tr>
       <td>playerExpand</td>
       <td>Player Operation</td>
       <td align="center">-</td>
@@ -2980,6 +2994,20 @@ This guide is a quick reference tool for those looking to upgrade to the latest 
       <td align="center">4.x</td>
     </tr>
     <tr>
+      <td><del>acceptInvitationLinear</del></td>
+      <td><del>Linear Ad</del></td>
+      <td align="center">-</td>
+      <td align="center"><del>3.0</del></td>
+      <td align="center"><del>4.x</del></td>
+    </tr>
+    <tr>
+      <td><del>timeSpentViewing</del></td>
+      <td><del>Linear Ad</del></td>
+      <td align="center">-</td>
+      <td align="center">-</td>
+      <td align="center"><del>4.x</del></td>
+    </tr>
+    <tr>
       <td>creativeView</td>
       <td>NonLinear Ad</td>
       <td align="center">2.0</td>
@@ -2992,6 +3020,20 @@ This guide is a quick reference tool for those looking to upgrade to the latest 
       <td align="center">2.0</td>
       <td align="center">3.0</td>
       <td align="center">4.x</td>
+    </tr>
+    <tr>
+      <td><del>expand</del></td>
+      <td><del>NonLinear Ad</del></td>
+      <td align="center"><del>2.0</del></td>
+      <td align="center"><del>3.0</del></td>
+      <td align="center">-</td>
+    </tr>
+    <tr>
+      <td><del>collapse</del></td>
+      <td><del>NonLinear Ad</del></td>
+      <td align="center"><del>2.0</del></td>
+      <td align="center"><del>3.0</del></td>
+      <td align="center">-</td>
     </tr>
     <tr>
       <td>adExpand</td>
@@ -3055,48 +3097,6 @@ This guide is a quick reference tool for those looking to upgrade to the latest 
       <td align="center">-</td>
       <td align="center">-</td>
       <td align="center">4.x</td>
-    </tr>
-    <tr>
-      <td><del>acceptInvitationLinear</del></td>
-      <td><del>Removed</del></td>
-      <td align="center">-</td>
-      <td align="center"><del>3.0</del></td>
-      <td align="center"><del>4.x</del></td>
-    </tr>
-    <tr>
-      <td><del>expand</del></td>
-      <td><del>Removed</del></td>
-      <td align="center"><del>2.0</del></td>
-      <td align="center"><del>3.0</del></td>
-      <td align="center">-</td>
-    </tr>
-    <tr>
-      <td><del>collapse</del></td>
-      <td><del>Removed</del></td>
-      <td align="center"><del>2.0</del></td>
-      <td align="center"><del>3.0</del></td>
-      <td align="center">-</td>
-    </tr>
-    <tr>
-      <td><del>fullscreen</del></td>
-      <td><del>Removed</del></td>
-      <td align="center"><del>2.0</del></td>
-      <td align="center"><del>3.0</del></td>
-      <td align="center">-</td>
-    </tr>
-    <tr>
-      <td><del>exitFullscreen</del></td>
-      <td><del>Removed</del></td>
-      <td align="center">-</td>
-      <td align="center"><del>3.0</del></td>
-      <td align="center">-</td>
-    </tr>
-    <tr>
-      <td><del>timeSpentViewing</del></td>
-      <td><del>Removed</del></td>
-      <td align="center">-</td>
-      <td align="center">-</td>
-      <td align="center"><del>4.x</del></td>
     </tr>
   </tbody>
 </table>
