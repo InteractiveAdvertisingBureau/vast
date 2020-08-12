@@ -1,4 +1,4 @@
-**Authors**: [[mpungaru\@google.com]{.ul}](http://who/mpungaru)
+**Authors**: [[mpungaru\@google.com]](http://who/mpungaru)
 
 **Last updated: 2020-06-25**
 
