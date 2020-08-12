@@ -1,4 +1,4 @@
-**Authors**: [[mpungaru\@google.com]](http://who/mpungaru)
+**Sponsor: Google**
 
 **Last updated: 2020-06-25**
 
