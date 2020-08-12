@@ -15,7 +15,7 @@ Background
 ==========
 
 The Video Ad Serving Template
-([[VAST]{.ul}](https://iabtechlab.com/standards/vast/)) standard offers
+([[VAST]](https://iabtechlab.com/standards/vast/)) standard offers
 an XML dialect which can describe the video ads a player should render
 for the user. The VAST document contains instructions about the video ad
 creative that should be rendered, the URLs which should be pinged when
@@ -113,223 +113,118 @@ player would do.
 ad-server1.com → returns 2 redirects (to ad-server2.com and
 ad-server3.com)
 
-+----------------------------------------------------------------------+
-| \<VAST\>                                                             |
-|                                                                      |
-| \<Ad id=\"1\" sequence=\"1\"\>                                       |
-|                                                                      |
-| \<Wrapper\>                                                          |
-|                                                                      |
-| \<AdSystem\>Ad Server 1\</AdSystem\>                                 |
-|                                                                      |
-| \<VASTAdTagURI\>\<!\[CDATA\[ https://ad-server2.com                  |
-| \]\]\>\</VASTAdTagURI\>                                              |
-|                                                                      |
-| \<Impression\>\<!\[CDATA\[ https://ad-server1.com/impression-ad-1    |
-| \]\]\>\</Impression\>                                                |
-|                                                                      |
-| \</Wrapper\>                                                         |
-|                                                                      |
-| \</Ad\>                                                              |
-|                                                                      |
-| \<Ad id=\"2\" sequence=\"2\"\>                                       |
-|                                                                      |
-| \<Wrapper\>                                                          |
-|                                                                      |
-| \<AdSystem\>Ad Server 1\</AdSystem\>                                 |
-|                                                                      |
-| \<VASTAdTagURI\>\<!\[CDATA\[ https://ad-server3.com                  |
-| \]\]\>\</VASTAdTagURI\>                                              |
-|                                                                      |
-| \<Impression\>\<!\[CDATA\[ https://ad-server1.com/impression-ad-2    |
-| \]\]\>\</Impression\>                                                |
-|                                                                      |
-| \</Wrapper\>                                                         |
-|                                                                      |
-| \</Ad\>                                                              |
-|                                                                      |
-| \</VAST\>                                                            |
-+----------------------------------------------------------------------+
+```
+<VAST>
+ <Ad id="1" sequence="1">
+  <Wrapper>
+   <AdSystem>Ad Server 1</AdSystem>
+   <VASTAdTagURI><![CDATA[ https://ad-server2.com ]]></VASTAdTagURI>
+   <Impression><![CDATA[ https://ad-server1.com/impression-ad-1 ]]></Impression>
+  </Wrapper>
+ </Ad>
+ <Ad id="2" sequence="2">
+  <Wrapper>
+   <AdSystem>Ad Server 1</AdSystem>
+   <VASTAdTagURI><![CDATA[ https://ad-server3.com ]]></VASTAdTagURI>
+   <Impression><![CDATA[ https://ad-server1.com/impression-ad-2 ]]></Impression>
+  </Wrapper>
+ </Ad>
+</VAST>
+```
 
 ad-server2.com → returns an inline ad
 
-+----------------------------------------------------------------------+
-| \<VAST\>                                                             |
-|                                                                      |
-| \<Ad id=\"1\" sequence=\"1\"\>                                       |
-|                                                                      |
-| \<InLine\>                                                           |
-|                                                                      |
-| \<AdSystem\>Ad Server 2\</AdSystem\>                                 |
-|                                                                      |
-| \<Impression\>\<!\[CDATA\[ https://ad-server2.com/impression-ad-1    |
-| \]\]\>\</Impression\>                                                |
-|                                                                      |
-| \<Creatives\>\...\</Creatives\>                                      |
-|                                                                      |
-| \</InLine\>                                                          |
-|                                                                      |
-| \</Ad\>                                                              |
-|                                                                      |
-| \</VAST\>                                                            |
-+----------------------------------------------------------------------+
+```
+<VAST>
+ <Ad id="1" sequence="1">
+  <InLine>
+   <AdSystem>Ad Server 2</AdSystem>
+   <Impression><![CDATA[ https://ad-server2.com/impression-ad-1 ]]></Impression>
+   <Creatives>...</Creatives>
+  </InLine>
+ </Ad>
+</VAST>
+```
 
 ad-server3.com → returns one inline ad, a redirect (which will error
 out) and another inline ad.
 
-+----------------------------------------------------------------------+
-| \<VAST\>                                                             |
-|                                                                      |
-| \<Ad id=\"1\" sequence=\"1\"\>                                       |
-|                                                                      |
-| \<InLine\>                                                           |
-|                                                                      |
-| \<AdSystem\>Ad Server 3\</AdSystem\>                                 |
-|                                                                      |
-| \<Impression\>\<!\[CDATA\[ https://ad-server3.com/impression-ad-1    |
-| \]\]\>\</Impression\>                                                |
-|                                                                      |
-| \<Creatives\>\...\</Creatives\>                                      |
-|                                                                      |
-| \</InLine\>                                                          |
-|                                                                      |
-| \</Ad\>                                                              |
-|                                                                      |
-| \<Ad id=\"2\" sequence=\"2\"\>                                       |
-|                                                                      |
-| \<Wrapper\>                                                          |
-|                                                                      |
-| \<AdSystem\>Ad Server 3\</AdSystem\>                                 |
-|                                                                      |
-| \<VASTAdTagURI\>\<!\[CDATA\[ https://ad-server-with-error.com        |
-| \]\]\>\</VASTAdTagURI\>                                              |
-|                                                                      |
-| \<Impression\>\<!\[CDATA\[ https://ad-server3.com/impression-ad-2    |
-| \]\]\>\</Impression\>                                                |
-|                                                                      |
-| \</Wrapper\>                                                         |
-|                                                                      |
-| \</Ad\>                                                              |
-|                                                                      |
-| \<Ad id=\"3\" sequence=\"3\"\>                                       |
-|                                                                      |
-| \<InLine\>                                                           |
-|                                                                      |
-| \<AdSystem\>Ad Server 3\</AdSystem\>                                 |
-|                                                                      |
-| \<Impression\>\<!\[CDATA\[ https://ad-server3.com/impression-ad-3    |
-| \]\]\>\</Impression\>                                                |
-|                                                                      |
-| \<Creatives\>\...\</Creatives\>                                      |
-|                                                                      |
-| \</InLine\>                                                          |
-|                                                                      |
-| \</Ad\>                                                              |
-|                                                                      |
-| \</VAST\>                                                            |
-+----------------------------------------------------------------------+
+```
+<VAST>
+ <Ad id="1" sequence="1">
+  <InLine>
+   <AdSystem>Ad Server 3</AdSystem>
+   <Impression><![CDATA[ https://ad-server3.com/impression-ad-1 ]]></Impression>
+   <Creatives>...</Creatives>
+  </InLine>
+ </Ad>
+ <Ad id="2" sequence="2">
+  <Wrapper>
+   <AdSystem>Ad Server 3</AdSystem>
+   <VASTAdTagURI><![CDATA[ https://ad-server-with-error.com ]]></VASTAdTagURI>
+   <Impression><![CDATA[ https://ad-server3.com/impression-ad-2 ]]></Impression>
+  </Wrapper>
+ </Ad>
+ <Ad id="3" sequence="3">
+  <InLine>
+   <AdSystem>Ad Server 3</AdSystem>
+   <Impression><![CDATA[ https://ad-server3.com/impression-ad-3 ]]></Impression>
+   <Creatives>...</Creatives>
+  </InLine>
+ </Ad>
+</VAST>
+```
 
 Here is the expected outcome if Ad Server 1 does full server side
 unwinding.
 
-+----------------------------------------------------------------------+
-| \<VAST\>                                                             |
-|                                                                      |
-| \<Ad id=\"1\" sequence=\"1\"\>                                       |
-|                                                                      |
-| \<Wrapper\>                                                          |
-|                                                                      |
-| \<AdSystem\>Ad Server 1\</AdSystem\>                                 |
-|                                                                      |
-| \<VASTAdTagURI\>\<!\[CDATA\[ https://ad-server2.com                  |
-| \]\]\>\</VASTAdTagURI\>                                              |
-|                                                                      |
-| **\<VASTAdData\>**                                                   |
-|                                                                      |
-| \<VAST\>                                                             |
-|                                                                      |
-| \<Ad id=\"1\" sequence=\"1\"\>                                       |
-|                                                                      |
-| \<InLine\>                                                           |
-|                                                                      |
-| \<AdSystem\>Ad Server 2\</AdSystem\>                                 |
-|                                                                      |
-| \<Impression\>\<!\[CDATA\[ https://ad-server2.com/impression-ad-1    |
-| \]\]\>\</Impression\>                                                |
-|                                                                      |
-| \<Creatives\>\...\</Creatives\>                                      |
-|                                                                      |
-| \</InLine\>                                                          |
-|                                                                      |
-| \</Ad\>                                                              |
-|                                                                      |
-| \</VAST\>                                                            |
-|                                                                      |
-| **\</VASTAdData\>**                                                  |
-|                                                                      |
-| \<Impression\>\<!\[CDATA\[ https://ad-server1.com/impression-ad-1    |
-| \]\]\>\</Impression\>                                                |
-|                                                                      |
-| \</Wrapper\>                                                         |
-|                                                                      |
-| \</Ad\>                                                              |
-|                                                                      |
-| \<Ad id=\"2\" sequence=\"2\"\>                                       |
-|                                                                      |
-| \<Wrapper\>                                                          |
-|                                                                      |
-| \<AdSystem\>Ad Server 1\</AdSystem\>                                 |
-|                                                                      |
-| \<VASTAdTagURI\>\<!\[CDATA\[ https://ad-server3.com                  |
-| \]\]\>\</VASTAdTagURI\>                                              |
-|                                                                      |
-| **\<VASTAdData\>**                                                   |
-|                                                                      |
-| \<VAST\>                                                             |
-|                                                                      |
-| \<Ad id=\"1\" sequence=\"1\"\>                                       |
-|                                                                      |
-| \<InLine\>                                                           |
-|                                                                      |
-| \<AdSystem\>Ad Server 3\</AdSystem\>                                 |
-|                                                                      |
-| \<Impression\>\<!\[CDATA\[ https://ad-server3.com/impression-ad-1    |
-| \]\]\>\</Impression\>                                                |
-|                                                                      |
-| \<Creatives\>\...\</Creatives\>                                      |
-|                                                                      |
-| \</InLine\>                                                          |
-|                                                                      |
-| \</Ad\>                                                              |
-|                                                                      |
-| \<Ad id=\"3\" sequence=\"2\"\>                                       |
-|                                                                      |
-| \<InLine\>                                                           |
-|                                                                      |
-| \<AdSystem\>Ad Server 3\</AdSystem\>                                 |
-|                                                                      |
-| \<Impression\>\<!\[CDATA\[ https://ad-server3.com/impression-ad-3    |
-| \]\]\>\</Impression\>                                                |
-|                                                                      |
-| \<Creatives\>\...\</Creatives\>                                      |
-|                                                                      |
-| \</InLine\>                                                          |
-|                                                                      |
-| \</Ad\>                                                              |
-|                                                                      |
-| \</VAST\>                                                            |
-|                                                                      |
-| **\</VASTAdData\>**                                                  |
-|                                                                      |
-| \<Impression\>\<!\[CDATA\[ https://ad-server1.com/impression-ad-2    |
-| \]\]\>\</Impression\>                                                |
-|                                                                      |
-| \</Wrapper\>                                                         |
-|                                                                      |
-| \</Ad\>                                                              |
-|                                                                      |
-| \</VAST\>                                                            |
-+----------------------------------------------------------------------+
+```
+<VAST>
+ <Ad id="1" sequence="1">
+  <Wrapper>
+   <AdSystem>Ad Server 1</AdSystem>
+   <VASTAdTagURI><![CDATA[ https://ad-server2.com ]]></VASTAdTagURI>
+   <VASTAdData>
+    <VAST>
+     <Ad id="1" sequence="1">
+      <InLine>
+       <AdSystem>Ad Server 2</AdSystem>
+       <Impression><![CDATA[ https://ad-server2.com/impression-ad-1 ]]></Impression>
+       <Creatives>...</Creatives>
+      </InLine>
+     </Ad>
+    </VAST>
+   </VASTAdData>
+   <Impression><![CDATA[ https://ad-server1.com/impression-ad-1 ]]></Impression>
+  </Wrapper>
+ </Ad>
+ <Ad id="2" sequence="2">
+  <Wrapper>
+   <AdSystem>Ad Server 1</AdSystem>
+   <VASTAdTagURI><![CDATA[ https://ad-server3.com ]]></VASTAdTagURI>
+   <VASTAdData>
+    <VAST>
+     <Ad id="1" sequence="1">
+      <InLine>
+       <AdSystem>Ad Server 3</AdSystem>
+       <Impression><![CDATA[ https://ad-server3.com/impression-ad-1 ]]></Impression>
+       <Creatives>...</Creatives>
+      </InLine>
+     </Ad>
+     <Ad id="3" sequence="2">
+      <InLine>
+       <AdSystem>Ad Server 3</AdSystem>
+       <Impression><![CDATA[ https://ad-server3.com/impression-ad-3 ]]></Impression>
+       <Creatives>...</Creatives>
+      </InLine>
+     </Ad>
+    </VAST>
+   </VASTAdData>
+   <Impression><![CDATA[ https://ad-server1.com/impression-ad-2 ]]></Impression>
+  </Wrapper>
+ </Ad>
+</VAST>
+```
 
 You can see in the response above that the VAST document from
 ad-server2.com has been copied verbatim while from the response from
