@@ -746,7 +746,7 @@
             "introversion": "Next VAST release",
             "support": "Optional",
             "contexts": "All tracking pixels,VAST request URIs",
-            "description": "For app ads, the app store URL for the installed app.",
+            "description": "For app ads, the app store URL for the installed app. This macro belongs in the 'Publisher Info' section longer term.",
             "descriptionformatted": "For app ads, the app store URL for the installed app.",
             "example": "<ul><li>iOS/tvOS - https://apps.apple.com/us/app/tubi-watch-movies-tv-shows/id886445756</li><li>Android - com.tubitv</li><li>Roku - 41468</li></ul>"
         },
