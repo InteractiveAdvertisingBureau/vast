@@ -733,7 +733,7 @@
             "support": "Optional",
             "contexts": "All tracking pixels,VAST request URIs",
             "description": "For app ads, a platform-specific app store ID such as iTunes store ID. Could be the same as app bundle on some platforms.",
-            "descriptionformatted": "For app ads, a platform-specific app store ID such as iTunes store ID. Could be the same as app bundle on some platforms. This macro belongs in the 'Publisher Info' section longer term.",
+            "descriptionformatted": "For app ads, a platform-specific app store ID such as iTunes store ID. Could be the same as app bundle on some platforms.",
             "example": "<ul><li>iOS/tvOS - 886445756</li><li>Android - com.tubitv</li><li>Roku - 41468</li></ul>"
         },
         {
@@ -746,9 +746,38 @@
             "introversion": "Next VAST release",
             "support": "Optional",
             "contexts": "All tracking pixels,VAST request URIs",
-            "description": "For app ads, the app store URL for the installed app.",
-            "descriptionformatted": "For app ads, the app store URL for the installed app. This macro belongs in the 'Publisher Info' section longer term.",
+            "description": "For app ads, the app store URL for the installed app. This macro belongs in the 'Publisher Info' section longer term.",
+            "descriptionformatted": "For app ads, the app store URL for the installed app.",
             "example": "<ul><li>iOS/tvOS - https://apps.apple.com/us/app/tubi-watch-movies-tv-shows/id886445756</li><li>Android - com.tubitv</li><li>Roku - 41468</li></ul>"
+        },
+        {
+            "id": 53,
+            "name": "PLAYBACKMETHODS",
+            "categoryname": "New Macros",
+            "categoryindex": 1,
+            "datatype": "integer",
+            "type": "integer",
+            "introversion": "Next VAST release",
+            "support": "Optional",
+            "contexts": "All tracking pixels,VAST request URIs",
+            "values": "see:PLAYBACKMETHODS_values_worksheet",
+            "description": "The value indicating attributes of the inventory such as auto-play and click-to-play activity.",
+            "example": "<code>1</code>"
+        },
+        {
+            "id": 54,
+            "name": "CONTENTCAT",
+            "categoryname": "New Macros",
+            "categoryindex": 1,
+            "datatype": "Array<string>",
+            "type": "Array<string>",
+            "introversion": "Next VAST release",
+            "support": "Optional",
+            "contexts": "VAST request URIs",
+            "format": "IDVALUE",
+            "description": "List of IDs of the categories relevant to the content the ad is being requested for. \nThe IDs are from the IABTL Content Taxonopmy 2.x.",
+            "descriptionformatted": "List of IDs of the categories relevant to the content the ad is being requested for. \nThe IDs are from the <a href=\"https://iabtechlab.com/standards/content-taxonomy/\"> IABTL Content Taxonopmy 2.x.</a>",
+            "example": "“8”,”16”,”1001”,”1021”,”1026”,”1068”,”1215” \nto reflect content that matches - \nContent Categories: Automotive/Convertible (8), Auto Type/Performance Cars(16)\nContent Channel: Editorial/Professional (1001)\nContent Type: Review (1021)\nContent Media Format: Mixed (1026)\nContent Language: en (1068)\nContent Source: Professionally Produced (1215)"
         }
     ],
     "REGULATIONS_values": [
@@ -803,6 +832,32 @@
         {
             "value": 3,
             "description": "clickable with confirmation dialog"
+        }
+    ],
+    "PLAYBACKMETHODS_values": [
+        {
+            "value": 1,
+            "description": "Initiates on Page Load with Sound On"
+        },
+        {
+            "value": 2,
+            "description": "Initiates on Page Load with Sound Off by Default"
+        },
+        {
+            "value": 3,
+            "description": "Initiates on Click with Sound On"
+        },
+        {
+            "value": 4,
+            "description": "Initiates on Mouse-Over with Sound On"
+        },
+        {
+            "value": 5,
+            "description": "Initiates on Entering Viewport with Sound On"
+        },
+        {
+            "value": 6,
+            "description": "Initiates on Entering Viewport with Sound Off by Default"
         }
     ],
     "PLAYERCAPABILITIES_values": [
