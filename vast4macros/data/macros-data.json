@@ -778,6 +778,74 @@
             "description": "List of IDs of the categories relevant to the content the ad is being requested for. \nThe IDs are from the IABTL Content Taxonopmy 2.x.",
             "descriptionformatted": "List of IDs of the categories relevant to the content the ad is being requested for. \nThe IDs are from the <a href=\"https://iabtechlab.com/standards/content-taxonomy/\"> IABTL Content Taxonopmy 2.x.</a>",
             "example": "“8”,”16”,”1001”,”1021”,”1026”,”1068”,”1215” \nto reflect content that matches - \nContent Categories: Automotive/Convertible (8), Auto Type/Performance Cars(16)\nContent Channel: Editorial/Professional (1001)\nContent Type: Review (1021)\nContent Media Format: Mixed (1026)\nContent Language: en (1068)\nContent Source: Professionally Produced (1215)"
+        },
+        {
+            "id": 55,
+            "name": "GPPSTRING",
+            "categoryname": "New Macros",
+            "categoryindex": 1,
+            "datatype": "string",
+            "type": "string",
+            "introversion": "Next VAST release",
+            "support": "Optional",
+            "contexts": "All tracking pixels, VAST request URIs",
+            "format": "Encoded",
+            "description": "GPP String from the Global Privacy Platform.",
+            "descriptionformatted": "GPP String from the <a href=\"https://github.com/InteractiveAdvertisingBureau/Global-Privacy-Platform/blob/main/Core/Consent%20String%20Specification.md\">Global Privacy Platform</a>.",
+            "example": "<code>DBABMA~CPXxRfAPXxRfAAfKABENB-CgAAAAAAAAAAYgAAAAAAAA</code>"
+        },
+        {
+            "id": 56,
+            "name": "GPPSECTIONID",
+            "categoryname": "New Macros",
+            "categoryindex": 1,
+            "datatype": "Array<integer>",
+            "type": "Array<integer>",
+            "introversion": "Next VAST release",
+            "support": "Optional",
+            "contexts": "All tracking pixels, VAST request URIs",
+            "values": "see:GPPSECTIONID_values_worksheet",
+            "description": "Array of the Section ID(s) of the GPP string from GPPSTRING which should be applied. See the GPP Section Information for the list of Section IDs. GPP Section 3 (Header) and 4 (Signal Integrity) do not need to be included.",
+            "descriptionformatted": "Array of the Section ID(s) of the GPP string from GPPSTRING which should be applied. See the <a href=\"https://github.com/InteractiveAdvertisingBureau/Global-Privacy-Platform/blob/main/Sections/Section%20Information.md\">GPP Section Information</a> for the list of Section IDs. GPP Section 3 (Header) and 4 (Signal Integrity) do not need to be included.",
+            "example": "5,7"
+        }
+    ],
+    "GPPSECTIONID_values": [
+        {
+            "value": "1: EU TCF v1 section (deprecated)"
+        },
+        {
+            "value": "2: EU TCF v2 section"
+        },
+        {
+            "value": "3: GPP Header section"
+        },
+        {
+            "value": "4: GPP signal integrity section Connecticut section"
+        },
+        {
+            "value": "5: Canadian TCF section"
+        },
+        {
+            "value": "6: USPrivacy String Unencoded Format section"
+        },
+        {
+            "value": "7: US - national section"
+        },
+        {
+            "value": "8: US - California section"
+        },
+        {
+            "value": "9: US - Virginia section"
+        },
+        {
+            "value": "10: US - Colorado section"
+        },
+        {
+            "value": "11: US - Utah section"
+        },
+        {
+            "value": "12: US - Connecticut section"
         }
     ],
     "REGULATIONS_values": [
