@@ -729,7 +729,7 @@
             "categoryindex": 1,
             "datatype": "string",
             "type": "string",
-            "introversion": "Next VAST release",
+            "introversion": "4.x",
             "support": "Optional",
             "contexts": "All tracking pixels,VAST request URIs",
             "description": "For app ads, a platform-specific app store ID such as iTunes store ID. Could be the same as app bundle on some platforms.",
@@ -743,7 +743,7 @@
             "categoryindex": 1,
             "datatype": "string",
             "type": "string",
-            "introversion": "Next VAST release",
+            "introversion": "4.x",
             "support": "Optional",
             "contexts": "All tracking pixels,VAST request URIs",
             "description": "For app ads, the app store URL for the installed app. This macro belongs in the 'Publisher Info' section longer term.",
@@ -757,7 +757,7 @@
             "categoryindex": 1,
             "datatype": "integer",
             "type": "integer",
-            "introversion": "Next VAST release",
+            "introversion": "4.x",
             "support": "Optional",
             "contexts": "All tracking pixels,VAST request URIs",
             "values": "see:PLAYBACKMETHODS_values_worksheet",
@@ -771,7 +771,7 @@
             "categoryindex": 1,
             "datatype": "Array<string>",
             "type": "Array<string>",
-            "introversion": "Next VAST release",
+            "introversion": "4.x",
             "support": "Optional",
             "contexts": "VAST request URIs",
             "format": "IDVALUE",
@@ -786,7 +786,7 @@
             "categoryindex": 1,
             "datatype": "string",
             "type": "string",
-            "introversion": "Next VAST release",
+            "introversion": "4.x",
             "support": "Optional",
             "contexts": "All tracking pixels, VAST request URIs",
             "format": "Encoded",
@@ -801,7 +801,7 @@
             "categoryindex": 1,
             "datatype": "Array<integer>",
             "type": "Array<integer>",
-            "introversion": "Next VAST release",
+            "introversion": "4.x",
             "support": "Optional",
             "contexts": "All tracking pixels, VAST request URIs",
             "values": "see:GPPSECTIONID_values_worksheet",
@@ -926,6 +926,10 @@
         {
             "value": 6,
             "description": "Initiates on Entering Viewport with Sound Off by Default"
+        },
+        {
+            "value": 7,
+            "description": "Indicates content is playing back-to-back without any user interaction"
         }
     ],
     "PLAYERCAPABILITIES_values": [
