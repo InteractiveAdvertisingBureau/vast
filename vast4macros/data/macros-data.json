@@ -808,6 +808,97 @@
             "description": "Array of the Section ID(s) of the GPP string from GPPSTRING which should be applied. See the GPP Section Information for the list of Section IDs. GPP Section 3 (Header) and 4 (Signal Integrity) do not need to be included.",
             "descriptionformatted": "Array of the Section ID(s) of the GPP string from GPPSTRING which should be applied. See the <a href=\"https://github.com/InteractiveAdvertisingBureau/Global-Privacy-Platform/blob/main/Sections/Section%20Information.md\">GPP Section Information</a> for the list of Section IDs. GPP Section 3 (Header) and 4 (Signal Integrity) do not need to be included.",
             "example": "5,7"
+        },
+        {
+            "id": 57,
+            "name": "DSAREQUIRED",
+            "categoryname": "New Macros",
+            "categoryindex": 1,
+            "datatype": "integer",
+            "type": "integer",
+            "introversion": "Next VAST release",
+            "support": "Optional",
+            "contexts": "VAST request URIs",
+            "values": "see:DSAREQUIRED_values_worksheet",
+            "description": "Flag to indicate if DSA information should be made available. This will signal if the bid request belongs to an Online Platform/VLOP, such that a buyer should respond with DSA Transparency information.",
+            "descriptionformatted": "Flag to indicate if DSA information should be made available. This will signal if the bid request belongs to an Online Platform/VLOP, such that a buyer should respond with DSA Transparency information.",
+            "example": 1
+        },
+        {
+            "id": 58,
+            "name": "DSAPARAMS",
+            "categoryname": "New Macros",
+            "categoryindex": 1,
+            "datatype": "Array<integer>",
+            "type": "Array<integer>",
+            "introversion": "Next VAST release",
+            "support": "Optional",
+            "contexts": "VAST request URIs",
+            "values": "see:DSAPARAMS_values_worksheet",
+            "description": "Array of user parameters applied by the platform or sell-side. See the List and Definitions of User Parameters for a list of possible user parameters.  ",
+            "descriptionformatted": "Array of user parameters applied by the platform or sell-side. See the <a href=\"https://iabeurope.eu/wp-content/uploads/IAB-Europe-DSA-Transparency-Implementation-Guidelines-FINAL.pdf\">List and Definitions of User Parameters</a> for a list of possible user parameters.  ",
+            "example": "1_2"
+        },
+        {
+            "id": 59,
+            "name": "DSAPUBRENDER",
+            "categoryname": "New Macros",
+            "categoryindex": 1,
+            "datatype": "integer",
+            "type": "integer",
+            "introversion": "Next VAST release",
+            "support": "Optional",
+            "contexts": "VAST request URIs",
+            "values": "see:DSAPUBRENDER_values_worksheet",
+            "description": "Signals if the publisher is able to and intends to render an icon or other appropriate user-facing symbol and display the DSA transparency info to the end user.",
+            "descriptionformatted": "Signals if the publisher is able to and intends to render an icon or other appropriate user-facing symbol and display the DSA transparency info to the end user.",
+            "example": 1
+        }
+    ],
+     "DSAPUBRENDER_values": [
+        {
+            "value": 1,
+            "description": "Publisher can't render"
+        },
+        {
+            "value": 2,
+            "description": "Publisher could render depending on adrender"
+        },
+        {
+            "value": 3,
+            "description": "Publisher will render"
+        }
+    ],
+    "DSAPARAMS_values": [
+        {
+            "value": 1,
+            "description": "Profiling"
+        },
+        {
+            "value": 2,
+            "description": "Basic advertising"
+        },
+        {
+            "value": 3,
+            "description": "Precise geolocation"
+        }
+    ],
+    "DSAREQUIRED_values": [
+        {
+            "value": 0,
+            "description": "Not required"
+        },
+        {
+            "value": 1,
+            "description": "Supported, bid responses with or without DSA object will be accepted"
+        },
+        {
+            "value": 2,
+            "description": "Required, bid responses without DSA object will not be accepted"
+        },
+        {
+            "value": 3,
+            "description": "Required, bid responses without DSA object will not be accepted, Publisher is an Online Platform"
         }
     ],
     "GPPSECTIONID_values": [
