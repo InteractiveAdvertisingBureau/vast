@@ -32,31 +32,31 @@ Creative Commons
 
 ## Table of Contents 
 
-- Executive Summary
-  -  Audience
-      - Platform Reciipients of VAST Tags
-      - VASST Tag Distributors 
-- Registered Ad Creative IDs
-  - <UniversalAdId>
-  - Implementation
-      - VAST 2.0
-      - VAST 3.x
-      - VAST 4.x
-- Open Measurement Support
-- Interactive Video Support
-  - Secure Interactive Media Interface Definition (SIMID)
-  - <InteractiveCreativeFile>
-      - VAST 2.0
-      - VAST 3.x
-      - VAST 4.x
-- High Resolution Support
-  - <Mezzanine>
-      - VAST 2.0 and VAST 3.x
-      - VAST 4.x
-- VAST Macros Live Updates
-- Icon Support for Privacy
-  - VAST 2.0
-      - Indicate DSA Regulation Support in VAST 3.0+
+- [Executive Summary](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#executive-summary)
+  -  [Audience](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#audience)
+      - [Platform Reciipients of VAST Tags](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#platform-recipients-of-vast-tags)
+      - [VAST Tag Distributors](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#vast-tag-distributors) 
+- [Registered Ad Creative IDs](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#registered-ad-creative-ids)
+  - ```<UniversalAdId>```
+  - [Implementation](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#implementation)
+      - [VAST 2.0](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#vast-20)
+      - [VAST 3.x](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#vast-3x)
+      - [VAST 4.x](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#vast-4x)
+- [Open Measurement Support](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#open-measurement-support)
+- [Interactive Video Support](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#interactive-video-support)
+  - [Secure Interactive Media Interface Definition (SIMID)](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#secure-interactive-media-interface-definition-simid)
+  - [```<InteractiveCreativeFile>```](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#interactivecreativefile)
+      - [VAST 2.0](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#vast-20-1)
+      - [VAST 3.x](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#vast-3x-1)
+      - [VAST 4.x](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#vast-4x-1)
+- [High Resolution Support](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#high-resolution-support)
+  - ```<Mezzanine>```
+      - [VAST 2.0 and VAST 3.x](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#vast-20-and-vast-3x)
+      - [VAST 4.x](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#vast-4x-2)
+- [VAST Macros Live Updates](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#vast-macros-live-updates)
+- [Icon Support for Privacy](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#icon-support-for-privacy)
+  - [VAST 2.0](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#vast-20-2)
+      - [Indicate DSA Regulation Support in VAST 3.0+](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#indicate-dsa-regulation-support-in-vast-30)
 
 ## Executive Summary 
 
@@ -97,7 +97,7 @@ In fact, the more complex the video supply chain becomes, the more difficult ad 
 
 Tech Lab has also defined the Ad Creative ID Framework (ACIF) that lists participating ad registries, their URLs, and instructions for ad verification. Upon release, the industry can find listed ad registries at [https://tools.iabtechlab.com/adoption/](https://tools.iabtechlab.com/adoption/). Filing ad creative with the registration authority for a given region will enable any ad platform working with these registries to validate an ad and use the associated metadata as part of its ad decisioning, placement, measurement, or other relevant algorithms. 
 
-### <UniversalAdId> 
+### ```<UniversalAdId>``` 
 
 VAST 4.0 introduced the <UniversalAdId> field to support ad registration IDs. However, earlier versions of VAST still dominate the market today and lack standardization for supplying registered ad IDs. This addendum provides guidance on supporting registered ad IDs in all versions of VAST. 
 
@@ -217,6 +217,7 @@ To supply a SIMID-compliant ad unit in VAST versions 2.0 an extension must be pr
 |	|xmlEncoded |	Identifies whether the ad parameters are XML encoded. |
 
 *This attribute is included for the extension but is not needed in VAST 3.x or 4.x standard implementations. 
+
 ##### Example 1: Provide URL or Data URI 
 
 ```javascript
@@ -281,7 +282,7 @@ To supply a SIMID-compliant ad unit in VAST version 3.x, add the ```<Interactive
 |InteractiveCreativeFile/**AdParameters**| 		|Data object that communicates variables to the creative file for initialization. |
 |  |xmlEncoded |	Identifies whether the ad parameters are XML encoded. |
 
-##### Example using <HTMLResource> 
+##### Example using ```<HTMLResource>``` 
 
 ```javascript
 ... 
@@ -318,7 +319,7 @@ Implementing SIMID in VAST 4.x can be done in one of two ways. The first is to s
 
 As the digital video landscape expands to include ultra high resolution screens in CTV, cross platform ad placement needs the option for including the high resolution ad creative suited to those environments. 
 
-### <Mezzanine> 
+### ```<Mezzanine>``` 
 
 For VAST delivery in web video, the resolution properties of the supplied media file is usually sufficient. However, the increasingly high resolutions in large screen TVs require that a VAST response distinguish a media file encoded for high-resolution environments separately from media files intended for web video. 
 
