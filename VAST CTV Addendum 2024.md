@@ -37,7 +37,7 @@ Creative Commons
       - [Platform Reciipients of VAST Tags](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#platform-recipients-of-vast-tags)
       - [VAST Tag Distributors](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#vast-tag-distributors) 
 - [Registered Ad Creative IDs](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#registered-ad-creative-ids)
-  - ```<UniversalAdId>```
+  - [```<UniversalAdId>```](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#universaladid)
   - [Implementation](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#implementation)
       - [VAST 2.0](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#vast-20)
       - [VAST 3.x](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#vast-3x)
@@ -50,7 +50,7 @@ Creative Commons
       - [VAST 3.x](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#vast-3x-1)
       - [VAST 4.x](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#vast-4x-1)
 - [High Resolution Support](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#high-resolution-support)
-  - ```<Mezzanine>```
+  - [```<Mezzanine>```](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#mezzanine)
       - [VAST 2.0 and VAST 3.x](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#vast-20-and-vast-3x)
       - [VAST 4.x](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#vast-4x-2)
 - [VAST Macros Live Updates](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/VAST%20CTV%20Addendum%202024.md#vast-macros-live-updates)
