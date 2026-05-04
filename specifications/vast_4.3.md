@@ -101,7 +101,7 @@ VAST Specification the IAB Tech Lab is licensed under a Creative Commons Attribu
     - [InteractiveCreativeFile](#interactivecreativefile)
     - [ClosedCaptionFiles](#closedcaptionfiles)
     - [ClosedCaptionFile](#closedcaptionfile) 
-  - [VideoClicks](#mediafiles)
+  - [VideoClicks](#videoclicks)
     - [ClickThrough](#clickthrough)
     - [ClickTracking](#clicktracking)
     - [CustomClick](#customclick)
@@ -375,3 +375,153 @@ ads that are placed using interest-based criteria.
 library to collect and expose measurements of ad creatives, including video, at view
 time, for verification purposes.
   
+# General Overview <a name="overview"></a>
+
+VAST is used to send in-stream ad details to a media player. Historically, the player (client)
+has received, executed, and tracked streaming video or audio ads. However, with the
+increase in player devices, the player is often unable to execute anything more than a single
+stream of content. Players might have compensated for this by using one player for content
+and loading a secondary player for ad playback. After ad playback, the original player would
+be reloaded for resuming content playback. This process caused a brief buffering period
+between player loads.
+
+The solution that has emerged for this challenge is a service that involves inserting ads into
+a stream of content for the player. The result is a seamless experience for the viewer along
+with the ability to select ads dynamically for insertion and more sophisticated tracking
+options.
+
+VAST 4.x includes support for high-quality video formats necessary for long-form video
+content and server-side tracking for use when ad-stitching is leveraged to reach devices
+that cannot use client-side tracking methods. Version 4.x also allows embedding optional
+scripts for viewability and ad verification.
+
+## VAST Ad Serving and Tracking <a name="adserving"></a>
+
+Display advertising uses standardized browser technology to request and execute ads.
+However, digital in-stream video and audio advertising operates on players, sometimes built
+with proprietary code. As a template for ads served to a media player, VAST offers a set of
+instructions for developers on how to program their players to process VAST-formatted ads.
+Using VAST, ad servers can serve ads to any VAST-compliant player regardless of what
+code the player uses.
+
+### Client-Side Ad Serving <a name="clientside"></a>
+
+### Server-Side Ad Stitching <a name="serverside"></a>
+
+### Headers in Server-to-Server Ad Requests and Ad Tracking <a name="headers"></a>
+
+## Ad Verification <a name="adverification"></a>
+
+## Long-Form Video Support <a name="longform"></a>
+
+### High-Quality Video <a name="highquality"></a>
+### Unique Creative Identification <a name="uniquecreativeID"></a>
+## Audio Ad Support <a name="audio"></a>    
+### Audio Player Use Cases <a name="audioplayer"></a>
+### "Audibility" / Viewability <a name="audibility"></a>
+## VAST Ad Requests <a name="adrequests"></a>   
+## VAST Interactive Templates <a name="interactive"></a> 
+## Flash Support <a name="flash"></a> 
+## Handling MediaFile Nodes During the Transition from VPAID <a name="mediafile"></a> 
+# VAST Compliance <a name="compliance"></a> 
+## Ad Server Expectations <a name="adserver"></a> 
+## Media Player Expectations <a name="mediaplayer"></a> 
+## General Compliance <a name="generalcompliance"></a> 
+### VAST Ad Types <a name="adtypes"></a> 
+### XML Structure <a name="xml"></a> 
+### Encoding URIs for VAST <a name="encodinguris"></a> 
+### Tracking <a name="tracking"></a> 
+### VAST Wrappers <a name="wrappers"></a> 
+### Error Reporting <a name="errorreporting"></a> 
+### Industry Icon Support <a name="industryicon"></a> 
+## Viewability Verification and Interactive Linear Creative <a name="viewability"></a>
+### Publisher Viewability <a name="publisherviewability"></a> 
+### Viewability with Ad Verification Services <a name="adverificationservices"></a> 
+### Interactive Linear Creative Files <a name="interactivelinear"></a> 
+# VAST Implementation <a name="implementation"></a>    
+## Declaring the VAST Response <a name="response"></a> 
+## VAST <a name="spec"></a> 
+### Error (VAST) <a name="error"></a>
+## Ad <a name="ad"></a>
+### Ad Pods and Stand-Alone Ads <a name="adpods"></a>
+### The Ad Element <a name="adelement"></a>
+## InLine <a name="inline"></a>
+### AdSystem <a name="adsystem"></a>
+### AdTitle <a name="adtitle"></a>
+### AdServingId <a name="adservingid"></a>
+### Impression <a name="impression"></a>
+### Category <a name="category"></a>
+### Description <a name="description"></a>
+### Advertiser <a name="advertiser"></a>
+### Pricing <a name="pricing"></a>
+### Survey <a name="survey"></a>
+### Expires <a name="expires"></a>
+### Error (InLine and Wrapper) <a name="errorinline"></a>
+## ViewableImpression <a name="viewableimpression"></a>
+### Viewable <a name="viewable"></a>
+### NotViewable <a name="notviewable"></a>
+### ViewUndetermined <a name="viewundetermined"></a>
+## Creatives <a name="creatives"></a>
+## Creative <a name="creative"></a>
+### UniversalAdId <a name="universaladid"></a>
+### CreativeExtensions <a name="creativeextensions"></a>
+### CreativeExtension <a name="creativeextension"></a>
+## Linear <a name="linear"></a>
+### Duration <a name="duration"></a>
+### AdParameters <a name="adparameters"></a>
+## MediaFiles <a name="mediafiles"></a>
+### MediaFile <a name="mediafile"></a>
+### Mezzanine <a name="mezzanine"></a>
+### InteractiveCreativeFile <a name="interactivecreativefile"></a>
+### ClosedCaptionFiles <a name="closedcaptionfiles"></a>
+### ClosedCaptionFile <a name="closedcaptionfile"></a>
+## VideoClicks <a name="videoclicks"></a>
+### ClickThrough <a name="clickthrough"></a>
+### ClickTracking <a name="clicktracking"></a>
+### CustomClick <a name="customclick"></a>
+## Icons <a name="icons"></a>
+### Icon <a name="icon"></a>
+### IconViewTracking <a name="iconviewtracking"></a>
+### IconClicks <a name="iconclicks"></a>
+### IconClickThrough <a name="iconclickthrough"></a>
+### IconClickTracking <a name="iconclicktracking"></a>
+### IconClickFallbackImages <a name="iconclickfallbackimages"></a>
+#### IconClickFallbackImage <a name="iconclickfallbackimage"></a>
+
+  - [NonLinearAds](#nonlinearads)
+    - [NonLinear](#nonlinear)
+    - [NonLinearClickThrough](#nonlinearclickthrough)
+    - [NonLinearClickTracking](#nonlinearclicktracking)
+  - [CompanionAds](#companionads)
+    - [Companion](#companion)
+    - [AltText](#alttext)
+    - [CompanionClickThrough](#companionclickthrough)
+    - [CompanionClickTracking](#companionclicktracking)
+  - [Tracking Event Elements](#trackingeventelements)
+    - [Tracking Event Descriptions](#trackingeventdesc)
+    - [TrackingEvents](#trackingevents)
+    - [Tracking](#tracking)
+  - [Creative Resource Files for Non-Video and Non-Audio Creative](#nonaudiononvideo)
+    - [StaticResource](#staticresource)
+    - [IFrameResource](#iframeresource)
+    - [HTMLResource](#htmlresource)
+  - [AdVerifications](#adverifications)
+  - [Verification](#verification)
+    - [JavaScript Resource](#javascriptresource)
+    - [ExecutableResource](#executableresource)
+    - [TrackingEvents](#trackingevents)
+    - [Tracking](#tracking)
+    - [VerificationParameters](#verificationparameters)
+  - [Extensions](#extensions) 
+    - [Extension](#extension)
+  - [Wrapper](#wrapper) 
+    - [VASTAdTagURI](#adtaguri)
+    - [BlockedAdCategories](#blockedadcategories)
+- [Migration to VAST 4.x](#migration)
+  - [Advertisers and Ad Technology Vendors](#advertisersandvendors)
+  - [Ad Servers and Networks](#adserversandnetworks)
+  - [Media Players](#mediaplayers)
+- [Human Readable VAST XML Schema](#humanreadableschema)
+- [Macros](#macros)
+  - [Introduction](#intro)
+  - [List of Macros](#list)
