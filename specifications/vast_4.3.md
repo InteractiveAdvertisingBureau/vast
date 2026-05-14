@@ -487,41 +487,40 @@ code the player uses.
 ### IconClickTracking <a name="iconclicktracking"></a>
 ### IconClickFallbackImages <a name="iconclickfallbackimages"></a>
 #### IconClickFallbackImage <a name="iconclickfallbackimage"></a>
-
-  - [NonLinearAds](#nonlinearads)
-    - [NonLinear](#nonlinear)
-    - [NonLinearClickThrough](#nonlinearclickthrough)
-    - [NonLinearClickTracking](#nonlinearclicktracking)
-  - [CompanionAds](#companionads)
-    - [Companion](#companion)
-    - [AltText](#alttext)
-    - [CompanionClickThrough](#companionclickthrough)
-    - [CompanionClickTracking](#companionclicktracking)
-  - [Tracking Event Elements](#trackingeventelements)
-    - [Tracking Event Descriptions](#trackingeventdesc)
-    - [TrackingEvents](#trackingevents)
-    - [Tracking](#tracking)
-  - [Creative Resource Files for Non-Video and Non-Audio Creative](#nonaudiononvideo)
-    - [StaticResource](#staticresource)
-    - [IFrameResource](#iframeresource)
-    - [HTMLResource](#htmlresource)
-  - [AdVerifications](#adverifications)
-  - [Verification](#verification)
-    - [JavaScript Resource](#javascriptresource)
-    - [ExecutableResource](#executableresource)
-    - [TrackingEvents](#trackingevents)
-    - [Tracking](#tracking)
-    - [VerificationParameters](#verificationparameters)
-  - [Extensions](#extensions) 
-    - [Extension](#extension)
-  - [Wrapper](#wrapper) 
-    - [VASTAdTagURI](#adtaguri)
-    - [BlockedAdCategories](#blockedadcategories)
-- [Migration to VAST 4.x](#migration)
-  - [Advertisers and Ad Technology Vendors](#advertisersandvendors)
-  - [Ad Servers and Networks](#adserversandnetworks)
-  - [Media Players](#mediaplayers)
-- [Human Readable VAST XML Schema](#humanreadableschema)
-- [Macros](#macros)
-  - [Introduction](#intro)
-  - [List of Macros](#list)
+### NonLinearAds <a name="nonlinearads"></a>
+#### NonLinear <a name="nonlinear"></a>
+#### NonLinearClickThrough <a name="nonlinearclickthrough"></a>
+#### NonLinearClickTracking <a name="nonlinearclicktracking"></a>
+### CompanionAds <a name="companionads"></a>
+#### Companion <a name="companion"></a>
+#### AltText <a name="alttext"></a>
+#### CompanionClickThrough <a name="companionclickthrough"></a>
+#### CompanionClickTracking <a name="companionclicktracking"></a>
+### Tracking Event Elements <a name="trackingeventelements"></a>
+#### Tracking Event Descriptions <a name="trackingeventdesc"></a>
+#### TrackingEvents <a name="trackingevents"></a>
+#### Tracking <a name="tracking"></a>
+### Creative Resource Files for Non-Video and Non-Audio Creative <a name="nonaudiononvideo"></a>
+#### StaticResource <a name="staticresource"></a>
+#### IFrameResource <a name="iframeresource"></a>
+#### HTMLResource <a name="htmlresource"></a>
+### AdVerifications <a name="adverifications"></a>
+### Verification <a name="verification"></a>
+#### JavaScript Resource <a name="javascriptresource"></a>
+#### ExecutableResource <a name="executableresource"></a>
+#### TrackingEvents <a name="trackingevents"></a>
+#### Tracking <a name="tracking"></a>
+#### VerificationParameters <a name="verificationparameters"></a>
+### Extensions <a name="extensions"></a>
+#### Extension <a name="extension"></a>
+### Wrapper <a name="wrapper"></a>
+#### VASTAdTagURI <a name="adtaguri"></a>
+#### BlockedAdCategories <a name="blockedadcategories"></a>
+# Migration to VAST 4.x <a name="migration"></a>
+## Advertisers and Ad Technology Vendors <a name="advertisersandvendors"></a>
+## Ad Servers and Networks <a name="adserversandnetworks"></a>
+## Media Players <a name="mediaplayers"></a>
+# Human Readable VAST XML Schema <a name="humanreadableschema"></a> 
+# Macros <a name="macros"></a>
+## Introduction <a name="intro"></a>
+## List of Macros <a name="list"></a>
