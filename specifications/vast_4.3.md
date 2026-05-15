@@ -1075,6 +1075,9 @@ parameters. Macro responses must be correctly percent-encoded per RFC 3986.
 The following table lists VAST error codes and their descriptions.
 
 VAST Error Codes Table
+| Code | Description |
+| -------- | -------- |
+| 100 | XML parsing error |
 
 No Ad Response
 When the ad server does not or cannot return an Ad, the VAST response should contain
