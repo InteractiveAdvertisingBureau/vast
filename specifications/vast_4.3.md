@@ -1088,35 +1088,27 @@ VAST Error Codes Table
 | 205 | Inline Category violates Wrapper BlockedAdCategories (refer 3.19.2). |
 | 206 | Ad Break shortened. Ad was not served. |
 | 300 | General Wrapper error. |
-| 301 | Timeout of VAST URI provided in Wrapper element, or of VAST URI provided in a subsequent
-Wrapper element. (URI was either unavailable or reached a timeout as defined by the media player.) |
-| 302 | Wrapper limit reached, as defined by the media player. Too many Wrapper responses have been
-received with no InLine response. |
+| 301 | Timeout of VAST URI provided in Wrapper element, or of VAST URI provided in a subsequent Wrapper element. (URI was either unavailable or reached a timeout as defined by the media player.) |
+| 302 | Wrapper limit reached, as defined by the media player. Too many Wrapper responses have been received with no InLine response. |
 | 303 | No VAST response after one or more Wrappers. |
 | 304 | InLine response returned ad unit that failed to result in ad display within defined time limit. |
 | 400 | General Linear error. Media player is unable to display the Linear Ad. |
 | 401 | File not found. Unable to find Linear/MediaFile from URI. |
 | 402 | Timeout of MediaFile URI. |
-| 403 | Couldn’t find MediaFile that is supported by this media player, based on the attributes of the
-MediaFile element. |
-| 405 | Problem displaying MediaFile. Media player found a MediaFile with supported type but couldn’t
-display it. MediaFile may include: unsupported codecs, different MIME type than
-MediaFile@type, unsupported delivery method, etc. |
+| 403 | Couldn’t find MediaFile that is supported by this media player, based on the attributes of the MediaFile element. |
+| 405 | Problem displaying MediaFile. Media player found a MediaFile with supported type but couldn’t display it. MediaFile may include: unsupported codecs, different MIME type than MediaFile@type, unsupported delivery method, etc. |
 | 406 | Mezzanine was required but not provided. Ad not served. |
-| 407 | Mezzanine is in the process of being downloaded for the first time. Download may take several
-hours. Ad will not be served until mezzanine is downloaded and transcoded. |
+| 407 | Mezzanine is in the process of being downloaded for the first time. Download may take several hours. Ad will not be served until mezzanine is downloaded and transcoded. |
 | 408 | Conditional ad rejected. (deprecated along with conditionalAd) |
 | 409 | Interactive unit in the InteractiveCreativeFile node was not executed. |
 | 410 | Verification unit in the Verification node was not executed. |
 | 411 | Mezzanine was provided as required, but file did not meet required specification. Ad not served. |
 | 500 | General NonLinearAds error. |
-| 501 | Unable to display NonLinearAd because creative dimensions do not align with creative display area
-(i.e. creative dimension too large). |
+| 501 | Unable to display NonLinearAd because creative dimensions do not align with creative display area (i.e. creative dimension too large). |
 | 502 | Unable to fetch NonLinearAds/NonLinear resource. |
 | 503 | Couldn’t find NonLinear resource with supported type. |
 | 600 | General CompanionAds error. |
-| 601 | Unable to display Companion because creative dimensions do not fit within Companion display area
-(i.e., no available space). |
+| 601 | Unable to display Companion because creative dimensions do not fit within Companion display area (i.e., no available space). |
 | 602 | Unable to display required Companion. |
 | 603 | Unable to fetch CompanionAds/Companion resource. |
 | 604 | Couldn’t find Companion resource with supported type. |
@@ -1138,7 +1130,48 @@ after a chain of one or more wrappers. If an [ERRORCODE] macro is included, the 
 player should substitute with error code 303.
 Besides the VAST level <Error> resource file, no other tracking resource requests are
 required of the media player in a no-ad response in either the Inline Ad or any Wrappers.
-### Industry Icon Support <a name="industryicon"></a> 
+
+### Industry Icon Support <a name="industryicon"></a>
+
+Several initiatives in the advertising industry involve using an icon that overlays on top of an
+Ad creative to provide some extended functionality such as to communicate with consumers
+or otherwise fulfill requirements of a specific initiative. Often this icon and its functionality
+may be provided by a vendor, and is not necessarily served by the ad server or included in
+the creative itself.
+
+One example of icon use is for compliance to certain Digital Advertising Alliance (DAA) selfregulatory principles for interest-based advertising (IBA). This section provides an overview
+of how media players can support the use of icons in a general manner while using the
+DAA’s AdChoices program, as a specific example.
+
+Icons are optional for audio, and can be used in the context of a companion banner. But
+since audio ad players are not required to have a rendering engine, icons are not a
+requirement when the adType is “audio” or “hybrid”.
+
+Icon Use Case: AdChoices for Interest-Based Advertising (IBA)
+The Digital Advertising Alliance (DAA) sets forth principles that endeavor to give consumers
+a better understanding of and greater control over ads that are customized based on the
+consumer’s online behavior. This control is made available to the consumer in the form of
+the AdChoices icon, which is displayed in a prominent location in or around the Ad creative.
+When a consumer clicks the icon, they may be offered: information about the ad server and
+data providers used to select the Ad, options to learn more about online behavioral
+advertising (OBA), and the ability for consumers to opt out from receiving OBA ads in the
+future.
+
+The <Icons> Element
+VAST 3.0 introduced the <Icons> element, which is offered under the <Linear> creative
+element for both Inline and Wrapper ad elements.
+
+The following diagram illustrates the general process for how the <Icons> element is
+represented in a VAST response.
+
+The Icon Provider Server represented in this diagram may be the same server that serves
+the VAST response but more commonly, is a vendor that serves the icon from its own
+systems.
+
+When the <Icons> element is included in the VAST response, the media player must
+display the object as an overlay on top of the Linear Ad with which the icon is served and
+after the ad has started (i.e. first frame of video is displayed in the player).
+
 ## Viewability Verification and Interactive Linear Creative <a name="viewability"></a>
 ### Publisher Viewability <a name="publisherviewability"></a> 
 ### Viewability with Ad Verification Services <a name="adverificationservices"></a> 
