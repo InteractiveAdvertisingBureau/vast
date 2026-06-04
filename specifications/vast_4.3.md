@@ -1173,17 +1173,248 @@ display the object as an overlay on top of the Linear Ad with which the icon is 
 after the ad has started (i.e. first frame of video is displayed in the player).
 
 ## Viewability Verification and Interactive Linear Creative <a name="viewability"></a>
+
+VAST 4 adds new sections in the Linear file for viewability, ad verification, and interactive
+creative files. These new sections offer performance and measurement benefits but also
+add a level of complexity.
+Player compliance with VAST 4 requires appropriate execution of these files.
+The player should execute the ad in the following order:
+1. Start loading verification resources.
+2. Start loading video assets and interactive resources.
+3. Initialize interactive resources.
+4. Start ad playback.
+Player expectations on these added features are summarized here and further defined in
+their corresponding sections.
+
 ### Publisher Viewability <a name="publisherviewability"></a> 
+
+Publishers have the option to offer viewable impression tracking on the ad using the
+<ViewableImpression> feature added in VAST 4. Three URIs may be provided to track
+whether the ad was <Viewable>, <NotViewable>, or <ViewUndetermined> (see section
+3.5).
+Note that this feature is specific to (the likely uncommon) situation where the publisher is
+the party monitoring ad geometry and making the viewability determination. As such, it will
+very likely be limited to situations where the buyer and seller have some prior relationship
+and agreement around measurement mechanics and the viewability standard used. It is not
+a general replacement for, nor should it be confused with, measurement and reporting of
+viewability by third-party verification services (as in section 2.4.2). These URIs are not
+intended for reporting viewability determinations from such parties.
+This feature is not applicable to audio ads.
+
 ### Viewability with Ad Verification Services <a name="adverificationservices"></a> 
+
+Ad Verification services can be requested for measurement by adding a <Verification>
+element under <AdVerifications> including their executable resources and associated
+per-impression metadata. Multiple vendors may use this feature to measure the same ad
+session. All verification resources listed in the VAST should be executed, including those
+from any intermediary <Wrapper> VASTs, barring exceptions based on a whitelist or other
+pre-defined rules as outlined below.
+A VAST 4 player must check for these elements, however, players may optionally either:
+refuse to execute unknown resources or declare it as not supported. The recommended
+process is to consult an IAB TechLab-provided/certified list of known verification vendors
+and domains, although the exact mechanism is left to the publisher/player. The player must
+request each associated verificationNotExecuted tracking event URI (with the [REASON]
+macro filled with reason code 1) in the case that it refuses to execute one or more
+verification script (see section 3.17.4 for details).
+Verification resources should be executed as required by the OMID specification. If the
+code cannot be executed as provided, any included verificationNotExecuted tracking events
+URIs must be sent with the appropriate reason code (e.g. not supported, error, etc.).
+
 ### Interactive Linear Creative Files <a name="interactivelinear"></a> 
-# VAST Implementation <a name="implementation"></a>    
+
+In VAST 4, the <MediaFile> should only be used to include video or audio files. For Linear
+files that require an API framework to be executed, the new <InteractiveCreativeFile>
+should be used to include these files. Once the <AdVerifications> element has been
+checked for verification code, the <InteractiveCreativeFile> element should be checked
+for code in order to execute the ad. When the <InteractiveCreativeFile> cannot be
+executed, the <Error> should be sent and the player may check the <MediaFiles> element
+for any media files that are available to be played.
+This script asset should only be used to enable interactive, dynamic or other creative
+capabilities and not used for viewability, client-side arbitration, or other non-creative uses.
+
+# VAST Implementation <a name="implementation"></a>
+
+VAST is an XML schema for providing metadata about an ad for in-stream video or audio
+that is parsed by a player or by a server on the player's behalf. This section provides the
+details for forming the VAST.
+Beginning with section 3.1, each element available in VAST is described and a table
+summarizes information about hierarchy, requirements, and attributes. Each VAST element
+that includes nested elements is defined under a second-level heading in this document.
+Third-level headings represent nested elements that have no additional nested elements
+under them.
+Links to the table of contents (TOC) and the schema are provided under each heading to
+aid in navigation. The human-readable schema in section summarizes VAST elements and
+provides a link to the chapter that describes the element in more detail.
+
+Before forming a VAST document, considerations for the XML namespace and browser
+security for JavaScript or other scripting languages should be established as follows.
+XML Namespace
+Whenever VAST is used in conjunction with any other XML template, such as with VMAP or
+VAST extensions, a namespace should be declared for each so that the elements of one
+are not confused with the elements of another.
+For more information, visit: http://www.w3.org/TR/REC-xml-names/
+Browser Security
+Modern browsers restrict Adobe Flash and JavaScript runtime environments from retrieving
+data from other servers. Since typical VAST responses come from other servers, measures
+must be taken for each.
+Cross Origin Resource Sharing (CORS) for JavaScript
+In order for JavaScript media players to accept a VAST response, ad servers must include
+a CORS header in the http file that wraps the VAST response. The CORS header must be
+formatted as follows:
+Access-Control-Allow-Origin: <origin header value>
+Access-Control-Allow-Credentials: true
+These HTTP headers allow an ads player on any origin to read the VAST response from the
+ad server origin. The value of Access-Control-Allow-Origin should be the value of the
+Origin header sent with the ad request.
+Setting the Access-Control-Allow-Credentials header to true will ensure that cookies
+will be sent and received properly.
+Note: For requests where the Origin header is null, ad servers should respond with only
+Access-Control-Allow-Origin: * (and no Access-Control-Allow-Credentials header)
+to prevent breaking on originless requests, such as those from iOS wkwebviews.
+For more information, visit http://www.w3.org/TR/cors
+
 ## Declaring the VAST Response <a name="response"></a> 
+
+All VAST responses share the same general structure. Each VAST response is declared
+with <VAST> as its topmost element along with the version attribute indicating the official
+version with which the response is compliant. For example, a VAST 4.1 response is
+declared as follows:
+<VAST version="4.1">
+As with all XML documents, each element must be closed after details nested within the
+element are provided. The following example is a VAST response with one nested <Ad>
+element.
+<VAST version="4.1">
+<Ad>
+<!--ad details go here-->
+</Ad>
+
 ## VAST <a name="spec"></a> 
+VAST is the root node for a VAST-compliant ad response and is used to declare the VAST
+3.2 VAST response as described in section 3.1.
+
+| Player Support | Required |
+| Required in Response | Yes |
+| Parent | None (root) |
+| Bounded | 1 |
+| Sub-elements | Error*, Ad* |
+
+| Attributes | Description |
+| ------- | ------- |
+| version | A float (number with decimal) to indicate the VAST version being used. |
+
+*either <Error> or <Ad> may be provided but not both
+
 ### Error (VAST) <a name="error"></a>
+
+Used to report a no-ad response. When the ad server does not or cannot return an Ad, the
+VAST response should contain only the root <VAST> element with one or more <Error>
+elements, as shown below:
+<VAST version="4.1">
+<Error>
+<![CDATA[http://adserver.com/noad.gif]]>
+</Error>
+</VAST>
+The VAST <Error> element is optional but if included, the media player must use the URI
+provided to notify the server that no ad was returned. Multiple <Error> elements may be
+provided to notify multiple parties of the no-ad response.
+
+| Player Support | Required |
+| Required in Response | No, but if supplied no other elements are allowed |
+| Parent | VAST |
+| Bounded | 0+ |
+| Contents | A URI supplied by the ad server and used to report the no ad response |
+
 ## Ad <a name="ad"></a>
+
+The <Ad> element may contain an <InLine> ad or a <Wrapper>. The wrapper points to a
+secondary server for another VAST response, which may be another wrapper or an InLine
+response. An InLine response contains the ad creative necessary to execute ad playback.
+
 ### Ad Pods and Stand-Alone Ads <a name="adpods"></a>
+
+While a single <Ad> element represents the most common VAST response, multiple ads
+may be included as either stand-alone ads or a Pod of ads, or a mix of both. Ads in a Pod
+are distinguished by using the sequence attribute for an <Ad>, denoting which ad plays first,
+second, and so on. If the player supports Ad Pods, sequenced ads are played in numerical
+order and all ads in the Pod should be played to the best of the player's ability. All sequence
+values in a VAST response must be unique.
+Non-sequenced ads, are stand-alone ads and considered part of an "ad buffet" from which
+the player may select one or more ad to play in any order. Stand-alone ads may be included
+in a VAST response with an Ad Pod and may be used to substitute an ad in the Pod when
+an ad cannot be played.
+The following diagram illustrates some options for how the <Ad> element may be
+represented in a VAST response.
+
+If the media player cannot display an entire Ad Pod or any stand-alone ads, it can decline
+from loading the ad resources and use the error URI, if provided, to notify the server.
+Playing a Pod of Ads
+When electing to play a Pod of ads returned by the ad server, the media player must play
+the ads in the Pod in the prescribed sequence and should play as many of the ads as
+possible. The player may elect to truncate any ads at the end of an Ad Pod if either: the ads
+cannot be played because they cannot physically fit into the ad break in the stream (such as
+when time is limited in a live stream) or if the Pod violated any limits specified by the media
+player request (for example: number of ads to return, or maximum pod duration).
+When an Ad Pod is the result of following a VAST <Wrapper> the same impression and
+tracking URIs in the VAST <Wrapper> are called as each ad in the Pod is played.
+Should an ad in the Pod fail to play, the media player should substitute an un-played stand-
+alone ad from the response. If stand-alone ads are unavailable, the player should move on
+to the next ad in the Ad Pod.
+
+If a Wrapper is used to provide an ad in the Ad Pod, the Wrapper can use attributes,
+allowMultipleAds=false and followAdditionalWrappers=false to prevent performance
+issues that result from an unmanaged string of Wrappers and multiple ads in an Ad Pod.
+
+| Media Player Implementation Note | If multiple <Ad> elements are provided with sequence attributes and the player
+supports Ad Pods, all ads in the Pod must be played to the best of the player's ability. If not supported or the Pod cannot be played, the media player should use the error-tracking URI, if provided, to notify the server. A special exemption exists when using VMAP. Please visit http://iab.com/vmap for information on VMAP. |
+
 ### The Ad Element <a name="adelement"></a>
+
+Properties for the <Ad> element are listed in the following table.
+
+| Player Support | Required (Ad Pod support is optional) |
+| Required in Response | Yes (unless there is no ad to return; in which case <Error> should be used to provide the error URI) |
+| Parent | VAST |
+| Bounded | 0+ |
+| Sub-elements | InLine*, Wrapper* |
+
+| Attributes | Description |
+| ------- | ------- |
+| id | An ad server-defined identifier string for the ad |
+| sequence | A integer greater than zero (0) that identifies the sequence in which an ad should
+play; all <Ad> elements with sequence values are part of a pod and are intended to be
+played in sequence |
+| conditionalAd | [Deprecated in VAST 4.1, along with apiFramework]
+A Boolean that identifies a conditional ad. In the case of programmatic ad serving,
+a VPAID ad unit or other mechanism might be used to decide whether there is an ad
+that matches the placement. When there is no match, an ad may not be served. Use
+of the conditionalAd attribute enables publishers to avoid accepting these ads in
+placements where an ad must be served. A value of true indicates that the ad is
+conditional and should be used in all cases where the InLine executable unit (such
+as VPAID) is not an ad but is instead a framework for finding an ad; a value of
+false is the default value and indicates that an ad is available. |
+| adType | An optional string that identifies the type of ad. This allows VAST to support audio ad
+scenarios.
+Possible values – video, audio, hybrid.
+Default value – video (assumed to be video if attribute is not present)
+More details on the use case in section 1.5 |
+
+*The Ad element requires exactly one child, which can either be an <InLine> or <Wrapper>
+element.
+
 ## InLine <a name="inline"></a>
+
+Within the nested elements of an <InLine> ad are all the files and URIs necessary to play
+and track the ad. In a chain of <Wrapper> VAST responses, an <InLine> response ends the
+chain.
+
+| Player Support | Required |
+| Required in Response | One of <InLine> or <Wrapper> is required, but both are not allowed |
+| Parent | Ad |
+| Bounded | 0-1 |
+| Sub-elements | AdSystem*, AdTitle*, Impression*, AdServingId*, Category, Description, Advertiser, Pricing, Survey, Error, Extensions, ViewableImpression, AdVerifications, Creatives*, Expires  |
+
+*required
+
 ### AdSystem <a name="adsystem"></a>
 ### AdTitle <a name="adtitle"></a>
 ### AdServingId <a name="adservingid"></a>
