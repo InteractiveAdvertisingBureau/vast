@@ -1292,13 +1292,15 @@ element.
 VAST is the root node for a VAST-compliant ad response and is used to declare the VAST
 3.2 VAST response as described in section 3.1.
 
+| Feature | Description |
+| ------- | ------- |
 | Player Support | Required |
 | Required in Response | Yes |
 | Parent | None (root) |
 | Bounded | 1 |
-| Sub-elements | Error*, Ad* |
+| Sub-elements | Error* <br>Ad* |
 
-| Attributes | Description |
+| Attribute | Description |
 | ------- | ------- |
 | version | A float (number with decimal) to indicate the VAST version being used. |
 
@@ -1318,6 +1320,8 @@ The VAST <Error> element is optional but if included, the media player must use 
 provided to notify the server that no ad was returned. Multiple <Error> elements may be
 provided to notify multiple parties of the no-ad response.
 
+| Feature | Description |
+| ------- | ------- |
 | Player Support | Required |
 | Required in Response | No, but if supplied no other elements are allowed |
 | Parent | VAST |
@@ -1371,32 +1375,20 @@ supports Ad Pods, all ads in the Pod must be played to the best of the player's 
 
 Properties for the <Ad> element are listed in the following table.
 
+| Feature | Description |
+| ------- | ------- |
 | Player Support | Required (Ad Pod support is optional) |
 | Required in Response | Yes (unless there is no ad to return; in which case <Error> should be used to provide the error URI) |
 | Parent | VAST |
 | Bounded | 0+ |
-| Sub-elements | InLine*, Wrapper* |
+| Sub-elements | InLine* <br>Wrapper* |
 
 | Attributes | Description |
 | ------- | ------- |
 | id | An ad server-defined identifier string for the ad |
-| sequence | A integer greater than zero (0) that identifies the sequence in which an ad should
-play; all <Ad> elements with sequence values are part of a pod and are intended to be
-played in sequence |
-| conditionalAd | [Deprecated in VAST 4.1, along with apiFramework]
-A Boolean that identifies a conditional ad. In the case of programmatic ad serving,
-a VPAID ad unit or other mechanism might be used to decide whether there is an ad
-that matches the placement. When there is no match, an ad may not be served. Use
-of the conditionalAd attribute enables publishers to avoid accepting these ads in
-placements where an ad must be served. A value of true indicates that the ad is
-conditional and should be used in all cases where the InLine executable unit (such
-as VPAID) is not an ad but is instead a framework for finding an ad; a value of
-false is the default value and indicates that an ad is available. |
-| adType | An optional string that identifies the type of ad. This allows VAST to support audio ad
-scenarios.
-Possible values – video, audio, hybrid.
-Default value – video (assumed to be video if attribute is not present)
-More details on the use case in section 1.5 |
+| sequence | A integer greater than zero (0) that identifies the sequence in which an ad should play; all <Ad> elements with sequence values are part of a pod and are intended to be played in sequence |
+| conditionalAd | [Deprecated in VAST 4.1, along with apiFramework] A Boolean that identifies a conditional ad. In the case of programmatic ad serving, a VPAID ad unit or other mechanism might be used to decide whether there is an ad that matches the placement. When there is no match, an ad may not be served. Use of the conditionalAd attribute enables publishers to avoid accepting these ads in placements where an ad must be served. A value of true indicates that the ad is conditional and should be used in all cases where the InLine executable unit (such as VPAID) is not an ad but is instead a framework for finding an ad; a value of false is the default value and indicates that an ad is available. |
+| adType | An optional string that identifies the type of ad. This allows VAST to support audio ad scenarios. <br>Possible values – video, audio, hybrid. <br>Default value – video (assumed to be video if attribute is not present) <br>More details on the use case in section 1.5 |
 
 *The Ad element requires exactly one child, which can either be an <InLine> or <Wrapper>
 element.
