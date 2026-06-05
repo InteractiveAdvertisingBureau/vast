@@ -1853,34 +1853,412 @@ Guidelines for ad files that fulfill quality levels of high, medium, or low can 
 | Parent | MediaFiles only for InLine format |
 | Bounded | 1+ |
 | Content | A CDATA-wrapped URI to a media file. |
-| Attributes Description |  delivery* Either “progressive” for progressive download protocols (such as HTTP) or “streaming” for streaming protocols. type* MIME type for the file container. Popular MIME types include, but are not limited to “video/mp4” for MP4, “audio/mpeg” and "audio/aac" for audio ads. width* The native width of the video file, in pixels. (0 for audio ads) height* The native height of the video file, in pixels. (0 for audio ads) codec The codec used to encode the file which can take values as specified by RFC 4281: http://tools.ietf.org/html/rfc4281. id An identifier for the media file. --- ## Page 53 VAST 4.3 © 2022 IAB Technology Laboratory  iabtechlab.com/vast Page 52 of 89 bitrate or minBitrate and maxBitrate For progressive load video or audio, the bitrate value specifies the average bitrate for the media file; otherwise the minBitrate and maxBitrate can be used together to specify the minimum and maximum bitrates for streaming videos or audio files. scalable a Boolean value that indicates whether the media file is meant to scale to larger dimensions. maintainAspectRatio a Boolean value that indicates whether aspect ratio for media file dimensions should be maintained when scaled to new dimensions. apiFramework** [Deprecated in 4.1 in preparation for VPAID being phased out] identifies the API needed to execute an interactive media file, but current support is for backward compatibility. Please use the <InteractiveCreativeFile> element to include files that require an API for execution. fileSize Optional field that helps eliminate the need to calculate the size based on bitrate and duration. Units - Bytes mediaType Type of media file (2D / 3D / 360 / etc). Optional. Default value = 2D *required **if an API framework is needed to execute the ad, please use <InteractiveCreativeFile> to provide API files. |
+| Attributes Description |  delivery* Either “progressive” for progressive download protocols (such as HTTP) or “streaming” for streaming protocols. type* MIME type for the file container. Popular MIME types include, but are not limited to “video/mp4” for MP4, “audio/mpeg” and "audio/aac" for audio ads. width* The native width of the video file, in pixels. (0 for audio ads) height* The native height of the video file, in pixels. (0 for audio ads) codec The codec used to encode the file which can take values as specified by RFC 4281: http://tools.ietf.org/html/rfc4281. id An identifier for the media file.  bitrate or minBitrate and maxBitrate For progressive load video or audio, the bitrate value specifies the average bitrate for the media file; otherwise the minBitrate and maxBitrate can be used together to specify the minimum and maximum bitrates for streaming videos or audio files. scalable a Boolean value that indicates whether the media file is meant to scale to larger dimensions. maintainAspectRatio a Boolean value that indicates whether aspect ratio for media file dimensions should be maintained when scaled to new dimensions. apiFramework** [Deprecated in 4.1 in preparation for VPAID being phased out] identifies the API needed to execute an interactive media file, but current support is for backward compatibility. Please use the <InteractiveCreativeFile> element to include files that require an API for execution. fileSize Optional field that helps eliminate the need to calculate the size based on bitrate and duration. Units - Bytes mediaType Type of media file (2D / 3D / 360 / etc). Optional. Default value = 2D *required **if an API framework is needed to execute the ad, please use <InteractiveCreativeFile> to provide API files. |
 
-### Mezzanine <a name="mezzanine"></a>
-### InteractiveCreativeFile <a name="interactivecreativefile"></a>
-### ClosedCaptionFiles <a name="closedcaptionfiles"></a>
-### ClosedCaptionFile <a name="closedcaptionfile"></a>
-## VideoClicks <a name="videoclicks"></a>
-### ClickThrough <a name="clickthrough"></a>
-### ClickTracking <a name="clicktracking"></a>
-### CustomClick <a name="customclick"></a>
-## Icons <a name="icons"></a>
-### Icon <a name="icon"></a>
-### IconViewTracking <a name="iconviewtracking"></a>
-### IconClicks <a name="iconclicks"></a>
-### IconClickThrough <a name="iconclickthrough"></a>
-### IconClickTracking <a name="iconclicktracking"></a>
-### IconClickFallbackImages <a name="iconclickfallbackimages"></a>
-#### IconClickFallbackImage <a name="iconclickfallbackimage"></a>
-### NonLinearAds <a name="nonlinearads"></a>
-#### NonLinear <a name="nonlinear"></a>
-#### NonLinearClickThrough <a name="nonlinearclickthrough"></a>
-#### NonLinearClickTracking <a name="nonlinearclicktracking"></a>
-### CompanionAds <a name="companionads"></a>
-#### Companion <a name="companion"></a>
-#### AltText <a name="alttext"></a>
-#### CompanionClickThrough <a name="companionclickthrough"></a>
-#### CompanionClickTracking <a name="companionclicktracking"></a>
-### Tracking Event Elements <a name="trackingeventelements"></a>
+### 3.9.2 Mezzanine <a name="mezzanine"></a>
+
+The media player may use a raw mezzanine file to transcode video or audio files at quality levels specific to the needs of certain environments. An XSD will validate this element as optional, but a mezzanine file is required in ad-stitched executions and whenever a publisher requires it. If no mezzanine file is available, this element may be excluded; however, publishers that require it may ignore the VAST response when not provided. If an ad is rejected for this reason, error code 406 is available to communicate the error when an <Error> URI and macro are provided. 
+Publishers consume mezzanine files to transcode the media into a form publisher’s system and user devices support. The mezzanine file should never be used for the direct ad playback. 
+The mezzanine file specifications are defined in the Digital Video Ad Format Guidelines. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Optional |
+| Required in Response | No* |
+| Parent | MediaFiles only in InLine format. |
+| Bounded | 0+ |
+| Content | A CDATA-wrapped URI to a raw, high-quality media file. |
+| Attributes Description |  delivery* Either progressive for progressive download protocols (such as HTTP) or streaming for streaming protocols. --- ## Page 54 VAST 4.3 © 2022 IAB Technology Laboratory  iabtechlab.com/vast Page 53 of 89 type* MIME type for the file container. Popular MIME types include, but are not limited to “video/mp4” for MP4, “audio/mpeg” and "audio/aac" for audio ads. width* The native width of the video file, in pixels. height* The native height of the video file, in pixels. codec The codec used to encode the file which can take values as specified by RFC 4281: http://tools.ietf.org/html/rfc4281. id An identifier for the media file. fileSize Optional field that helps eliminate the need to calculate the size based on bitrate and duration. mediaType Type of media file (3D / 360 / etc). Optional. Default value = 2D * VAST tags served to ad-stitching servers require a mezzanine file; server may reject the VAST response if no mezzanine file is provided. |
+
+### 3.9.3 InteractiveCreativeFile <a name="interactivecreativefile"></a>
+
+For any media file that uses interactive APIs for advanced creative functionality, the <InteractiveCreativeFile> element is used to identify the file and the framework needed for execution. Providing the interactive portion for a media file in a section of VAST separate from the video/audio file enables players to more easily play the video/audio file when no support is available to execute the API, especially for players that work with an ad-stitching service or make ad calls from a server on behalf of the player. The player should attempt to execute the interactive file before attempting to load any <MediaFile>, but if the file cannot be executed, the player should trigger any included error URIs and use error code 409 when macros are provided. 
+ 
+The “file” can be a direct URL or can be an inline data URI. While providing a URL was customary for VAST before 4.3, saving connection time by providing a small, inline, data URI enhances the consumer ad experience by saving connection times. This saving is only possible if the inline data URI is small enough. Since the data URI payload will likely be a 
+HTML payload, the recommendation is to make this as small as possible. Once the size of the data URI becomes prohibitively large, use a URL to save the response size of the VAST, itself. 
+Note re Audio Ads: While not in use today, this could be used for pure audio interactivity outside of a click on devices like Alexa. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in Response | No |
+| Parent | MediaFiles only in InLine format |
+| Bounded | 0+ |
+| Content | A CDATA-wrapped URI or inline data URI to a file providing creative functions for the media file. |
+| Attributes Description |  type Identifies the MIME type of the file provided. apiFramework Identifies the API needed to execute the resource file if applicable. --- ## Page 55 VAST 4.3 © 2022 IAB Technology Laboratory  iabtechlab.com/vast Page 54 of 89 variableDuration Boolean. Useful for interactive use cases. Identifies whether the ad always drops when the duration is reached, or if it can potentially extend the duration by pausing the underlying video or delaying the adStopped call after adVideoComplete. If set to true, the extension of the duration should be user-initiated (typically, by engaging with an interactive element to view additional content). |
+
+### 3.9.4 ClosedCaptionFiles <a name="closedcaptionfiles"></a>
+
+Optional node that enables closed caption sidecar files associated with the ad media (video or audio) to be provided to the player. Multiple files with different mime-types may be provided as children of this node to allow the player to select the one it is compatible with. 
+ 
+Note: It is expected that all the media files tied to parent MediaFiles node are associated with the same original creative and therefore of the same media length as well as accurately synchronized with closed captioned media segments times, so all the files under ClosedCaptionFiles should work for all the MediaFile nodes. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Optional |
+| Required in Response | No |
+| Parent | MediaFiles only in InLine format |
+| Bounded | 1 |
+| Sub elements | ClosedCaptionFile |
+
+### 3.9.5 ClosedCaptionFile <a name="closedcaptionfile"></a>
+
+Individual closed caption files for various languages. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Optional |
+| Required in Response | No |
+| Parent | ClosedCaptionFiles |
+| Bounded | 0+ |
+| Content | A CDATA-wrapped URI to a file providing Closed Caption info for the media file. |
+| Attributes Description |  type Identifies the MIME type of the file provided. language Language of the Closed Caption File using ISO 631-1 codes. An optional locale suffix can also be provided. Example:- “en”, “en-US”, “zh-TW”. Examples <MediaFiles> … <ClosedCaptionFiles> <ClosedCaptionFile type="text/srt language="en"> <![CDATA[https://mycdn.example.com/creatives/creative001.srt]]> </ClosedCaptionFile> <ClosedCaptionFile type="text/srt" language="fr"> <![CDATA[https://mycdn.example.com/creatives/creative001-1.srt]]> </ClosedCaptionFile> <ClosedCaptionFile type="text/vtt language="zh-TW"> <![CDATA[https://mycdn.example.com/creatives/creative001.vtt]]> </ClosedCaptionFile> <ClosedCaptionFile type="application/ttml+xml" language= zh-CH"> --- ## Page 57 VAST 4.3 © 2022 IAB Technology Laboratory  iabtechlab.com/vast Page 56 of 89 <![CDATA[https://mycdn.example.com/creatives/creative001.ttml]]> </ClosedCaptionFile> </ClosedCaptionFiles> … </MediaFiles> |
+
+## 3.10 VideoClicks <a name="videoclicks"></a>
+
+The <VideoClicks> element provides URIs for clickthroughs, clicktracking, and custom clicks and is available for Linear Ads in both the InLine and Wrapper formats. Both InLine and Wrapper formats offer the ClickThrough, ClickTracking and CustomClick elements. These elements are defined in the following sections. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in |  Response No |
+| Parent | Linear in both the InLine and Wrapper format |
+| Bounded | 0-1 |
+| Sub-elements | ClickThrough ClickTracking CustomClick |
+
+### 3.10.1 ClickThrough <a name="clickthrough"></a>
+
+The <ClickThrough> is a URI to the advertiser’s site that the media player opens when a viewer clicks the ad. The clickthrough is available in the InLine and Wrapper formats and is used when the Linear ad unit cannot handle a clickthrough. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in |  Response One ClickThrough element is required if <VideoClicks> in the InLine format is used. |
+| Parent | Linear in both the InLine and Wrapper format |
+| Bounded | 0-1 (if <VideoClicks> is used) |
+| Content | a URI to the advertiser’s site that the media player opens when a viewer clicks the ad. |
+| Attributes Description |  id A unique ID for the clickthrough. |
+
+### 3.10.2 ClickTracking <a name="clicktracking"></a>
+
+Multiple <ClickTracking> elements can be used in the case where multiple parties would like to track the Linear ad clickthrough. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in |  Response No |
+| Parent | Linear in both InLine and Wrapper formats. |
+| Bounded | 0+ |
+| Content | A URI for tracking when the ClickThrough is triggered. |
+| Attributes Description |  id A unique ID for the click to be tracked. |
+
+### 3.10.3 CustomClick <a name="customclick"></a>
+
+The <CustomClick> is used to track any interactions with the linear ad that do not include the clickthrough click and do not take the viewer away from the media player. For example, if an ad vendor wants to track that a viewer clicked a button to change the ad's background color, the <CustomClick> element holds the URI to notify the ad vendor that this click happened. An API may be needed to inform the player that a click occurred and that the corresponding URI should be activated. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in |  Response No |
+| Parent | Linear in both Wrapper and InLine formats. |
+| Bounded | 0+ |
+| Content | A URI for tracking custom interactions. |
+| Attributes Description |  id A unique ID for the custom click to be tracked. |
+
+## 3.11 Icons <a name="icons"></a>
+
+The industry icon feature was defined in VAST 3.0 to support initiatives such as privacy programs. An example of such a program is the AdChoices program for interest-based advertising (IBA). Though the VAST icon feature was initially created to support privacy programs, it was designed to support other programs that require posting an icon with the 
+linear ad. 
+This feature is only offered for Linear Ads because icons can be easily inserted in NonLinear ads and companion creative using existing features. Icon source files may also be included in a wrapper if necessary. 
+The structure for Linear icons uses the <Icons> element (plural) as a container for one or more <Icon> elements (singular). Each <Icon> element provides containers for the creative resource file in section 3.15. Icon tracking is described in sections 3.11.2 to 3.11.5. 
+See section 2.3.7 for details about industry icon support in VAST. 
+ 
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in |  Response No |
+| Parent | Linear in both InLine and Wrapper formats |
+| Bounded | 0-1 |
+| Sub-elements | Icon |
+
+### 3.11.1 Icon <a name="icon"></a>
+
+Nested under the <Icons> element, the Icon is used to provide one or more creative files for the icon that represents the program being implemented along with any icon tracking elements. Multiple <Icon> elements may be used to represent multiple programs. 
+ 
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in Response | Yes, if at least one <Icons> element is provided |
+| Parent | Icons for both InLine and Wrapper formats |
+| Bounded | 1+ (if <Icons> is used) Sub-Elements StaticResource IFrameResource HTMLResource IconClicks IconViewTracking |
+| Attributes Description |  program The program represented in the icon (e.g. "AdChoices"). width Pixel width of the icon asset. height Pixel height of the icon asset. xPosition The x-coordinate of the top, left corner of the icon asset relative to the ad display area. Values of "left" or "right" also accepted and indicate the leftmost or rightmost available position for the icon asset. yPosition The y-coordinate of the top left corner of the icon asset relative to the ad display area; values of "top" or "bottom" also accepted and indicate the topmost or bottommost available position for the icon asset. duration The duration the icon should be displayed unless clicked or ad is finished playing; provided in the format HH:MM:SS.mmm or HH:MM:SS where .mmm is milliseconds and optional. offset The time of delay from when the associated linear creative begins playing to when the icon should be displayed; provided in the format HH:MM:SS.mmm or HH:MM:SS. apiFramework Identifies the API needed to execute the icon resource file if applicable. pxratio The pixel ratio for which the icon creative is intended. The pixel ratio is the ratio of physical pixels on the device to the device-independent pixels. An ad intended for display on a device with a pixel ratio that is twice that of a standard 1:1 pixel ratio would use the value "2 " Default value is "1 ". altText Alternative text for the image. In an html5 image tag this should be the text for the alt attribute. This should enable screen readers to properly read back a description of the icon for visually impaired users. hoverText Hover text for the image. In an html5 image tag this should be the text for the title attribute. |
+
+### 3.11.2 IconViewTracking <a name="iconviewtracking"></a>
+
+The view tracking for icons is used to track when the icon creative is displayed. The player uses the included URI to notify the icon server when the icon has been displayed.  
+
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in Response | No |
+| Parent | Icon for both InLine and Wrapper formats |
+| Bounded | 0+ |
+| Content | A URI for the tracking resource file to be called when the icon creative is displayed. |
+
+### 3.11.3 IconClicks <a name="iconclicks"></a>
+
+The <IconClicks> element is a container for <IconClickThrough> and <ClickTracking>.  
+
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in Response | No |
+| Parent | Icon for both InLine and Wrapper formats |
+| Bounded | 0-1 |
+| Sub-elements | IconClickThrough IconClickTracking IconClickFallbackImages |
+
+### 3.11.4 IconClickThrough <a name="iconclickthrough"></a>
+
+The <IconClickThrough> is used to provide a URI to the industry program page that the 
+media player opens when the icon is clicked.  
+
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in Response | No |
+| Parent | IconClicks for both InLine and Wrapper formats |
+| Bounded | 0-1 |
+| Content | A URI to the industry program page opened when a viewer clicks the icon. |
+
+### 3.11.5 IconClickTracking <a name="iconclicktracking"></a>
+
+<IconClickTracking> is used to track click activity within the icon.  
+
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in Response | No |
+| Parent | IconClicks for both InLine and Wrapper formats |
+| Bounded | 0+ |
+| Content | A URI to the tracking resource file to be called when a click corresponding to the id attribute (if provided) occurs. |
+| Attributes Description |  id An id for the click to be measured. |
+
+### 3.11.6 IconClickFallbackImages <a name="iconclickfallbackimages"></a>
+
+The <IconClickFallbackImages> element is used to provide information disclosure for platforms which do not support HTML rendering, by baking the information into an image. This is a fallback for when the buyer cannot rely on <IconClickThrough> for disclosure. When an icon click occurs, the ad must pause and the image must be rendered above the video. The player must provide a means for the user to close the dialogue, for example by pressing the back button. The image must not be obstructed and should not be downloaded unless a click-action occurs.  
+
+| Feature | Description |
+|---|---|
+| Player Support | Recommended |
+| Required in Response | No |
+| Parent | IconClicks for both InLine and Wrapper formats |
+| Bounded | 0-1 |
+| Sub-elements | IconClickFallbackImage |
+
+#### 3.11.6.1 IconClickFallbackImage <a name="iconclickfallbackimage"></a>
+
+The <IconClickFallbackImage> element is used to display information when an icon click 
+occurs.  
+
+| Feature | Description |
+|---|---|
+| Player Support | Recommended |
+| Required in Response | No |
+| Parent | IconClickFallbackImages |
+| Bounded | 1+ |
+| Sub-elements | AltText StaticResource |
+| Attributes Description |  width* Pixel width of the image asset height* Pixel height of the image asset |
+
+### 3.12 NonLinearAds <a name="nonlinearads"></a>
+
+NonLinear ads are the overlay ads that display as an image or rich media on top of video content during playback. Within an InLine ad, at least one of <Linear> or <NonLinearAds> needs to be provided within the <Creative> element. NonLinearAds are not applicable to Audio use cases. The <NonLinearAds> element is a container for the <NonLinear> creative files and tracking resources. If used in a wrapper, only the tracking elements are available. NonLinear creative cannot be provided in a wrapper ad. NonLinear ad creative use non-video creative files that are described in section 3.15. Tracking event elements are described in section 3.14. Ad parameters are used to provide contextual information to the ad and are described in section 3.8.2. 
+ 
+| Feature | Description |
+|---|---|
+| Player Support | Optional (either <Linear> or <NonLinearAds> must be supported) |
+| Required in Response | At least one of Linear> or NonLinearAds is required. |
+| Parent | Creative for both InLine and Wrapper formats |
+| Bounded | 0-1 |
+| Sub-elements | NonLinear TrackingEvents |
+
+#### 3.12.1 NonLinear <a name="nonlinear"></a>
+
+Each <NonLinear> element may provide different versions of the same creative using the <StaticResource>, <IFrameResource>, and <HTMLResource> elements in the InLine VAST response. In a Wrapper response, only tracking elements may be provided. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required if <NonLinearAds> is supported |
+| Required in Response | Yes if <NonLinearAds> is provided |
+| Parent | NonLinearAds for both InLine and Wrapper formats |
+| Bounded | 1+ (if <NonLinearAds> is used) |
+| Sub-elements | StaticResource (InLine only) IFrameResource (InLine only) HTMLResource (InLine only) AdParameters (InLine only) NonLinearClickThrough (InLine only) NonLinearclickTracking (InLine and Wrapper) |
+| Attributes Description |  id An optional identifier for the creative. width* The pixel width of the placement slot for which the creative is intended. height* The pixel height of the placement slot for which the creative is intended expandedWidth The maximum pixel width of the creative in its expanded state. expandedHeight The maximum pixel height of the creative in its expanded state. scalable Identifies whether the creative can scale to new dimensions relative to the video player when the video player is resized maintainAspectRatio Identifies whether the aspect ratio of the creative should be maintained when it is scaled to new dimensions as the video player is resized apiFramework The API necessary to communicate with the creative if available. minSuggestedDurati on The minimum suggested duration that the creative should be displayed; duration is in the format HH:MM:SS.mmm (where .mmm is in milliseconds and is optional) |
+
+#### 3.12.2 NonLinearClickThrough <a name="nonlinearclickthrough"></a>
+
+Most NonLinear creative can provide a clickthrough of their own, but in the case where the creative cannot provide a clickthrough, such as with a simple static image, the <NonLinearClickThrough> element can be used to provide the clickthrough. 
+ 
+A clickthrough may need to be provided for an InLine ad in the following situations: 
+● Static image file 
+● Any static resource file where the media player handles the click, such as when 
+“playerHandles=true” in a VPAID AdClickThru event. 
+NonLinearClickThrough is only available for InLine ads. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required if <NonLinearAds> is supported |
+| Required in Response | No |
+| Parent | NonLinear only in InLine format |
+| Bounded | 0-1 |
+| Content | A URI to the advertiser’s page that the media player opens when the viewer clicks the NonLinear ad. |
+
+#### 3.12.3 NonLinearClickTracking <a name="nonlinearclicktracking"></a>
+
+When the NonLinear ad creative handles the clickthrough in an InLine ad, the <NonLinearClickTracking> element is used to track the click, provided the ad has a way to notify the player that that ad was clicked, such as when using a VPAID ad unit. The NonLinearClickTracking element is also used to track clicks in Wrappers. NonLinearClickTracking might be used for an InLine ad when: 
+● Any static resource file where the media player handles the click, such as when 
+“playerHandles=true” in a VPAID AdClickThru event. 
+NonLinearClickTracking is used in a Wrapper Ad in the following situations: 
+● Static image file 
+● Flash file with no API framework (deprecated) 
+● Flash file in which apiFramework=clickTAG (deprecated) 
+● Any static resource file where the media player handles the click, such as when 
+“playerHandles=true” in a VPAID AdClickThru event 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required if <NonLinearAds> is supported |
+| Required in Response | No |
+| Parent | NonLinear for both InLine and Wrapper formats |
+| Bounded | 0+ |
+| Content | A URI to a tracking resource file used to track a NonLinear clickthrough |
+| Attributes Description |  id An id provided by the ad server to track the click in reports. |
+
+### 3.13 CompanionAds <a name="companionads"></a>
+
+Companion Ads are secondary ads included in the VAST tag that accompany the video/audio ad. The <CompanionAds> element is a container for one or more <Companion> elements, where each Companion element provides the creative files and tracking details. Companion Ads, including any creative, may be included in both InLine and Wrapper 
+formatted VAST ads. The required attribute for the <CompanionAds> element provides information about which Companion creative to display when multiple Companions are supplied and whether the ad can be displayed without its Companion creative. The value for required can be one of three values: all, any, or none. 
+The expected behavior for displaying Companion ads depends on the following values: 
+● all: the media player must attempt to display the contents for all <Companion> elements provided. If all companion creative cannot be displayed, the ad should be disregarded and the ad server should be notified using the <Error> element. 
+● any: the media player must attempt to display content from at least one of the <Companion> elements provided (i.e. display the one with dimensions that best fit the page). If none of the companion creative can be displayed, the ad should be disregarded and the ad server should be notified using the <Error> element. 
+● none: the media player may choose to not display any of the companion creative, but is not restricted from doing so. The ad server may use this option when the advertiser prefers that the master Linear or NonLinear ad be displayed even if the companion cannot be displayed. If not provided, the media player can choose to display content from any or none of the <Companion> elements. 
+
+VAST 4.1 includes a new attribute for companions: renderingMode. 
+Previous versions of VAST did not allow for the ad server to specify how and when companions would be shown. An asset and width/height information were included, and the assumption was that the companion would be shown alongside the video as a banner. This usage of companions has dropped out of favor over time, while a new usage of the companion as an asset to be displayed full-screen after the video has gained favor in mobile in-app inventory. The renderingMode attribute accommodates the newer end-card use case as part of VAST while laying the groundwork for additional uses of the companion. 
+The renderingMode attribute accepts a few values. The publisher player/SDK has control of which of these renderingMode values are supported and this should be communicated as part of the publisher ad format specs. 
+
+Companion as End-Card 
+
+A value of "end-card" signals to the player that this companion ad is meant to be shown after the video stops playing. The end-card should match the dimensions of the preceding video. If the companion width and height are not zero, the player may use these values to infer the aspect ratio of the companion ad. 
+Companion duration is a new consideration for the end-card and assumed to be controlled by the publisher player/SDK and communicated as part of the publisher ad format specs. Known variations in market include an “infinite” duration, which requires the viewer to close the end-card after it is shown, and a timed duration. For any companion that suspends content playback, such as an in-stream ad, and does not include a time-out, the player/SDK must implement a close control to prevent users from being trapped in the ad. For out- stream ads that do not interfere with content, the close control is not mandatory. It is also up to the publisher whether a skippable video should show an associated end-card when the video is skipped. Most implementations by major mobile SDKs currently do so. 
+Click-throughs triggered from the companion should make sure to open in a new browser window rather than replacing the existing end card or another window needed by the app. This ensures that the consumer can exit the webpage that’s loaded upon clicking through the ad and to make sure that the app experience isn’t disrupted. 
+
+The VAST event of closeLinear must be fired upon the companion closing. This allows for ads that use companions to know when the companion was dismissed. Companies providing the end card creative should adhere to IAB Tech Lab LEAN 
+guidelines. 
+
+Companion as Concurrent Display Ad A value of "concurrent" signals to the player that this companion ad is meant to be shown alongside the video for the duration of the video playback. This reflects the original use of the companion in desktop inventory. 
+
+Additional Creative Uses of the Companion Ad 
+
+The companion ad may be used for new implementations, and as such new values of the renderingMode attribute may be used if supported by the publisher and the ad server. The renderingMode may use other values other than the ones listed to support these additional use cases. For example, proprietary formats that show content alongside a video could be supported by the standard with a “split-screen” renderingMode, displaying a 1:1 aspect ratio video, alongside an equal sized companion in both portrait and landscape mode. 
+The goal is that renderingMode will provide some initial standards support for format innovation in environments that cannot, or will not, support VPAID with future spec changes to follow market developments. Default or Empty renderingMode 
+The renderingMode attribute may be omitted. In this case, the player will assume that the renderingMode value is set as “default” and will handle the companion in whatever way it does by default. 
+
+Non-Creative Use of the Companion Ad 
+
+The companion is intended to be used as an additional creative element. Inclusion of a companion to support non-creative functionality (e.g. additional tracking) is considered to be contrary to the intention of the spec. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Optional |
+| Required in Response | No |
+| Parent | Creative for both InLine and Wrapper formats |
+| Bounded | 0-1 |
+| Sub-elements | Companion |
+| Attributes Description |  required Accepts one of the following values: “all” “any” or “none.” See descriptions listed in this section. |
+
+#### 3.13.1 Companion <a name="companion"></a>
+
+Both InLine and Wrapper VAST responses may contain multiple companion items where each one may contain one or more creative resource files using the elements: StaticResource, IFrameResource, and HTMLResource. Each <Companion> element may 
+provide different versions of the same creative. 
+The resource elements for providing creative resources are defined in section 3.15. Tracking elements are also available for each companion element. Ad parameters are used to provide contextual information to the ad and are described in section 3.8.2. 
+ 
+| Feature | Description |
+|---|---|
+| Player Support | Required if <CompanionAds> is supported |
+| Required in |  Response At least one Companion is required if CompanionAds is provided |
+| Parent | CompanionAds for both InLine and Wrapper formats |
+| Bounded | 1+ if <CompanionAds> is used |
+| Sub-elements | StaticResource IFrameResource HTMLResource AdParameters AltText CompanionClickThrough CompanionClickTracking TrackingEvents |
+| Attributes Description |  width* The pixel width of the placement slot for which the creative is intended. height* The pixel height of the placement slot for which the creative is intended. id An optional identifier for the creative. assetWidth The pixel width of the creative. assetHeight The pixel height of the creative. expandedWidth The maximum pixel width of the creative in its expanded state. expandedHeight The maximum pixel height of the creative in its expanded state. apiFramework The API necessary to communicate with the creative if available. adSlotId Used to identify desired placement on a publisher’s page. Values to be used should be discussed between publishers and advertisers. pxratio The pixel ratio for which the companion creative is intended. The pixel ratio is the ratio of physical pixels on the device to the device-independent pixels. An ad intended for display on a device with a pixel ratio that is twice that of a standard 1:1 pixel ratio would use the value "2." Default value is "1." renderingMode Used to indicate when and where to use this companion ad. Values can be “default” or “end-card” or “concurrent”. If this field is empty or not given, “default” will be used. |
+
+ * required
+
+#### 3.13.2 AltText <a name="alttext"></a>
+
+The AltText element is used to provide a description of the companion creative when an ad 
+viewer mouses over the ad. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required if <CompanionAds> is supported |
+| Required in Response | No |
+| Parent | Companion for both InLine and Wrapper formats |
+| Bounded | 0-1 |
+| Content | A string to describe the creative when an ad viewer mouses over the ad. |
+
+#### 3.13.3 CompanionClickThrough <a name="companionclickthrough"></a>
+
+Most companion creative can provide a clickthrough of their own, but in the case where the creative cannot provide a clickthrough, such as with a simple static image, the CompanionClickThrough element can be used to provide the clickthrough. 
+A clickthrough may need to be provided for an InLine ad in the following situations: 
+● Static image file 
+● Any static resource file where the media player handles the click, such as when “playerHandles=true” in a VPAID AdClickThru event. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required if <CompanionAds> is supported |
+| Required in Response | No |
+| Parent | Companion for both InLine and Wrapper formats |
+| Bounded | 0-1 |
+| Content | A URI to the advertiser’s page that the media player opens when the viewer clicks the companion ad. |
+
+#### 3.13.4 CompanionClickTracking <a name="companionclicktracking"></a>
+
+When the companion ad creative handles the clickthrough in an InLine ad, the CompanionClickTracking element is used to track the click, provided the ad has a way to notify the player that that ad was clicked, such as when using a VPAID ad unit. The CompanionClickTracking element is also used in Wrappers to track clicks that occur for the Companion creative in the InLine ad that is returned after one or more wrappers. 
+CompanionClickTracking might be used for an InLine ad when: 
+● Any static resource file where the media player handles the click, such as when “playerHandles=true” in a VPAID AdClickThru event CompanionClickTracking is used in a Wrapper in the following situations: 
+● Static image file. Any static resource file where the media player handles the click, such as when “playerHandlesClick=true” in VPAID 
+● Any static resource file where the media player handles the click, such as when “playerHandlesClick=true” in VPAID 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required if <CompanionAds> is supported |
+| Required in Response | No |
+| Parent | Companion for both InLine and Wrapper formats |
+| Bounded | 0+ |
+| Content | A URI to a tracking resource file used to track a companion clickthrough |
+| Attributes Description | id An id provided by the ad server to track the click in reports. |
+
+### 3.14 Tracking Event Elements <a name="trackingeventelements"></a>
+
+The <TrackingEvents> element is a container for <Tracking> elements used to define specific tracking events described in section 3.14.1. Multiple tracking events can be used to help all the relevant parties track the ad’s performance. Each tracking event URI should be included one <Tracking> element, using the event attribute to identify which event is to be 
+tracked. 
+The following example shows the section of a VAST response that represents 3 tracking events: two start events, each for a different server, and a complete event. 
+<TrackingEvents> 
+<Tracking event="start"> 
+<![CDATA[http://server1.com/start.jpg]]> 
+</Tracking> 
+<Tracking event="start"> 
+<![CDATA[http://server2.com/start2.jpg]]> 
+</Tracking> 
+<Tracking event="progress" offset="3"> 
+<![CDATA[http://server1.com/progress.jpg]]> 
+</Tracking> 
+ 
+<Tracking event="complete"> 
+<![CDATA[http://server1.com/complete.jpg]]> 
+</Tracking> 
+</TrackingEvents> 
+
 #### Tracking Event Descriptions <a name="trackingeventdesc"></a>
 #### TrackingEvents <a name="trackingevents"></a>
 #### Tracking <a name="tracking"></a>
