@@ -1407,31 +1407,454 @@ chain.
 
 *required
 
-### AdSystem <a name="adsystem"></a>
-### AdTitle <a name="adtitle"></a>
-### AdServingId <a name="adservingid"></a>
-### Impression <a name="impression"></a>
-### Category <a name="category"></a>
-### Description <a name="description"></a>
-### Advertiser <a name="advertiser"></a>
-### Pricing <a name="pricing"></a>
-### Survey <a name="survey"></a>
-### Expires <a name="expires"></a>
-### Error (InLine and Wrapper) <a name="errorinline"></a>
-## ViewableImpression <a name="viewableimpression"></a>
-### Viewable <a name="viewable"></a>
-### NotViewable <a name="notviewable"></a>
-### ViewUndetermined <a name="viewundetermined"></a>
-## Creatives <a name="creatives"></a>
-## Creative <a name="creative"></a>
-### UniversalAdId <a name="universaladid"></a>
-### CreativeExtensions <a name="creativeextensions"></a>
-### CreativeExtension <a name="creativeextension"></a>
-## Linear <a name="linear"></a>
-### Duration <a name="duration"></a>
-### AdParameters <a name="adparameters"></a>
+### 3.4.1 AdSystem <a name="adsystem"></a>
+
+The ad serving party must provide a descriptive name for the system that serves the ad. 
+Optionally, a version number for the ad system may also be provided using the version 
+attribute. 
+ 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in |  Response Yes |
+| Parent | InLine or Wrapper |
+| Bounded | 1 |
+| Content | A string that provides the name of the ad server that returned the ad |
+| Attributes Description |  version A string that provides the version number of the ad system that returned the ad |
+
+### 3.4.2 AdTitle <a name="adtitle"></a>
+
+The ad serving party must provide a title for the ad using the <AdTitle> element. If a longer 
+description is needed, the <Description> element can be used. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required --- ## Page 41 VAST 4.3 © 2022 IAB Technology Laboratory  iabtechlab.com/vast Page 40 of 89 |
+| Required in |  Response Yes |
+| Parent | InLine |
+| Bounded | 1 |
+| Content | A string that provides a common name for the ad |
+
+### 3.4.3 AdServingId <a name="adservingid"></a>
+
+Any ad server that returns a VAST containing an <InLine> ad must generate a pseudo- 
+unique identifier that is appropriate for all involved parties to track the lifecycle of that ad. 
+This should be inserted into the <AdServingId> element, and also be included on all 
+outgoing tracking pixels. The purpose of this id is to greatly reduce the amount of work 
+required to compare impression-level data across multiple systems, which is otherwise 
+done by passing proprietary IDs across different systems and matching them. 
+This value should be different for each <InLine> in a VAST (i.e. each <Ad> in an Ad Pod or 
+buffet should have distinct <AdServingId> values). The player is responsible for parsing this 
+value and using it to fill the associated macro (see section 6) on tracking pixels. 
+Using a GUID for the AdServingId value is recommended. Other formats are acceptable, 
+provided they are generally sufficiently unique to allow different systems to match tracking 
+data. Ad servers may also choose to prepend their AdSystem or a shortened version of 
+their server name to ID value, so that the originating server can easily be identified from the 
+ID alone. 
+Example: ServerName-47ed3bac-1768-4b9a-9d0e-0b92422ab066 
+Note that only <InLine> elements may provide an <AdServingId>. Servers providing 
+<Wrapper> VASTs may learn the ad serving ID by including the [ADSERVINGID] macro in 
+their tracking pixels. 
+ 
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in |  Response Yes (for InLine) |
+| Parent | InLine |
+| Bounded | 1 |
+| Content | A unique or pseudo-unique (long enough to be unique when combined with timestamp data) GUID . |
+
+### 3.4.4 Impression <a name="impression"></a>
+
+The ad server provides an impression-tracking URI for either the InLine ad or the Wrapper 
+using the <Impression> element. All <Impression> URIs in the InLine response and any 
+Wrapper responses preceding it should be triggered at the same time when the impression 
+for the ad occurs, or as close in time as possible to when the impression occurs, to prevent 
+impression-counting discrepancies. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in |  Response Yes |
+| Parent | InLine or Wrapper |
+| Bounded | 1+ |
+| Content | A URI that directs the media player to a tracking resource file that the media player must use to notify the ad server when the impression occurs. If there is no reason to include an Impression element, the placeholder "about:blank" should be used instead of a tracking URL. The player should disregard dispatching the tracking URI if it is set to "about:blank".. |
+| Attributes Description |  id An ad server id for the impression. Impression URIs of the same id for an ad should be requested at the same time or as close in time as possible to help prevent discrepancies. |
+
+### 3.4.5 Category <a name="category"></a>
+
+Used in creative separation and for compliance in certain programs, a category field is 
+needed to categorize the ad’s content. Several category lists exist, some for describing site 
+content and some for describing ad content. Some lists are used interchangeably for both 
+site content and ad content. For example, the category list used to comply with the IAB 
+Quality Assurance Guidelines (QAG) describes site content, but is sometimes used to 
+describe ad content. 
+The VAST category field should only use AD CONTENT description categories. 
+The authority attribute is used to identify the organizational authority that developed the 
+list being used. In some cases, the publisher may require that an ad category be identified. 
+If required by the publisher and not provided, the publisher may skip the ad, notify the ad 
+server using the <Error> URI, if provided (error code 204), and move on to the next option. 
+If category is used, the authority= attribute must be provided. 
+ 
+
+| Feature | Description |
+|---|---|
+| Player Support | Optional |
+| Required in Response | No* |
+| Parent | InLine |
+| Bounded | 0+ |
+| Content | A string that provides a category code or label that identifies the ad content category. |
+| Attributes Description |  authority * A URL for the organizational authority that produced the list being used to identify ad content category. *Optional unless the publisher requires ad categories. The authority attribute is required if categories are provided. Example: <Category authority=”iabtechlab.com”>232</Category> (where the IAB Ad Product Taxonomy is being used, and 232 is the category and maps to a particular category - say Automobiles or Designer Clothing) |
+
+### 3.4.6 Description <a name="description"></a>
+
+When a longer description of the ad is needed, the <Description> element can be used. 
+ 
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in Response | No |
+| Parent | InLine |
+| Bounded | 0-1 |
+| Content | A string that provides a long ad description |
+
+### 3.4.7 Advertiser <a name="advertiser"></a>
+
+Providing an advertiser name can help publishers prevent display of the ad with its 
+competitors. Ad serving parties and publishers should identify how to interpret values 
+provided within this element. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in Response | No |
+| Parent | InLine |
+| Bounded | 0-1 |
+| Content | A string that provides the name of the advertiser as defined by the ad serving party. Recommend using the domain of the advertiser. |
+| Attributes Description |  id An (optional) identifier for the advertiser, provided by the ad server. Can be used for internal analytics. |
+
+### 3.4.8 Pricing <a name="pricing"></a>
+
+Used to provide a value that represents a price that can be used by real-time bidding (RTB) 
+systems. VAST is not designed to handle RTB since other methods exist, but this element 
+is offered for custom solutions if needed. If the value provided is to be obfuscated or 
+encoded, publishers and advertisers must negotiate the appropriate mechanism to do so. 
+When included as part of a VAST Wrapper in a chain of Wrappers, only the value offered in 
+the first Wrapper need be considered. 
+ 
+| Feature | Description |
+|---|---|
+| Player Support | Recommended |
+| Required in Response | No |
+| Parent | InLine or Wrapper |
+| Bounded | 0-1 |
+| Content | A number that represents a price that can be used in real-time bidding systems |
+| Attributes Description |  model* Identifies the pricing model as one of: CPM, CPC, CPE, or CPV. currency* The three-letter ISO-4217 currency symbol that identifies the currency of the value provided (e.g. USD, GBP, etc.). *required |
+
+### 3.4.9 Survey <a name="survey"></a>
+
+The survey node is deprecated in VAST 4.1, since usage was very limited and survey 
+implementations can be supported by other VAST elements such as 3rd party trackers. 
+Ad tech vendors may want to use the ad to collect data for resource purposes. The 
+<Survey> element can be used to provide a URI to any resource file having to do with 
+collecting survey data. Publishers and any parties using the <Survey> element should 
+determine how surveys are implemented and executed. Multiple survey elements may be 
+provided. 
+A type attribute is available to specify the MIME type being served. For example, the 
+attribute might be set to type="text/javascript". Surveys can be dynamically inserted 
+into the VAST response as long as cross-domain issues are avoided. 
+ 
+| Feature | Description |
+|---|---|
+| Player Support | Recommended |
+| Required in Response | No |
+| Parent | InLine |
+| Bounded | 0+ |
+| Content | A URI to any resource relating to an integrated survey. |
+| Attributes Description |  type The MIME type of the resource being served. |
+
+### 3.4.10 Expires <a name="expires"></a>
+
+The number of seconds in which the ad is valid for execution. In cases where the ad is 
+requested ahead of time, this timing indicates how many seconds after the request that the 
+ad expires and cannot be played. This element is useful for preventing an ad from playing 
+after a timeout has occurred. 
+If no value is provided, the response can be played back at any time indefinitely after being 
+received by the player. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Recommended |
+| Required in Response | No |
+| Parent | InLine |
+| Bounded | 0-1 |
+| Content | An integer value that defines the expiry period (in seconds). |
+
+### 3.4.11 Error (InLine and Wrapper) <a name="errorinline"></a>
+
+The <Error> element contains a URI that the player uses to notify the ad server when 
+errors occur with ad playback. If the URI contains an [ERRORCODE] macro, the media player 
+must populate the macro with an error code as defined in section 2.3.6. 
+If no specific error can be found, error 900 may be used to indicate an undefined error; 
+however, every attempt should be made to provide an error code that maps to the error that 
+occurred. The <Error> element is available for both the InLine or Wrapper elements. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in Response | No |
+| Parent | InLine or Wrapper |
+| Bounded | 0+ |
+| Content | A URI to a tracking resource to be used when an error in ad playback occurs. |
+
+## 3.5 ViewableImpression <a name="viewableimpression"></a>
+
+The ad server may provide URIs for tracking publisher-determined viewability, for both the 
+InLine ad and any Wrappers, using the <ViewableImpression> element. Tracking URIs 
+may be provided in three containers: <Viewable>, <NotViewable>, and 
+<ViewUndetermined>. 
+The point at which these tracking resource files are pinged depends on the viewability 
+standard the player has implemented, in agreement with or with the understanding of the 
+buyer. 
+Player support for the <ViewableImpression> element is optional. When used, URIs for the 
+Inline ad as well as any wrappers used to serve the ad should all be triggered at the same 
+time, or as close in time as possible to when the criteria for the individual event is met. 
+Note – ViewableImpression is not applicable for Audio use cases. 
+ 
+| Feature | Description |
+|---|---|
+| Player Support | Optional |
+| Required in Response | No |
+| Parent | Inline or Wrapper |
+| Bounded | 0-1 |
+| Sub-elements | Viewable NotViewable ViewUndetermined |
+| Attributes Description |  id An ad server id for the impression. Viewable impression resources of the same id should be requested at the same time, or as close in time as possible, to help prevent discrepancies. |
+
+### 3.5.1 Viewable <a name="viewable"></a>
+
+The <Viewable> element is used to place a URI that the player triggers if and when the ad 
+meets criteria for a viewable video ad impression. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Optional |
+| Required in |  Response No |
+| Parent | ViewableImpression |
+| Bounded | 0+ |
+| Content | A URI that directs the media player to a tracking resource file that the media player should request at the time that criteria is met for a viewable impression. |
+
+### 3.5.2 NotViewable <a name="notviewable"></a>
+
+The <NotViewable> element is a container for placing a URI that the player triggers if the ad 
+is executed but never meets criteria for a viewable video ad impression. 
+ 
+| Feature | Description |
+|---|---|
+| Player Support | Optional |
+| Required in |  Response No |
+| Parent | ViewableImpression |
+| Bounded | 0+ |
+| Content | A URI that directs the media player to a tracking resource file that the media player should request if the ad is executed but never meets criteria for a viewable impression. |
+
+### 3.5.3 ViewUndetermined <a name="viewundetermined"></a>
+
+The <ViewUndetermined> element is a container for placing a URI that the player triggers if 
+it cannot determine whether the ad has met criteria for a viewable video ad impression. 
+ 
+| Feature | Description |
+|---|---|
+| Player Support | Optional |
+| Required in |  Response No |
+| Parent | ViewableImpression |
+| Bounded | 0+ |
+| Content | A URI that directs the media player to a tracking resource file that the media player should request if the player cannot determine whether criteria is met for a viewable impression. |
+
+## 3.6 Creatives <a name="creatives"></a>
+
+The <Creatives> (plural) element is a container for one or more <Creative> (singular) 
+element used to provide creative files for the ad. For an InLine ad, the <Creatives> element 
+nests all the files necessary for executing and tracking the ad. 
+In a Wrapper, elements nested under <Creatives> are used mostly for tracking. 
+Companion and Icon creative may be included in a Wrapper, but files for Linear and 
+NonLinear ads can only be provided in the InLine version of the ad. 
+
+| Field | Value |
+|---|---|
+| Player Support | Required |
+| Required in |  Response Yes |
+| Parent | InLine or Wrapper |
+| Bounded | 1 for InLine <br>0-1 for Wrapper |
+| Sub-elements | Creative |
+* required
+
+## 3.7 Creative <a name="creative"></a>
+
+Each <Creative> element contains nested elements that describe the type of ad being 
+served using nested sub-elements. Multiple creatives may be used to define different 
+components of the ad. At least one <Linear> element is required under the Creative 
+element. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in |  Response Yes |
+| Parent | Creatives for both InLine and Wrapper formats |
+| Bounded | 1+ |
+| Sub-elements | UniversalAdId* CreativeExtensions Linear CompanionAds |
+| Attributes Description |  id A string used to identify the ad server that provides the creative. adId Used to provide the ad server’s unique identifier for the creative. In VAST 4, the UniversalAdId element was introduced to provide a unique identifier for the creative that is maintained across systems. Please see section 3.7.1 for details on the UniversalAdId. sequence A number representing the numerical order in which each sequenced creative within an ad should play. apiFramework A string that identifies an API that is needed to execute the creative. *required General Implementation Note The Creative sequence attribute should not be confused with the Ad sequence attribute. Creative sequence identifies the sequence of multiple creative within a single ad and does NOT define a Pod. Conversely, the Ad sequence identifies the sequence of multiple ads and defines an Ad Pod. See section 3.3.1 for details about Ad Pods. |
+
+### 3.7.1 UniversalAdId <a name="universaladid"></a>
+
+A required element for the purpose of tracking ad creative, the <UniversalAdId> is used to 
+provide a unique creative identifier that is maintained across systems. This creative ID may 
+be generated with an authoritative program, such as the AD-ID®  program in the United States, or Clearcast in the UK. Some countries may have specific requirements for ad-tracking programs. 
+The UniversalAdId element is required in 4, but the attribute value for idRegistry and the 
+idValue in the node are to be used to support a company’s need for tracking ad creative. If 
+no common registry is used, a value of "unknown" may be used. Ad servers and publishers 
+should discuss what is required for this field to support a successful ad campaign. 
+Note: A creative id can also be included in the adId attribute used in the <Creative> 
+element, but that creative id should be used to specify the ad server’s unique identifier. The 
+UniversalAdId is used for maintaining a creative id for the ad across multiple systems. 
+Note – VAST 4.0 had an attribute “idValue” that was a duplicate of the node value and so 
+was removed as of 4.1. Media players should not fail if this attribute is present, but should 
+always use the Content as the source of truth for the creative ID value. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in Response | Yes |
+| Parent | Creative only in the InLine format |
+| Bounded | 1+ |
+| Content | A string identifying the unique creative identifier. Default value is “unknown” |
+| Attributes Description |  idRegistry* A string used to identify the URL for the registry website where the unique creative ID is cataloged. Default value is “unknown.” *required Examples - <UniversalAdId idRegistry="ad-id.org">CNPA0484000H<UniversalAdId> <UniversalAdId idRegistry="clearcast.co.uk"> AAA/BBBB123/030<UniversalAdId> Note: With VAST 4.2 we now allow multiple UniversalAdID elements to be passed in a VAST response |
+
+### 3.7.2 CreativeExtensions <a name="creativeextensions"></a>
+
+When an executable file is needed as part of the creative delivery or execution, a 
+<CreativeExtensions> element can be added under the <Creative>. This extension can 
+be used to load an executable creative with or without using the <MediaFile>. 
+A <CreativeExtension> (singular) element is nested under the <CreativeExtensions> 
+(plural) element so that any XML extensions are separated from VAST XML. Additionally, 
+any XML used in this extension should identify an XML name space (xmlns) to avoid 
+confusing any of the extension element names with those of VAST. 
+
+The nested <CreativeExtension> includes an attribute for type, which specifies the MIME 
+type needed to execute the extension.
+
+| Feature | Description |
+|---|---|
+| Player Support | Recommended |
+| Required in Response | No |
+| Parent | Creative only in the InLine format |
+| Bounded | 0-1 |
+| Sub-elements | CreativeExtension |
+
+### 3.7.3 CreativeExtension <a name="creativeextension"></a>
+
+Used as a container under the CreativeExtensions element, this node is used to delineate 
+any custom XML object that might be needed for ad execution. 
+ 
+| Feature | Description |
+|---|---|
+| Player Support | Recommended |
+| Required in Response | No |
+| Parent | CreativeExtensions only in the InLine format |
+| Bounded | 0+ |
+| Content | Custom XML object |
+| Attributes Description |  type The MIME type of any code that might be included in the extension. |
+
+## 3.8 Linear <a name="linear"></a>
+
+Linear Ads are the video or audio formatted ads that play linearly within the streaming 
+content, meaning before the streaming content, during a break, or after the streaming 
+content. A Linear creative contains a <Duration> element to communicate the intended 
+runtime and a <MediaFiles> element used to provide the needed video or audio files for ad 
+execution. 
+ 
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in Response | Yes |
+| Parent | Creative for both InLine and Wrapper formats |
+| Bounded | 0-1 |
+| Sub-elements | Duration* MediaFiles* AdParameters TrackingEvents VideoClicks Icons |
+| Attributes Description |  skipoffset Time value that identifies when skip controls are made available to the end user; publisher may define a minimum skipoffset value in its policies and disregard Skippable creative when skipoffset values are lower than publisher's minimum. |
+
+*required 
+
+### 3.8.1 Duration <a name="duration"></a>
+
+The ad server uses the <Duration> element to denote the intended playback duration for 
+the video or audio component of the ad. Time value may be in the format HH:MM:SS.mmm 
+where .mmm indicates milliseconds. Providing milliseconds is optional. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in Response | Yes |
+| Parent | Linear only in the InLine format |
+| Bounded | 1 |
+| Content | A time value for the duration of the Linear ad in the format HH:MM:SS.mmm (.mmm is optional and indicates milliseconds). | 
+
+### 3.8.2 AdParameters <a name="adparameters"></a>
+
+Some ad serving systems may want to send data to the media file when first initialized. For 
+example, the media file may use ad server data to identify the context used to display the 
+creative, what server to talk to, or even which creative to display. The optional 
+<AdParameters> element for the Linear creative enables this data exchange.
+The optional attribute xmlEncoded is available for the <AdParameters> element to identify 
+whether the ad parameters are xml-encoded. If true, the media player can only decode the 
+data using XML. Media players operating on earlier versions of VAST may not be able to XML-decode data, so data should only be xml-encoded when being served to media 
+players capable of XML-decoding the data. 
+When a VAST response is used to serve a VPAID ad unit, the <AdParameters> element is 
+currently the only way to pass information from the VAST response into the VPAID object; 
+no other mechanism is provided. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in Response | No |
+| Parent | Linear only in the InLine format Companion for both InLine and Wrapper formats |
+| Bounded | 0-1 |
+| Content | Metadata for the ad. |
+| Attributes Description |  xmlEncoded Identifies whether the ad parameters are xml-encoded. |
+
 ## MediaFiles <a name="mediafiles"></a>
-### MediaFile <a name="mediafile"></a>
+
+Since the first version of VAST, the MediaFiles element was designated for linear video files. Over the years as digital video technology advanced, the media files placed in a VAST tag have come to include complex files that require API integration. Players not equipped with the technology to execute such files may be unable to play the ad or execute interactive components. In ads that require API integration, VAST 4 separates media and interactive files. While <MediaFiles> node focus shifts to the exclusive delivery of media (video and audio), the dedicated <InteractiveCreativeFile> element (see section 3.9.3) opens opportunities for rendering modern secure interactive components in parallel with video and audio assets. The dedicated <Verification> element allows for measurement capabilities. Disjoining media and executable files enables a wider range of players to consume enhanced ads as well as performance improvements. 
+ 
+It is worth noting that when multiple MediaFile nodes are present, the publisher should decide which file to play based on attributes of the MediaFile nodes and not the structure of the document (e.g. defaulting to the first MediaFile included in the document). 
+Linear media files should be submitted as follows: 
+Video/Audio file only: Include three <MediaFile> elements (section 3.9.1), each with a URI to a ready-to-serve video or audio file at quality levels for high, medium, and low. Please review the IAB Digital Video Ad Format Guidelines for guidance on ready-to-serve file quality specifications. Video/Audio file for use in ad-stitching: In addition to the three ready-to-serve files, use the <Mezzanine> element (section 3.9.2) to include a URI to the raw video or audio file. Please review the IAB Digital Video Ad Format Guidelines for guidance on mezzanine file specifications. 
+
+Interactive linear video file: In addition to at least one ready-to-serve video/audio file included in the <MediaFile> element, use the <InteractiveCreativeFile> element (section 3.9.3) to include a URI to the interactive media file, specifying the API framework required to execute the file. 
+The components of the <MediaFiles> elements: 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required if <Linear> is supported |
+| Required in Response | Yes (Linear ads) |
+| Parent | Linear only for InLine format |
+| Bounded | 1 (When <Linear> is used) |
+| Sub-elements | MediaFile* <br>Mezzanine** <br>InteractiveCreativeFile <br>ClosedCaptionFiles |
+*required **required in ad-stitched video executions
+
+### 3.9.1 MediaFile <a name="mediafile"></a>
+
+In VAST 4.x <MediaFile> should only be used to contain the video or audio file for a Linear ad. In particular, three ready-to-serve files should be included, each of a quality level for high, medium, or low. A ready-to-serve video/audio file is a media that is transcoded to a level of quality that can be transferred over an internet connection within a reasonable time for viewing. Each ready-to-serve file must be of the same MIME type and, if different MIME types files are made available for the ad, three ready-to-serve files should represent each MIME type separately. 
+When an interactive API is needed to deliver and execute the Linear Ad, the URI to the interactive file should be included in the <InteractiveCreativeFile>. In addition, at least one ready-to-serve video ad should be available in <MediaFile> so that the video ad can be played by the video player. 
+Guidelines for ad files that fulfill quality levels of high, medium, or low can be found in the IAB Digital Video Ad Format Guidelines. An adaptive bitrate streaming file featuring files at the three quality levels may also be provided. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in Response | Yes |
+| Parent | MediaFiles only for InLine format |
+| Bounded | 1+ |
+| Content | A CDATA-wrapped URI to a media file. |
+| Attributes Description |  delivery* Either “progressive” for progressive download protocols (such as HTTP) or “streaming” for streaming protocols. type* MIME type for the file container. Popular MIME types include, but are not limited to “video/mp4” for MP4, “audio/mpeg” and "audio/aac" for audio ads. width* The native width of the video file, in pixels. (0 for audio ads) height* The native height of the video file, in pixels. (0 for audio ads) codec The codec used to encode the file which can take values as specified by RFC 4281: http://tools.ietf.org/html/rfc4281. id An identifier for the media file. --- ## Page 53 VAST 4.3 © 2022 IAB Technology Laboratory  iabtechlab.com/vast Page 52 of 89 bitrate or minBitrate and maxBitrate For progressive load video or audio, the bitrate value specifies the average bitrate for the media file; otherwise the minBitrate and maxBitrate can be used together to specify the minimum and maximum bitrates for streaming videos or audio files. scalable a Boolean value that indicates whether the media file is meant to scale to larger dimensions. maintainAspectRatio a Boolean value that indicates whether aspect ratio for media file dimensions should be maintained when scaled to new dimensions. apiFramework** [Deprecated in 4.1 in preparation for VPAID being phased out] identifies the API needed to execute an interactive media file, but current support is for backward compatibility. Please use the <InteractiveCreativeFile> element to include files that require an API for execution. fileSize Optional field that helps eliminate the need to calculate the size based on bitrate and duration. Units - Bytes mediaType Type of media file (2D / 3D / 360 / etc). Optional. Default value = 2D *required **if an API framework is needed to execute the ad, please use <InteractiveCreativeFile> to provide API files. |
+
 ### Mezzanine <a name="mezzanine"></a>
 ### InteractiveCreativeFile <a name="interactivecreativefile"></a>
 ### ClosedCaptionFiles <a name="closedcaptionfiles"></a>
