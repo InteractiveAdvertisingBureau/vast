@@ -43,7 +43,7 @@ VAST Specification the IAB Tech Lab is licensed under a Creative Commons Attribu
   - [1.6 VAST Interactive Templates](#interactive)
   - [1.7 Flash Support](#flash)
   - [1.8 Handling MediaFile Nodes During the Transition from VPAID](#mediafile)
-- [2.0 VAST Compliance](#compliance)
+- [2. VAST Compliance](#compliance)
   - [2.1 Ad Server Expectations](#adserver)
   - [2.2 Media Player Expectations](#mediaplayer)
   - [2.3 General Compliance](#generalcompliance)
@@ -58,7 +58,7 @@ VAST Specification the IAB Tech Lab is licensed under a Creative Commons Attribu
     - [2.4.1 Publisher Viewability](#publisherviewability)
     - [2.4.2 Viewability with Ad Verification Services](#adverificationservices)
     - [2.4.3 Interactive Linear Creative Files](#interactivelinear)
-- [3.0 VAST Implementation](#implementation)
+- [3. VAST Implementation](#implementation)
   - [3.1 Declaring the VAST Response](#response)
   - [3.2 VAST](#spec)
     - [3.2.1 Error (VAST)](#error)
@@ -136,12 +136,12 @@ VAST Specification the IAB Tech Lab is licensed under a Creative Commons Attribu
   - [3.19 Wrapper](#wrapper) 
     - [3.19.1 VASTAdTagURI](#adtaguri)
     - [3.19.2 BlockedAdCategories](#blockedadcategories)
-- [4.0 Migration to VAST 4.x](#migration)
+- [4. Migration to VAST 4.x](#migration)
   - [4.1 Advertisers and Ad Technology Vendors](#advertisersandvendors)
   - [4.2 Ad Servers and Networks](#adserversandnetworks)
   - [4.3 Media Players](#mediaplayers)
-- [5.0 Human Readable VAST XML Schema](#humanreadableschema)
-- [6.0 Macros](#macros)
+- [5. Human Readable VAST XML Schema](#humanreadableschema)
+- [6. Macros](#macros)
   - [6.1 Introduction](#intro)
   - [6.2 List of Macros](#list)
  
@@ -208,7 +208,7 @@ The updates made in VAST 4.1 are summarized here:
 
 - <b>Closed Captioning:</b> VAST 4.1 enables Closed Captioning by standardizing the delivery of Closed Captioning files.
 
-- <b>Flash:</b> Following up on the <a href="https://iabtechlab.com/html5videotransition/"white paper</a> to transition video ads from flash to HTML5 with VAST 4.1, all references to Flash and Flash resources are being removed.
+- <b>Flash:</b> Following up on the <a href="https://iabtechlab.com/html5videotransition/">white paper</a> to transition video ads from flash to HTML5 with VAST 4.1, all references to Flash and Flash resources are being removed.
 
 - <b>Survey:</b> The survey node is being deprecated as of VAST 4.1.
 
@@ -223,101 +223,52 @@ The updates made in VAST 4.1 are summarized here:
 ## VAST 4.2 Updates <a name="vast42"></a>
 
 The updates included in VAST 4.2 are summarized here:
-  - Support for Secure Interactive Media Interface Definition (SIMID). SIMID is the
-replacement for VPAID to support interactive use cases. More information available
-at this blog post by the IAB Tech Lab. This includes a new tracking event and an
-error code 902.
-  - Allow ClickThrough element to be specified in a wrapper to better enable the use
-case defined in 2.3.5 (managing assets with an ad cloud)
-  - Added error code 206 to support use cases where the player might decide not to
-play an ad (for example during live broadcasts where the break needed to be
-shortened at the last moment).
-  - Allow multiple UniversalAdID nodes to be provided
-  - Updates to Icon and Icon ClickFallbackImages
+  - Support for Secure Interactive Media Interface Definition (SIMID). SIMID is the replacement for VPAID to support interactive use cases. More information available at this blog post by the IAB Tech Lab. This includes a new tracking event and an error code 902.
+  - Allow ClickThrough element to be specified in a wrapper to better enable the use case defined in 2.3.5 (managing assets with an ad cloud).
+  - Added error code 206 to support use cases where the player might decide not to play an ad (for example during live broadcasts where the break needed to be shortened at the last moment).
+  - Allow multiple UniversalAdID nodes to be provided.
+  - Updates to Icon and Icon ClickFallbackImages.
   - New macros for better adbreak info.
 
 ## VAST 4.3 Updates <a name="vast43"></a>
 
 The updates included in VAST 4.3 are summarized here:
-  - Macros moved to Github for management independent of VAST updates (Section
-6.2)
-  - Macro value added for [PLAYBACKMETHODS] to indicate continuous play, where
-content episodes are being played back to back without any user interaction. A
-value of 7 indicates “continuous play”
-  - For interactive creative files, an inline data URI may be included such as when you
-want to place HTML directly instead of a URL for retrieving the file. (section 3.9.3)
+  - Macros moved to Github for management independent of VAST updates (Section 6.2)
+  - Macro value added for [PLAYBACKMETHODS] to indicate continuous play, where content episodes are being played back to back without any user interaction. A value of 7 indicates “continuous play”
+  - For interactive creative files, an inline data URI may be included such as when you want to place HTML directly instead of a URL for retrieving the file. (section 3.9.3)
 
 # Intended Audience <a name="audience"></a>
 
-This document was designed for digital video and audio technologists who either develop
-players that accept digital in-stream ads or for vendors who develop ads to be sent to digital
-in-stream players.
+This document was designed for digital video and audio technologists who either develop players that accept digital in-stream ads or for vendors who develop ads to be sent to digital in-stream players.
 For engineers, section 3 defines all the VAST XML elements. Section 5 includes a “humanreadable” schema for quick reference with links to more details in the document if needed.
-Section 2 defines VAST compliance and section 4 provides technical tips for migrating to
-VAST 4.x.
-For executives, the executive summary and section 1 provide high-level explanation of how
-VAST can be used to streamline digital video or audio ad operations.
+Section 2 defines VAST compliance and section 4 provides technical tips for migrating to VAST 4.x.
+For executives, the executive summary and section 1 provide high-level explanation of how VAST can be used to streamline digital video or audio ad operations.
 
 # Resources for Digital In-Stream Video and Audio <a name="resources"></a>
 
-In order to improve the interconnectivity of the digital video and audio marketplaces, the IAB
-has published technical specifications, metric definitions, and best practices developed by
-members with industry experience. Descriptions for each of these publications are listed
-below.
-  - <b>VAST:</b> The Video Ad Serving Template is an XML response framework that enables
-a consistent delivery format for ad across streaming video and audio platforms.
-  - <b>VPAID:</b> The Video Player-Ad Interface Definition specifies the protocol between the
-ad and the media player required to enable ad interactivity and other advanced video
-advertising functionality. Deprecated - VPAID is being phased out, to be replaced by
-OMID (for Verification) and SIMID for interactivity.(http://bit.ly/videoAdVision)
-  - <b>SIMID:</b> The Secure Interactive Media Interface Definition, the API made available to
-build an interactive experience with the video ad media. A replacement for VPAID for
-interactivity in the VAST 4 model of separated media & executable files.
-  - <b>OMID:</b> The Open Measurement Interface Definition, the API made available to
-verification code by OMSDK or equivalent service. A replacement for VPAID for
-verification in the VAST 4 model of separated media & executable files.
-  - <b>VMAP:</b> The Video Multi-Ad Playlist is an XML response framework that defines
-where to place ads within the video content.
-  - <b>Digital Video Ad Metric Definitions:</b> An industry-defined list of metrics used in
-digital video ads.
-a consistent delivery format for ad across streaming video and audio platforms.
-  - <b>Digital Video Ad Format Guidelines:</b> An industry-defined list of streaming video
-creative submission specifications. https://iabtechlab.com/standards/iab-digitalvideo-in-stream-ad-format-guidelines/ 
-a consistent delivery format for ad across streaming video and audio platforms.
-  - <b>Digital Advertising Alliance (DAA) Interest-Based Advertising (IBA) Notice for Digital Video:</b> Guidelines for implementing the AdChoices program within in-stream
-ads that are placed using interest-based criteria.
-   - <b>Open Measurement SDK (OM SDK):</b> An IAB-led project developing a common
-library to collect and expose measurements of ad creatives, including video, at view
-time, for verification purposes.
+In order to improve the interconnectivity of the digital video and audio marketplaces, the IAB Tech Lab has published technical specifications, metric definitions, and best practices developed by members with industry experience. Descriptions for each of these publications are listed below.
+  - <b>VAST:</b> The Video Ad Serving Template is an XML response framework that enables a consistent delivery format for ad across streaming video and audio platforms.
+  - <b>VPAID:</b> The Video Player-Ad Interface Definition specifies the protocol between the ad and the media player required to enable ad interactivity and other advanced video advertising functionality. Deprecated - <a href="http://bit.ly/videoAdVision">VPAID is being phased out</a>, to be replaced by OMID (for Verification) and SIMID for interactivity.
+  - <b>SIMID:</b> The Secure Interactive Media Interface Definition, the API made available to build an interactive experience with the video ad media. A replacement for VPAID for interactivity in the VAST 4 model of separated media & executable files.
+  - <b>OMID:</b> The Open Measurement Interface Definition, the API made available to verification code by OMSDK or equivalent service. A replacement for VPAID for verification in the VAST 4 model of separated media & executable files.
+  - <b>VMAP:</b> The Video Multi-Ad Playlist is an XML response framework that defines where to place ads within the video content.
+  - <b>Digital Video Ad Metric Definitions:</b> An industry-defined list of metrics used in digital video ads.
+  - <b>Digital Video Ad Format Guidelines:</b> An industry-defined list of streaming video creative submission specifications.
+  - <b>Digital Advertising Alliance (DAA) Interest-Based Advertising (IBA) Notice for Digital Video:</b> Guidelines for implementing the AdChoices program within in-stream ads that are placed using interest-based criteria.
+   - <b>Open Measurement SDK (OM SDK):</b> An IAB-led project developing a common library to collect and expose measurements of ad creatives, including video, at view time, for verification purposes.
   
-# General Overview <a name="overview"></a>
+# 1. General Overview <a name="overview"></a>
 
-VAST is used to send in-stream ad details to a media player. Historically, the player (client)
-has received, executed, and tracked streaming video or audio ads. However, with the
-increase in player devices, the player is often unable to execute anything more than a single
-stream of content. Players might have compensated for this by using one player for content
-and loading a secondary player for ad playback. After ad playback, the original player would
-be reloaded for resuming content playback. This process caused a brief buffering period
-between player loads.
+VAST is used to send in-stream ad details to a media player. Historically, the player (client) has received, executed, and tracked streaming video or audio ads. However, with the increase in player devices, the player is often unable to execute anything more than a single stream of content. Players might have compensated for this by using one player for content and loading a secondary player for ad playback. After ad playback, the original player would be reloaded for resuming content playback. This process caused a brief buffering period between player loads.
 
-The solution that has emerged for this challenge is a service that involves inserting ads into
-a stream of content for the player. The result is a seamless experience for the viewer along
-with the ability to select ads dynamically for insertion and more sophisticated tracking
-options.
+The solution that has emerged for this challenge is a service that involves inserting ads into a stream of content for the player. The result is a seamless experience for the viewer along with the ability to select ads dynamically for insertion and more sophisticated tracking options.
 
-VAST 4.x includes support for high-quality video formats necessary for long-form video
-content and server-side tracking for use when ad-stitching is leveraged to reach devices
-that cannot use client-side tracking methods. Version 4.x also allows embedding optional
-scripts for viewability and ad verification.
+VAST 4.x includes support for high-quality video formats necessary for long-form video content and server-side tracking for use when ad-stitching is leveraged to reach devices that cannot use client-side tracking methods. Version 4.x also allows embedding optional scripts for viewability and ad verification.
 
-## VAST Ad Serving and Tracking <a name="adserving"></a>
+## 1.1 VAST Ad Serving and Tracking <a name="adserving"></a>
 
 Display advertising uses standardized browser technology to request and execute ads.
-However, digital in-stream video and audio advertising operates on players, sometimes built
-with proprietary code. As a template for ads served to a media player, VAST offers a set of
-instructions for developers on how to program their players to process VAST-formatted ads.
-Using VAST, ad servers can serve ads to any VAST-compliant player regardless of what
-code the player uses.
+However, digital in-stream video and audio advertising operates on players, sometimes built with proprietary code. As a template for ads served to a media player, VAST offers a set of instructions for developers on how to program their players to process VAST-formatted ads. Using VAST, ad servers can serve ads to any VAST-compliant player regardless of what code the player uses.
 
 ### Client-Side Ad Serving <a name="clientside"></a>
 
