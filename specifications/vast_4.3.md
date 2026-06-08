@@ -2577,10 +2577,134 @@ Ad categories are used in creative separation and for compliance in certain prog
 | Attributes Description |  authority * A URL for the organizational authority that produced the list being used to identify ad content. *Optional unless the publisher requires ad categories. The authority attribute is required if categories are provided. 4 Migration to VAST 4.x VAST 4 offers features to support long-form video, server-side tracking, industry-wide creative tracking, and viewability and verification tracking. While the advance in features is alluring, media players will need time to upgrade their systems. During the transition period from VAST 3.0 to 4 (or 2.0 to 4), prepare to manage varying feature support in the market. VAST 4 was designed to be backward compatible with version 3.0 and VAST 3.0 was designed to be backwards compatible with version 2.0. However, features introduced in the newer versions will typically not be back ported to older-versioned players. Also, features explicitly called out as deprecated or removed will break backward compatibility. The following sections outline a few notes to consider as VAST 4 is introduced into the market. |
 
 # Migration to VAST 4.x <a name="migration"></a>
+
 ## Advertisers and Ad Technology Vendors <a name="advertisersandvendors"></a>
+
+Design ads that can be successfully delivered to lower versioned VAST players while still optimizing the response with new 4 capabilities. For example: 
+● VAST 4 ads discourage the use of VPAID or other interactive ad units that require an API to execute in the <MediaFile>. The new <InteractiveCreativeFile> was provided to accommodate such ads. However, in older versions, an interactive unit may be provided in addition to the video <MediaFile> in order to ensure interactive files are executed where possible in older VAST version players. 
+● In a 4 response, use both the Creative adId attribute as well as the new <UniversalAdId> element to provide a creative ad ID. 
+
 ## Ad Servers and Networks <a name="adserversandnetworks"></a>
+
+Be prepared to manage the variability with VAST versions. For example, if a player specifically requests a VAST 3.0 response, then the ad server should limit responses to VAST 3.0. If one or more verification vendors are involved, use VAST 4 to provide verification code in the new <AdVerification> node, but expect that older versioned players will not recognize the verification node. 
+An important change discussed during 4.1 is the concept of standardized ad requests using AdCOM and POST requests. This is something that likely will require a phased approach on ad servers and so should be planned accordingly. The group recommends that servers start supporting POST requests (in addition to GET requests) in the near future and look into related scaling issues, because the AdCOM based ad request support will be developed next. 
+
 ## Media Players <a name="mediaplayers"></a>
+
+VAST 4 players should continue to accept ads on older versions of VAST because it will take time for the entire industry to upgrade. 
+
 # Human Readable VAST XML Schema <a name="humanreadableschema"></a> 
+
+The following schema models the structure for VAST along with available attributes. Click the section number for more detail. 
+
+| Element | Attributes | Required | Section |
+|---|---|---|---| 
+|VAST | version | Yes | 3.2 |
+|/Error |  | No | 3.2.1 |
+|VAST/Ad | id, sequence, conditionalAd, adType | Yes | 3.3 |
+|VAST/Ad/InLine|  |Yes*|  3.4  |
+|/AdSystem| version| Yes | 3.4.1|  
+|/AdTitle |  | Yes |  3.4.2 | 
+|/Impression | id | Yes | 3.4.4 |
+|/AdServingId | | Yes | 3.4.3 |
+|/Category | authority | No | 3.4.5 |
+|/Description |  | No | 3.4.6 |
+|/Advertiser | id | No | 3.4.7 | 
+|/Pricing |  model, currency | No | 3.4.8 |
+|/Survey | type | No | 3.49 8 |
+|/Error | | No | 3.4.11 |
+|/Expires | |  | 3.4.10 |
+|/ViewableImpression | id | No | 3.5 |
+|/Viewable | |  No | 3.5.1 |
+|/NotViewable | | No|  3.5.2 |
+|/ViewUndetermined | | No | 3.5.3 | 
+|/AdVerifications |  | No | 3.16 |  
+|/Verification | vendor | No | 3.17 |
+|/JavaScriptResource | apiFramework, browserOptional | No | 3.17.1 |
+|/ExecutableResource | apiFramework, language | No | 3.17.2 |
+|/TrackingEvents |  | No | 3.17.3 |
+|/Tracking|  event| |  |   
+|/VerificationParameters | | | |   
+|/Extensions| |  |No | 3.18  |
+|/Extension | type | Yes | 3.18.1 |
+|/Creatives |  |  Yes |  3.6  |
+|/Creative | id, sequence, adId, apiFramework | Yes | 3.7 |
+|/UniversalAdId | idRegistry | Yes  | 3.7.1  |
+|/CreativeExtensions |  | No | 3.7.2 | 
+|/CreativeExtension | type |  |  3.7.3  |
+|/Linear | skipoffset | Yes (linear) | 3.8 |
+|/Duration | | Yes | 3.8.1 |
+|/AdParameters | xmlEncoded | No | 3.8.2 |
+|/MediaFiles |  | Yes | 3.9 |
+|/Mezzanine | delivery, type, width, height, codec, id, fileSize, mediaType | Yes (ad-stitching) | 3.9.2 |
+|/MediaFile | id, delivery, type, bitrate, minBitrate, maxBitrate, width, height, scalable, mantainAspectRatio, codec, apiFramework, fileSize, mediaType | Yes | 3.9.1 |
+|/InteractiveCreativeFile |type, apiFramework, variableDuration | No | 3.9.3 |  
+|/ClosedCaptionFiles| |  |  |    
+|/ClosedCaptionFile | type, language |  |   | 
+|/VideoClicks |  | No | 3.10 |
+|/ClickThrough | id | No | 3.10.1 |
+|/ClickTracking | id | No | 3.10.2 |  
+|/CustomClick | id | No | 3.10.3| 
+|/TrackingEvents |  | No | 3.14 |
+|/Tracking | event, offset | No | 3.14.3 | 
+|/Icons |  | No | 3.11 |
+|/Icon | program, width, height, xPosition, yPosition duration, offset, apiFramework, pxratio | Yes | 3.11.1 |
+|/StaticResource <br>/IFrameResource <br>/HTMLResource | creativeType (StaticResource only) | Yes  | 3.15.1 |
+|/IconClicks |  |  No | 3.11.3 | 
+|/IconClickThrough |  |  No | 3.11.4  |
+|/IconClickTracking | id | No | 3.11.5 | 
+|/IconClickFallbackImages | | No  |  |
+|/IconClickFallbackImage | AltText,StaticResource |  |  |  
+|/IconViewTracking |  | No | 3.11.2 |
+|/NonLinearAds |  |   Yes | 3.12 |  
+|/NonLinear | |  | 3.12.1 |
+|/NonLinearClickThrough |  |  |  3.12.2 |
+|/TrackingEvents |  | No | 3.14|  
+|/Tracking | event | No | 3.14.3 |
+|/CompanionAds |required | No  | 3.13  |
+|/Companion | id, width, height, assetWidth, assetHeight, expandedWidth, expandedHeight, apiFramework, adSlotId, pxratio, renderingMode | No | 3.13.1 |
+|/StaticResource <br>/IFrameResource  <br>/HTMLResource| creativeType (StaticResource only)  | Yes  |  3.15.1  | 
+|/AdParameters | xmlEncoded | No | 3.8.2 |
+|/AltText  | | No | 3.13.2 |
+| /CompanionClickThrough | |  No|  3.13.3 |
+|/CompanionClickTracking | id | No | 3.13.4 |
+|/TrackingEvents |  | No | 3.14 | 
+|/Tracking | event | No | 3.14.3 |
+
+*Either the InLine element or the Wrapper element is required and only one is allowed. 
+
 # Macros <a name="macros"></a>
+
 ## Introduction <a name="intro"></a>
+
+Ad servers and other entities need access to additional data from the publisher to meet client needs for a clearer view into the details of how and where their video is being shown. The following macros enable the media player to provide these additional data points. Some may need to be relayed from the publisher ad server to the player in turn before the player can pass them on. 
+The following overview outlines the various macros, in which contexts they are applicable and their meaning. 
+Macro Formatting and Replacement 
+All macro names are surrounded by square brackets, for example:[EXAMPLE]. When replacing the macro with a value, the whole name - including brackets - needs to be replaced with the value. 
+For example, if you’d want to replace the [EXAMPLE] macro in the URL https://mydomain.com/something?test=[EXAMPLE] with the value somevalue, you would get https://mydomain.com/something?test=somevalue 
+Macro Replacement Responsibility 
+The responsibility to properly replace macros with their proper values lies with the party that will perform the HTTP request. 
+In the most common scenario, both for VAST URLs and tracking pixel URLs, this would be the video player that’s executing the ad. 
+In some cases a server might perform the macro replacement on behalf of the video player, for example in the case of server-side ad insertion where the server is performing tracking pixel requests on behalf of the client. 
+Marking Macro Values as Unknown or Unavailable 
+For any macros that are marked as optional or deprecated and where the actual macro is not provided, the following special values must be inserted into the macro to indicate the reason for not providing the information: 
+ 
+If the macro value is... Then replace macro with... Value is unknown, but would be shared if it was known 
+-1 Value is known, but information can't be shared because of policy (unwilling to share) 
+-2 Implementation Note: do not replace all unknown macros with -1, only do this for macros specifically mentioned in this section that you decide not to implement. 
+
+Macro Value URI Encoding 
+Some macros must be populated as a series of values rather than a single value. These macros use the Array<T> data type. This is a list of T values where T is another data type like string or integer. When replacing a macro with such a list, the value should be rendered as a set of values separated by a comma (","), and no spacing. For example: the values stringA and stringB would be encoded as stringA,stringB. 
+When replacing macros, make sure to apply encodeURIComponent to any value, to avoid creating invalid URLs. However, note that encoding should be applied to individual values only, not the entire macro replacement string (i.e. unencoded commas should separate distinct values). 
+For example, to encode the values abc/def and y=z, you’d replace the macro with abc%2Fdef,y%3Dz 
+Note that each individual value is properly encoded, but the comma between values is not. 
+In the examples given below, if the URI-encoded version differs from the unencoded original, both are given for the sake of clarity. However, the encoded version must always be used as a macro substitution. 
+ 
+ 
+Note: In order to ensure that new macros can be added without requiring a new VAST version at every change, we are maintaining the latest list on the IAB Tech Lab’s VAST github repository. Please visit http://interactiveadvertisingbureau.github.io/vast/vast4macros/vast4-macros-latest.html for the latest list and for more details on the process of adding new macros. 
+
 ## List of Macros <a name="list"></a>
+
+Please reference the Macro list in GitHub for the most up to date macros. 
+ 
+https://interactiveadvertisingbureau.github.io/vast/vast4macros/vast4-macros-latest.html 
