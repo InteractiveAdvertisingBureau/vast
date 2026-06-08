@@ -148,144 +148,67 @@ VAST Specification the IAB Tech Lab is licensed under a Creative Commons Attribu
 
 # Executive Summary <a name="execsummary"></a>
 
-The Video Ad Serving Template or VAST is a template for structuring ad tags that serve
-video and audio ads to media players. Using an XML schema, VAST transfers important
-metadata about an ad from the ad server to a media player. Initially launched in 2008,
-VAST has since played an important role in the growth of the digital video and audio
-marketplace.
+The Video Ad Serving Template or VAST is a template for structuring ad tags that serve video and audio ads to media players. Using an XML schema, VAST transfers important metadata about an ad from the ad server to a media player. Initially launched in 2008,VAST has since played an important role in the growth of the digital video and audio marketplace.
 
-The early days of video consisted mostly of shared videos and other user-generated
-content. Success in monetizing this content with ads has produced the resources to
-improve the digital video marketplace. However, digital video has met a number of
-challenges along the way.
+The early days of video consisted mostly of shared videos and other user-generated content. Success in monetizing this content with ads has produced the resources to improve the digital video marketplace. However, digital video has met a number of challenges along the way.
 
-One challenge, and a key reason some video publishers avoid using VAST, is a lack of
-quality control. Along with the IAB Video Player-Ad Interface Definition (VPAID), VAST can
-deliver ads programmatically or include ads with complex interactions. If a player isn't
-programmed to accept VPAID ads, the ad cannot be executed. Even when the player does
-accept VPAID ads, performance may be slow and cause latency in load times. In the
-meantime, the audience experiences a delay or a malfunction in their viewing experience.
+One challenge, and a key reason some video publishers avoid using VAST, is a lack of quality control. Along with the IAB Video Player-Ad Interface Definition (VPAID), VAST can deliver ads programmatically or include ads with complex interactions. If a player isn't programmed to accept VPAID ads, the ad cannot be executed. Even when the player does accept VPAID ads, performance may be slow and cause latency in load times. In the meantime, the audience experiences a delay or a malfunction in their viewing experience.
 
-Publishers and ad vendors need a way to separate the video file from its interactive
-components to ensure that ads play in systems that cannot execute the interactive
-components. These ads should also execute more efficiently in players that are equipped to
-handle the interactions.
+Publishers and ad vendors need a way to separate the video file from its interactive components to ensure that ads play in systems that cannot execute the interactive components. These ads should also execute more efficiently in players that are equipped to handle the interactions.
 
-Another challenge, especially for broadcasters who are moving their content online, is the
-lack of a consistent identifier for creative that is maintained across systems. VAST offers a
-creative identifier, but it has been used inconsistently and one creative may use different
-identifiers for every system it passes through. A system-wide identifier is a requirement for
-broadcasters trying to maintain control over the ads they play.
+Another challenge, especially for broadcasters who are moving their content online, is the lack of a consistent identifier for creative that is maintained across systems. VAST offers a creative identifier, but it has been used inconsistently and one creative may use different identifiers for every system it passes through. A system-wide identifier is a requirement for broadcasters trying to maintain control over the ads they play.
 
-VAST 4 has addressed these challenges along with a few others. As players begin to adopt
-the updates in VAST 4.x, digital video and audio can expect to see smoother operation and
-the continued growth that results.
+VAST 4 has addressed these challenges along with a few others. As players begin to adopt the updates in VAST 4.x, digital video and audio can expect to see smoother operation and the continued growth that results.
 
 ## VAST 4.0 Updates <a name="vast40"></a>
 
 The updates made in VAST 4.0 and the challenges they address are summarized here:
 
-- <b>Separate Video File and Interactive File:</b> The complexity of digital video has given
-rise to the need to separate the linear video file from any creative interactive API
-files. While the VAST media file has accepted a variety of media files in the past,
-interactive APIs cannot always be executed. A VAST tag that provides the video file
-separate from APIs can display more successfully across platforms and devices.
-The Interactive File standard is expected to be Secure Interactive Media Interface
-Definition (SIMID) - which is a replacement for VPAID focused on interactivity.
+- <b>Separate Video File and Interactive File:</b> The complexity of digital video has given rise to the need to separate the linear video file from any creative interactive API files. While the VAST media file has accepted a variety of media files in the past, interactive APIs cannot always be executed. A VAST tag that provides the video file separate from APIs can display more successfully across platforms and devices. The Interactive File standard is expected to be Secure Interactive Media Interface Definition (SIMID) - which is a replacement for VPAID focused on interactivity.
 
-- <b>Server-Side Ad Insertion Support:</b> While client-side ad execution and tracking has
-been the recommended way to track ad impressions and other metrics, digital instream video and audio ads are often served to devices (clients) that cannot execute and track ads using traditional display methods. VAST 4 supports the increasingly common “ad-stitching” method for stitching linear ads into a video or audio content stream and sending it to players with limited capabilities.
+- <b>Server-Side Ad Insertion Support:</b> While client-side ad execution and tracking has been the recommended way to track ad impressions and other metrics, digital instream video and audio ads are often served to devices (clients) that cannot execute and track ads using traditional display methods. VAST 4 supports the increasingly common “ad-stitching” method for stitching linear ads into a video or audio content stream and sending it to players with limited capabilities.
 
-- <b>Mezzanine File:</b> To support advertising across video platforms that include longform content and high-resolution screens, VAST 4 features include support for the
-raw, high-quality mezzanine file. The mezzanine file is very large and cannot be
-used for ad display, but ad-stitching services and other ad vendor use it to generate
-files at appropriate quality levels for the environment in which they play.
+- <b>Mezzanine File:</b> To support advertising across video platforms that include longform content and high-resolution screens, VAST 4 features include support for the raw, high-quality mezzanine file. The mezzanine file is very large and cannot be used for ad display, but ad-stitching services and other ad vendor use it to generate files at appropriate quality levels for the environment in which they play.
 
-- <b>Ready-to-Serve Files:</b> Along with support for including the mezzanine file, VAST 4
-provides guidance on providing three ready-to-serve media files, each at different
-quality levels, to ensure that a linear video/audio ad can always play. The IAB Digital
-Video Ad Format Guidelines offers guidance on video/audio file specifications for
-linear ads.
+- <b>Ready-to-Serve Files:</b> Along with support for including the mezzanine file, VAST 4 provides guidance on providing three ready-to-serve media files, each at different quality levels, to ensure that a linear video/audio ad can always play. The <a href="https://iabtechlab.com/standards/ctv-ad-portfolio/">Digital Video Ad Format Guidelines</a> offers guidance on video/audio file specifications for linear ads.
 
-- <b>Universal Ad ID:</b> While VAST has offered a creative identifier in the past, it has
-been used inconsistently. The new Universal Ad ID feature is used specifically for
-including a creative identifier that is maintained across systems. The existing adId
-attribute for creative can still be used to log creative IDs specific to the server.
+- <b>Universal Ad ID:</b> While VAST has offered a creative identifier in the past, it has been used inconsistently. The new Universal Ad ID feature is used specifically for including a creative identifier that is maintained across systems. The existing adId attribute for creative can still be used to log creative IDs specific to the server.
 
-- <b>Ad Verification and Viewability Execution:</b> Verification vendors have been using
-VPAID for measurement verification instead of using it for ad interaction as VPAID
-was intended. VAST 4 offers a designated space (<AdVerifications>) for inserting
-ad verification APIs, enabling a more streamlined process for executing files strictly
-intended for ad verification. Open Measurement (OM) is expected to be used for this
-purpose. In addition, a secondary impression element, the <ViewableImpression>
-element, has been added to allow publishers the option to track viewability on their
-inventory.
+- <b>Ad Verification and Viewability Execution:</b> Verification vendors have been using VPAID for measurement verification instead of using it for ad interaction as VPAID was intended. VAST 4 offers a designated space (<AdVerifications>) for inserting ad verification APIs, enabling a more streamlined process for executing files strictly intended for ad verification. Open Measurement (OM) is expected to be used for this purpose. In addition, a secondary impression element, the <ViewableImpression> element, has been added to allow publishers the option to track viewability on their inventory.
 
-- <b>Support for Categories:</b> Ad categories help publishers separate competing ad
-creative and improve brand safety. VAST 4 ad categories support these efforts.
+- <b>Support for Categories:</b> Ad categories help publishers separate competing ad creative and improve brand safety. VAST 4 ad categories support these efforts.
 
-- <b>Conditional Ad Declaration:</b> In programmatic environments, a VPAID unit is
-sometimes used to decide whether or not to place an ad. If this “conditional ad”
-never results in an ad to display, the publisher may have to forfeit any revenue from
-the resulting lost inventory. A declaration in VAST for a conditional ad helps
-publishers prevent and reclaim any potentially lost inventory revenue in
-programmatic ad delivery. Note - VPAID & this element are being deprecated as of
-VAST 4.1 since VPAID is being replaced by SIMID (Secure Interactive Media
-Interface Definition) and OMID (Open Measurement Interface Definition.
+- <b>Conditional Ad Declaration:</b> In programmatic environments, a VPAID unit is sometimes used to decide whether or not to place an ad. If this “conditional ad” never results in an ad to display, the publisher may have to forfeit any revenue from the resulting lost inventory. A declaration in VAST for a conditional ad helps publishers prevent and reclaim any potentially lost inventory revenue in programmatic ad delivery. Note - VPAID & this element are being deprecated as of VAST 4.1 since VPAID is being replaced by SIMID (Secure Interactive Media Interface Definition) and OMID (Open Measurement Interface Definition).
 
-- <b>New Error Codes:</b> Along with support for the mezzanine file and other new features,
-added error codes provide additional troubleshooting support.
+- <b>New Error Codes:</b> Along with support for the mezzanine file and other new features, added error codes provide additional troubleshooting support.
 
-- <b>Standardized Timestamp:</b> Trackers used in VAST often include timestamp macros,
-but its use has not been consistent. In VAST 4, the [TIMESTAMP] macro and the
-format for time has been standardized to enable more consistent time-sensitive
-tracking.
+- <b>Standardized Timestamp:</b> Trackers used in VAST often include timestamp macros, but its use has not been consistent. In VAST 4, the [TIMESTAMP] macro and the format for time has been standardized to enable more consistent time-sensitive tracking.
 
 ## VAST 4.1 Updates <a name="vast41"></a>
 
 The updates made in VAST 4.1 are summarized here:
 
-- <b>Verification:</b> Changes that enable verification to be supported in a non-VPAID
-architecture (separated from media file). Also includes changes required to work with
-Open Measurement.
+- <b>Verification:</b> Changes that enable verification to be supported in a non-VPAID architecture (separated from media file). Also includes changes required to work with Open Measurement.
 
-- <b>Digital Audio Ad Serving Template (DAAST):</b> With VAST 4.1, DAAST has been
-merged into VAST. This mostly involves providing direction in places where audio
-ads might need to be treated differently. The main change is an optional “adType”
-added to the “Ad” element to support the various audio use cases.
+- <b>Digital Audio Ad Serving Template (DAAST):</b> With VAST 4.1, DAAST has been merged into VAST. This mostly involves providing direction in places where audio ads might need to be treated differently. The main change is an optional “adType” added to the “Ad” element to support the various audio use cases.
 
-- <b>Ad Requests:</b> VAST is a response protocol. 4.1 now includes a basic Ad Request
-specification, based on macros.
+- <b>Ad Requests:</b> VAST is a response protocol. 4.1 now includes a basic Ad Request specification, based on macros.
 
-- <b>Updates to Macros:</b> With the new Ad Requests proposal, the Macros section has
-been completely revamped and updated.
+- <b>Updates to Macros:</b> With the new Ad Requests proposal, the Macros section has been completely revamped and updated.
 
-- <b>Server Side Ad Insertion (SSAI) related changes:</b> VAST 4.1 includes minor
-changes to how headers should be handled. The “Ad Request” section is also
-relevant to SSAI use cases.
+- <b>Server Side Ad Insertion (SSAI) related changes:</b> VAST 4.1 includes minor changes to how headers should be handled. The “Ad Request” section is also relevant to SSAI use cases.
 
-- <b>Deprecating Video Player Ad-Serving Interface Definition (VPAID):</b> While VPAID
-will likely be in use for some more time, with VAST 4.1 we are taking the first steps
-to officially deprecate the use of VPAID. The apiFramework attribute on MediaFile,
-and the conditionalAd attribute on the Ad element are being deprecated.
+- <b>Deprecating Video Player Ad-Serving Interface Definition (VPAID):</b> While VPAID will likely be in use for some more time, with VAST 4.1 we are taking the first steps to officially deprecate the use of VPAID. The apiFramework attribute on MediaFile, and the conditionalAd attribute on the Ad element are being deprecated.
 
-- <b>Updates to Tracking Events:</b> Added “loaded”, “closeLinear” (back from VAST 3.0).
-Removed acceptInvitationLinear and timeSpentViewing.
+- <b>Updates to Tracking Events:</b> Added “loaded”, “closeLinear” (back from VAST 3.0). Removed acceptInvitationLinear and timeSpentViewing.
 
-- <b>AdServingId:</b> A required field has been added to simplify comparing data about a
-video impression across the various systems involved with the delivery and tracking
-of the impression.
+- <b>AdServingId:</b> A required field has been added to simplify comparing data about a video impression across the various systems involved with the delivery and tracking of the impression.
 
-- <b>VAST Interactive Templates:</b> Recognizing the need for standardizing interactive
-ads without ad delivered executable code, VAST 4.1 introduces the concept of
-interactive templates, with End-Cards as an example template.
+- <b>VAST Interactive Templates:</b> Recognizing the need for standardizing interactive ads without ad delivered executable code, VAST 4.1 introduces the concept of interactive templates, with End-Cards as an example template.
 
-- <b>Closed Captioning:</b> VAST 4.1 enables Closed Captioning by standardizing the
-delivery of Closed Captioning files.
+- <b>Closed Captioning:</b> VAST 4.1 enables Closed Captioning by standardizing the delivery of Closed Captioning files.
 
-- <b>Flash:</b> Following up on the white paper to transition video ads from flash to HTML5
-(https://iabtechlab.com/html5videotransition/) with VAST 4.1, all references to Flash
-and Flash resources are being removed.
+- <b>Flash:</b> Following up on the <a href="https://iabtechlab.com/html5videotransition/"white paper</a> to transition video ads from flash to HTML5 with VAST 4.1, all references to Flash and Flash resources are being removed.
 
 - <b>Survey:</b> The survey node is being deprecated as of VAST 4.1.
 
@@ -295,9 +218,7 @@ and Flash resources are being removed.
   - Added "Expires" element
   - Added variableDuration to InteractiveCreativeFile
 
-<b>Note:</b> based on feedback received during public comment, the group decided not to
-deprecate nonlinear ads in VAST 4.1. However, we will continue to explore this format
-further to determine if the use cases are better handled with other options.
+<b>Note:</b> based on feedback received during public comment, the group decided not to deprecate nonlinear ads in VAST 4.1. However, we will continue to explore this format further to determine if the use cases are better handled with other options.
 
 ## VAST 4.2 Updates <a name="vast42"></a>
 
