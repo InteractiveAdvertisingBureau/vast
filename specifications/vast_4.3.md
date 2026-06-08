@@ -2260,24 +2260,322 @@ The following example shows the section of a VAST response that represents 3 tra
 </TrackingEvents> 
 
 #### Tracking Event Descriptions <a name="trackingeventdesc"></a>
+
+VAST is used to track a number of ad events using the <TrackingEvents> and <Tracking> elements. Tracking for impressions is covered in section 3.4.3 and clickthroughs are covered in their relevant sections. Review the schema in section 5 to find more details about tracking the different ad types in VAST. Each <Tracking> element contains a URI for the tracking 
+resource of one event. The media player uses these URIs to notify the ad server when the identified event occurs. 
+In some cases the media player cannot detect that an event has occurred unless a third party, such as the ad creative or a verification script, communicates the event through a framework such as OMID or VPAID. For example, the adExpand event for NonLinear ads requires the ad to notify the media player that it has expanded. In such cases, the player must support these tracking events to the extent that they support the individual frameworks. 
+
+The following list of metrics is derived from the IAB Digital Video In-Stream Ad Metric Definitions where more detailed metric definitions can be found. 
+ 
+The values accepted for tracking events are described in the following list: 
+ 
+Player Operation Metrics (for use in Linear and NonLinear Ads) 
+● mute: the user activated the mute control and muted the creative. 
+● unmute: the user activated the mute control and unmuted the creative. 
+● pause: the user clicked the pause control and stopped the creative. 
+● resume: the user activated the resume control after the creative had been stopped or paused. 
+● rewind: the user activated the rewind control to access a previous point in the creative timeline. 
+● skip: the user activated a skip control to skip the creative. 
+● playerExpand: the user activated a control to extend the player to a larger size. This event replaces the fullscreen event per the 2014 Digital Video In-Stream Ad Metric Definitions. 
+● playerCollapse: the user activated a control to reduce player to a smaller size. This event replaces the exitFullscreen event per the 2014 Digital Video In-Stream Ad Metric Definitions. 
+● notUsed: This ad was not and will not be played (e.g. it was prefetched for a particular ad break but was not chosen for playback). This allows ad servers to reuse an ad earlier than otherwise would be possible due to budget/frequency capping. This is a terminal event; no other tracking events should be sent when this is used. Player support is optional and if implemented is provided on a best effort basis as it is not technically possible to fire this event for every unused ad (e.g. when the player itself is terminated before playback). 
+ 
+Linear Ad Metrics 
+● loaded: This event should be used to indicate when the player considers that it has loaded and buffered the creative’s media and assets either fully or to the extent that it is ready to play the media 
+● start: This event is used to indicate that an individual creative within the ad was loaded and playback began. As with creativeView, this event is another way of tracking creative playback. Macros defined to describe auto-play and muted states. 
+● firstQuartile: The creative played continuously for at least 25% of the total duration at normal speed. 
+● midpoint: The creative played continuously for at least 50% of the total duration at normal speed. 
+● thirdQuartile: The creative played continuously for at least 75% of the duration at normal speed. 
+● complete: The creative was played to the end at normal speed so that 100% of the creative was played. 
+● otherAdInteraction: An optional metric that can capture all other user interactions under one metric such a s hover-overs, or custom clicks. It should NOT replace clickthrough events or other existing events like mute, unmute, pause, etc.
+
+● progress: The creative played for a duration at normal speed that is equal to or greater than the value provided in an additional offset attribute for the <Tracking> element under Linear ads. Values can be time in the format HH:MM:SS or HH:MM:SS.mmm or a percentage value in the format n%. Multiple progress events with different values can be used to track multiple progress points in the linear creative timeline. This event can be used in addition to, or instead of, the “quartile” events (firstQuartile, midpoint, thirdQuartile, complete). The additional <Tracking> offset value can be used to help track a view when an agreed upon duration or percentage of the ad has played. 
+● closeLinear: The viewer has chosen to close the linear ad unit. This is currently in-use by some of the largest mobile SDKs to mark the dismissal of the end card companion that follows the video, as well as a close of the video itself, if applicable. 
+ 
+NonLinear Ad Metrics 
+● creativeView: Not to be confused with an impression, this event indicates that an individual creative portion of the ad was viewed. An impression indicates that at least a portion of the ad was displayed; however an ad may be composed of multiple creative, or creative that only play on some platforms and not others. This event enables ad servers to track which ad creative are viewed, and therefore, which platforms are more common. 
+● acceptInvitation: The user clicked or otherwise activated a control used to pause streaming content, which either expands the ad within the player’s viewable area or “takes-over” the streaming content area by launching an additional portion of the ad. An ad in video format ad is usually played upon acceptance, but other forms of media such as games, animation, tutorials, social media, or other engaging media are also used. 
+● adExpand: The user activated a control to expand the creative. 
+● adCollapse: The user activated a control to reduce the creative to its original dimensions. 
+● minimize: The user clicked or otherwise activated a control used to minimize the ad to a size smaller than a collapsed ad but without fully dispatching the ad from the player environment. Unlike a collapsed ad that is big enough to display it’s message, the minimized ad is only big enough to offer a control that enables the user to redisplay the ad if desired. 
+● close: The user clicked or otherwise activated a control for removing the ad, which fully dispatches the ad from the player environment in a manner that does not allow the user to re-display the ad. 
+● overlayViewDuration: The time that the initial ad is displayed. This time is based on the time between the impression and either the completed length of display based on the agreement between transactional parties or a close, minimize, or accept invitation event. 
+● otherAdInteraction: An optional metric that can capture all other user interactions under one metric such a s hover-overs, or custom clicks. It should NOT replace clickthrough events or other existing events like mute, unmute, pause, etc. 
+● creativeView: Since Companion Ads use browser technology for display, tracking metrics can be built into the creative. The only VAST event available for tracking companion creative is the creativeView event. This event enables ad servers to track when companion creative are viewed. 
+ 
+Interactive Ad Metric 
+● interactiveStart: With VAST 4, video playback and interactive creative playback now happens in parallel. Video playback and interactive creative start may not happen at the same time. A separate way of tracking the interactive creative start is needed. The interactive creative specification (SIMID, etc.) will define when this event should be fired. 
+
 #### TrackingEvents <a name="trackingevents"></a>
+
+The <TrackingEvents> element is available for Linear, NonLinear, and Companion, elements in both InLine and Wrapper formats. When the media player detects that a specified event occurs, the media player is required to trigger the tracking resource URI provided in the nested <Tracking> element. When the server receives this request, it records the event and the time it occurred. 
+ 
+| Feature | Description |
+|---|---|
+| Player Support | Required under supported ad types |
+| Required in Response | No |
+| Parent | Linear NonLinear Companion |
+| Bounded | 0-1 |
+| Sub-elements | Tracking |
+
 #### Tracking <a name="tracking"></a>
+
+Each <Tracking> element is used to define a single event to be tracked. Multiple tracking elements may be used to define multiple events to be tracked, but may also be used to track events of the same type for multiple parties. When using the progress event, an offset attribute for linear ads can be used to notify the ad server when the ad's progress has reached the identified percentage or time value indicated. When percentages are used, the progress event can offer tracking that represent the quartile events (firstQuartile, midpoint, thirdQuartile, and complete). 
+When skippable ads are supported, the progress event is used to identify when the ad counts as a view even if the ad is skipped. For example, if the tracking offset is set to 00:00:15 (15 seconds) but the ad is skipped after 20 seconds, then a creativeView event may be recorded for the Linear creative. 
+If adType is “audio” or “hybrid”, progress events should be fired even if the media playback is in the background. 
+The offset attribute is only available for the <Tracking> element under <Linear>. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required under supported ad types |
+| Required in Response | No |
+| Parent | TrackingEvents for both InLine and Wrapper formats |
+| Bounded | 0+ |
+| Content | A URI to the tracking resource for the event specified using the event attribute. |
+| Attributes Description |  event A string that defines the event being tracked. Accepted values are listed in section |
+
+3.14.1 and differ for <Linear>, <NonLinear>, and <Companion>. Offset Only available when <Linear> is the parent. Accepts values of time in the format HH:MM:SS or as a percentage in the format n%. When the progress of the Linear creative has matched the value specified, the included URI is triggered. If the duration is not known when the offset is set to a percentage value, the progress event may be ignored. 
+
 ### Creative Resource Files for Non-Video and Non-Audio Creative <a name="nonaudiononvideo"></a>
+
+NonLinear ads, Companions, and Industry Icons are non-video and non-audio creative, so creative files are nested using elements that define the type of creative resource file provided: StaticResource, IFrameResource, and HTMLResource. 
+These resource nodes are available under the elements: <NonLinear>, <Companion>, and <Icon> in the InLine format; however, in Wrapper format, resource files may only be provided under the <Companion> and <Icon> elements. NonLinear elements in Wrapper format are only used for tracking, and resource files are not allowed. 
+Multiple creative files may be included using these components, but each element should contain one or more files to represent different versions of the creative for use in different environments. The media player can choose which file to use when more than one resource file is provided within a single container. 
+For example, if an ad server wants to submit both a static image and an HTML creative for a NonLinear ad, then the NonLinear portion of the VAST response would be formatted as follows: 
+<NonLinearAds> 
+<NonLinear> 
+<StaticResource> 
+<![CDATA[http://adserver.com/staticresourcefile.jpg]]> 
+</StaticResource> 
+<HTMLResource> 
+<![CDATA[<html><body>I'm a html snippet</body></html>]]> 
+</HTMLResource> 
+ 
+ 
+</NonLinear> 
+</NonLinearAds> 
+
+The three resource file elements are described in the following sections. 
+
 #### StaticResource <a name="staticresource"></a>
+
+The URI to a static creative file to be used for the ad component identified in the parent element, which is either: <NonLinear>, <Companion>, or <Icon>.  
+
+| Feature | Description |
+|---|---|
+| Player Support | Required for <Icon> and for <NonLinear> or <Companion> when supported |
+| Required in Response | One of <StaticResource>, <IFrameResource>, or <HTMLResource> is required if <NonLinear>, <Companion>, or <Icon> is used |
+| Parent | NonLinear, Companion, or Icon in the InLine format Companion or Icon in the Wrapper format (Resource files are not provided for NonLinear ads in a Wrapper) |
+| Bounded | 0+ |
+| Content | A URI to the static creative file to be used for the ad component identified in the parent element. |
+| Attributes Description |  creativeType* Identifies the MIME type of the creative provided. |
+
+*required 
+
 #### IFrameResource <a name="iframeresource"></a>
+
+The URI to an HTML resource file to be loaded into an iframe by the publisher. Associated with the ad component identified in the parent element, which is either: <NonLinear>, <Companion>, or <Icon>. 
+ 
+| Feature | Description |
+|---|---|
+| Player Support | Required for <Icon> and for <NonLinear> or <Companion> when supported |
+| Required in |  Response One of <StaticResource>, <IFrameResource>, or <HTMLResource> is required if <NonLinear>, <Companion>, or <Icon> is used |
+| Parent | NonLinear, Companion, or Icon in the InLine format Companion or Icon in the Wrapper format (Resource files are not provided for NonLinear ads in a Wrapper) |
+| Bounded | 0+ |
+| Content | A URI to the iframe creative file to be used for the ad component identified in the parent element. |
+
 #### HTMLResource <a name="htmlresource"></a>
+
+A “snippet” of HTML code to be inserted directly within the publisher’s HTML page code. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required for <Icon> and for <NonLinear> or <Companion> when supported |
+| Required in |  Response One of <StaticResource>, <IFrameResource>, or <HTMLResource> is required if <NonLinear>, <Companion>, or <Icon> is used in the Inline format |
+| Parent | NonLinear, Companion, or Icon in the InLine format Companion or Icon in the Wrapper format (Resource files are not provided for NonLinear ads in a wrapper) |
+| Bounded | 0+ --- ## Page 74 VAST 4.3 © 2022 IAB Technology Laboratory  iabtechlab.com/vast Page 73 of 89 |
+| Content | A HTML code snippet (within a CDATA element) |
+
 ### AdVerifications <a name="adverifications"></a>
+
+The <AdVerifications> element contains one or more <Verification> elements, which list the resources and metadata required to execute third-party measurement code in order to verify creative playback.The <AdVerifications> element is used to contain one or more <Verification> elements, which are used to initiate a controlled container where code can be executed for collecting data to verify ad playback details. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in |  Response No |
+| Parent | InLine |
+| Bounded | 0-1 |
+| Sub-elements | Verification |
+
 ### Verification <a name="verification"></a>
+
+The <Verification> element contains the executable and bootstrapping data required to run the measurement code for a single verification vendor. Multiple <Verification> elements may be listed, in order to support multiple vendors, or if multiple API frameworks are supported. At least one <JavaScriptResource> or <ExecutableResource> should be provided. At most one of these resources should selected for execution, as best matches the technology available in the current environment. 
+ 
+If the player is willing and able to run one of these resources, it should execute them BEFORE creative playback begins. Otherwise, if no resource can be executed, any appropriate tracking events listed under the <Verification> element must be fired. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in Response | No |
+| Parent | AdVerifications |
+| Bounded | 0+ |
+| Sub-elements | JavaScriptResource ExecutableResource TrackingEvents --- ## Page 75 VAST 4.3 © 2022 IAB Technology Laboratory  iabtechlab.com/vast Page 74 of 89 VerificationParameters |
+| Attributes Description |  vendor* An identifier for the verification vendor. The recommended format is [domain]- [useCase], to avoid name collisions. For example, "company.com-omid". |
+
+*required 
+
 #### JavaScript Resource <a name="javascriptresource"></a>
+
+A container for the URI to the JavaScript file used to collect verification data. Some verification vendors may provide JavaScript executables which work in non-browser environments, for example, in an iOS app enabled by JavaScriptCore. These resources only require methods of the API framework, without relying on any browser built-in functionality. 
+Players that execute verification code in a browser or webview context should prefer browserOptional="false" resources if both are available, but may also execute browserOptional="true" resources. Players that execute verification code in a non-browser environment (e.g. JavaScriptCore) may only execute resources marked browserOptional="true". If only browserOptional="false" resources are provided, the player must trigger any provided verificationNotExecuted tracking events with reason code 2, to indicate the provided code is not supported (see Section 3.17.4). 
+
+| Feature | Description |
+|---|---|
+| Player Support | Optional** |
+| Required in Response | No |
+| Parent | Verification |
+| Bounded | 0+ |
+| Content | A CDATA-wrapped URI to the JavaScript used to collect data |
+| Attributes Description |  apiFramework* The name of the API framework used to execute the AdVerification code browserOptional* Boolean value. If true, this resource is optimized and able to execute in an environment without DOM and other browser built-ins (e.g. iOS' JavaScriptCore). *required **while optional, if neither JavascriptResource or ExecutableResource are executed, the player must trigger the verificationNotExecuted tracking events with reason code 2 <JavaScriptResource apiFramework="omid" browserOptional="true"> <![CDATA[https://verificationvendor.com/omid.js]]> </JavaScriptResource> |
+
 #### ExecutableResource <a name="executableresource"></a>
+
+A reference to a non-JavaScript or custom-integration resource intended for collecting verification data via the listed apiFramework.  
+
+| Feature | Description |
+|---|---|
+| Player Support | Optional** --- ## Page 76 VAST 4.3 © 2022 IAB Technology Laboratory  iabtechlab.com/vast Page 75 of 89 |
+| Required in Response | No |
+| Parent | Verification |
+| Bounded | 0+ |
+| Content | A CDATA-wrapped reference to the resource. This may be a URI, but depending on the execution environment can be any value which enables the player to load the required verification code. |
+| Attributes Description |  apiFramework* The name of the API framework used to execute the AdVerification code type* The type of executable resource provided. The exact value used should be agreed upon by verification integrators and vendors who are implementing verification in a custom environment. *required **while optional, if neither JavascriptResource or ExecutableResource are executed, the player must trigger the verificationNotExecuted tracking events with reason code 2 |
+
 #### TrackingEvents <a name="trackingevents"></a>
+
+The verification vendor may provide URIs for tracking events relating to the execution of their code during the ad session. The player must trigger the request of these URIs in the scenarios listed in section 3.17.4. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in |  Response No |
+| Parent | Verification |
+| Bounded | 0-1 |
+| Sub-elements | Tracking |
+
 #### Tracking <a name="tracking"></a>
+
+Each <Tracking> element is used to define a single event to be tracked by the verification vendor. Multiple tracking elements may be used to define multiple events to be tracked, but may also be used to track events of the same type for multiple parties. One event type is currently supported: 
+● verificationNotExecuted: The player did not or was not able to execute the provided verification code 
+The following macros should be supported specifically in URIs for this event type (in addition to all macros from the global macro set in section 6). 
+● [REASON] - The reason code corresponding to the cause of the failure. 
+
+Reason Code Description 
+1 Verification resource rejected. The publisher does not recognize or allow code from the vendor in the parent <Verification>. 
+2 Verification not supported. The API framework or language type of verification resources provided are not implemented or supported by the player/SDK. 
+3 Error during resource load. The player/SDK was not able to fetch the verification resource, or some error occurred that the player/SDK was able to detect. Examples of detectable errors: malformed resource URLs, 404 or other failed response codes, request time out. Examples of potentially undetectable errors: parsing or runtime errors in the JS resource. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in |  Response No |
+| Parent | TrackingEvents under Verification elements |
+| Bounded | 0+ |
+| Content | A URI to the tracking resource for the event specified using the event attribute. |
+| Attributes Description |  event* A string that defines the event being tracked. Accepted values are listed in section 3.17.3 |
+*required 
+
 #### VerificationParameters <a name="verificationparameters"></a>
+
+<VerificationParameters> contains a CDATA-wrapped string intended for bootstrapping the verification code and providing metadata about the current impression. The format of the string is up to the individual vendor and should be passed along verbatim.  
+
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in |  Response No |
+| Parent | Verification |
+| Bounded | 0-1 |
+| Content | CDATA-wrapped metadata string for the verification executable. |
+
+Ad servers can use this XML node for custom extensions of VAST. When used, custom 
+XML should fall under the nested <Extension> (singular) element so that custom XML can 
+be separated from VAST elements. An XML namespace (xmlns) should also be used for 
+the custom extension to separate it from VAST components. 
+The following example includes a custom XML element within the <Extensions> element. 
+<Extensions> 
+<Extension> 
+<CustomXML>…</CustomXML> 
+<Extension> 
+</Extensions> 
+ 
+The publisher must be aware of and be capable of executing any VAST extensions in order to process the content. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Optional |
+| Required in |  Response No |
+| Parent | InLine or Wrapper |
+| Bounded | 0-1 |
+| Sub-elements | Extension |
+
 ### Extensions <a name="extensions"></a>
+
+One instance of <Extension> should be used for each custom extension. The type attribute is a custom value which identifies the extension. 
+
+| Feature | Description |
+|---|---|
+| Player Support | Optional |
+| Required in |  Response No |
+| Parent | Extensions |
+| Bounded | 0+ |
+| Content | Custom XML object |
+| Attributes Description |  type A string that identifies the type of extension. |
+
 #### Extension <a name="extension"></a>
 ### Wrapper <a name="wrapper"></a>
+
+VAST Wrappers are used to redirect the media player to another server for either an additional <Wrapper> or the VAST <InLine> ad. In addition to the URI that points to another file, the Wrapper may contain tracking elements that provide tracking for the InLine ad that is served following one or more wrappers. A Wrapper may also contain <Companion> creative and <Icon> creative. And while <Linear> and <NonLinear> elements are available in the Wrapper, they are only used for tracking. No media files are provided for Linear elements, nor are resource files provided for NonLinear elements. Other elements offered for InLine ads may not be offered for Wrappers. 
+ 
+To find out if an element is offered for Wrappers, check the human-readable schema in section  5 . 
+
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in Response | One of either InLine or Wrapper required but both are not allowed |
+| Parent | Ad |
+| Bounded | 0-1 |
+| Sub-elements | Impression* VASTAdTagURI* AdSystem Pricing Error ViewableImpression AdVerifications Extensions Creatives BlockedAdCategories |
+| Attributes Description |  followAdditionalWrappers a Boolean value that identifies whether subsequent Wrappers after a requested VAST response is allowed. If false, any Wrappers received (i.e. not an Inline VAST response) should be ignored. Otherwise, VAST Wrappers received should be accepted (default value is “true.”) allowMultipleAds a Boolean value that identifies whether multiple ads are allowed in the requested VAST response. If true, both Pods and stand-alone ads are allowed. If false, only the first stand-alone Ad (with no sequence values) in the requested VAST response is allowed. Default value is “false.” |
+| Attributes Description |  fallbackOnNoAd a Boolean value that provides instruction for using an available Ad when the requested VAST response returns no ads. If true, the media player should select from any stand-alone ads available. If false and the Wrapper represents an Ad in a Pod, the media player should move on to the next Ad in a Pod; otherwise, the media player can follow through at its own discretion where no-ad responses are concerned. |
+
+* required 
+
 #### VASTAdTagURI <a name="adtaguri"></a>
+
+While VAST Wrappers don’t provide all the same elements offered for an InLine ad, the <VASTAdTagURI> is the only element that is unique to Wrappers. The VASTAdTagURI is used to provide a URI to a secondary VAST response. This secondary response may be another Wrapper, but eventually a VAST wrapper must return an <InLine> ad. In VAST 4 the player is only required to accept five wrappers ads. If no InLine ads are returned after 5 Wrappers, the player may move on to the next option.  
+
+| Feature | Description |
+|---|---|
+| Player Support | Required |
+| Required in Response | Yes (if <Wrapper> is used) |
+| Parent | Wrapper --- ## Page 80 VAST 4.3 © 2022 IAB Technology Laboratory  iabtechlab.com/vast Page 79 of 89 |
+| Bounded | 1 (if <Wrapper> is used) |
+| Content | A URI to a VAST response that may be another VAST Wrapper or a VAST InLine ad. The number of VAST wrappers should not exceed 5 before an InLine ad is served. After 5 VAST wrapper responses, acceptance of additional VAST responses is at the publisher’s discretion. |
+
 #### BlockedAdCategories <a name="blockedadcategories"></a>
+
+Ad categories are used in creative separation and for compliance in certain programs. In a wrapper, this field defines ad categories that cannot be returned by a downstream ad server. This value is used to populate the [BLOCKEDADCATEGORIES] request macro in VASTAdTagURI strings, and can also be used by the player to reject InLine ads with Category fields that violate the BlockedAdCategories fields of upstream wrappers (see section 3.4.5). If an InLine ad is skipped due to a category violation, the client must notify the ad server using the <Error> URI, if provided (error code 205), and move on to the next option.  
+
+| Feature | Description |
+|---|---|
+| Player Support | Optional |
+| Required in Response | No* |
+| Parent | Wrapper |
+| Bounded | 0+ |
+| Content | A string that provides a comma separated list of category codes or labels per authority that identify the ad content. |
+| Attributes Description |  authority * A URL for the organizational authority that produced the list being used to identify ad content. *Optional unless the publisher requires ad categories. The authority attribute is required if categories are provided. 4 Migration to VAST 4.x VAST 4 offers features to support long-form video, server-side tracking, industry-wide creative tracking, and viewability and verification tracking. While the advance in features is alluring, media players will need time to upgrade their systems. During the transition period from VAST 3.0 to 4 (or 2.0 to 4), prepare to manage varying feature support in the market. VAST 4 was designed to be backward compatible with version 3.0 and VAST 3.0 was designed to be backwards compatible with version 2.0. However, features introduced in the newer versions will typically not be back ported to older-versioned players. Also, features explicitly called out as deprecated or removed will break backward compatibility. The following sections outline a few notes to consider as VAST 4 is introduced into the market. |
+
 # Migration to VAST 4.x <a name="migration"></a>
 ## Advertisers and Ad Technology Vendors <a name="advertisersandvendors"></a>
 ## Ad Servers and Networks <a name="adserversandnetworks"></a>
