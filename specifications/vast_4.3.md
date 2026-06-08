@@ -279,60 +279,24 @@ something like this:
 ![](https://github.com/InteractiveAdvertisingBureau/vast/blob/master/specifications/assets/Client-SideAdServing.png)
 
 
-1. <b>VAST Request:</b> At some point during content playback, either before (pre-roll), in
-the middle of (mid-roll), or after (post-roll), the player reaches a cue to insert an ad
-and uses HTTP to send the request for an ad. See section 1.1.1 on sending an ad
-request. The request is sent to the primary ad server, which may be the publisher’s
-ad server or a supply-side platform (SSP).
-2. <b>* Wrapper Response:</b> The primary server responds with VAST. This response is
-either an InLine response or a Wrapper response. If the server can fill the ad
-request, it sends an InLine response (step 4). In many cases, the ad server redirects
-the player to a secondary server using a Wrapper response.
-3. <b>Secondary VAST Request:</b> If a Wrapper response is received, the player makes a
-secondary request to another server. The secondary response may be an InLine
-response or another VAST Wrapper.
-4. <b>InLine Response:</b> Eventually, after a series of requests and responses, an ad
-server provides an InLine response.
+1. <b>VAST Request:</b> At some point during content playback, either before (pre-roll), in the middle of (mid-roll), or after (post-roll), the player reaches a cue to insert an ad and uses HTTP to send the request for an ad. See section 1.1.1 on sending an ad request. The request is sent to the primary ad server, which may be the publisher’s ad server or a supply-side platform (SSP).
+2. <b>* Wrapper Response:</b> The primary server responds with VAST. This response is either an InLine response or a Wrapper response. If the server can fill the ad request, it sends an InLine response (step 4). In many cases, the ad server redirects the player to a secondary server using a Wrapper response.
+3. <b>Secondary VAST Request:</b> If a Wrapper response is received, the player makes a secondary request to another server. The secondary response may be an InLine response or another VAST Wrapper.
+4. <b>InLine Response:</b> Eventually, after a series of requests and responses, an ad server provides an InLine response.
 5. <b>InLine Execution:</b> The media player executes the VAST response.
-6. <b>Tracking:</b> At key points during ad playback, tracking information is sent for both the
-InLine and Wrapper responses that the player received. In traditional client-side ad
-serving, cookies are used to track ads and the computers on which they play.
+6. <b>Tracking:</b> At key points during ad playback, tracking information is sent for both the InLine and Wrapper responses that the player received. In traditional client-side ad serving, cookies are used to track ads and the computers on which they play.
 
 ### Server-Side Ad Stitching <a name="serverside"></a>
 
-The example just described the general process for serving an ad directly to a media player,
-the client, and uses client-side tracking. With client-side tracking, the player sends tracking
-information. However, in today’s wide array of streaming media players the player may not
-be capable of executing dynamic ad responses or tracking impressions and interactions. In
-these cases, an intermediary server is needed to insert ads dynamically into the video or
-audio stream.
-Called ad stitching (or stream stitching, ad insertion, etc.), the process looks something like
-this:
+The example just described the general process for serving an ad directly to a media player, the client, and uses client-side tracking. With client-side tracking, the player sends tracking information. However, in today’s wide array of streaming media players the player may not be capable of executing dynamic ad responses or tracking impressions and interactions. In these cases, an intermediary server is needed to insert ads dynamically into the video or audio stream. 
+Called ad stitching (or stream stitching, ad insertion, etc.), the process looks something like this:
 
 1. <b>VAST Request:</b> The publisher sends an ad request to the ad-stitching service.
-2. <b>Request VAST:</b> The ad-stitching service makes a request to the ad server for a
-VAST tag.
-3. <b>Send VAST:</b> The ad server sends a VAST tag with a mezzanine file and ready-toserve files. If the ad stitching service has already received the creative for a previous
-request and has transcoded the mezzanine file, or the ready-to-serve files are
-already in the format required to be stitched into the content stream, then it moves
-on to step 5. If the VAST tag response is a Wrapper tag then the ad-stitching
-service should extract the inner InLine response using the same precedence logic as
-a client-side media player.
-4. <b>*Extract Mezzanine and Transcode:</b> The ad-stitching service pulls the unique
-creative identifier from the VAST tag. If the creative has never been used in the
-system, the mezzanine file is extracted and transcoded. In this scenario, the ad is
-skipped and the next available ad is played instead. VAST error code 407 is sent.
-5. <b>Select Transcoded:</b> If the creative in the VAST tag from step 3 matches the unique
-creative identifier for an ad that has already been transcoded, the ad-stitching
-service selects the pre-transcoded file already in the system.
-6. <b>Stitch Ad into Content Stream:</b> The ad-stitching service stitches the ad into the
-content stream and serves the content and ad to the player in one continuous
-stream.
-Ad-stitching vendors rely on a unique creative identifier for managing the mezzanine source
-file and its cache of transcoded files for stitching into a video or audio stream. If the ad
-creative is changed in any way, it should be served with a new creative identifier. In VAST
-4.x, the unique creative identifier is provided in the <UniversalAdId> element under
-<Creative>. See section 3.7.1 for details.
+2. <b>Request VAST:</b> The ad-stitching service makes a request to the ad server for a VAST tag.
+3. <b>Send VAST:</b> The ad server sends a VAST tag with a mezzanine file and ready-toserve files. If the ad stitching service has already received the creative for a previous request and has transcoded the mezzanine file, or the ready-to-serve files are already in the format required to be stitched into the content stream, then it moves on to step 5. If the VAST tag response is a Wrapper tag then the ad-stitching service should extract the inner InLine response using the same precedence logic as a client-side media player.
+4. <b>*Extract Mezzanine and Transcode:</b> The ad-stitching service pulls the unique creative identifier from the VAST tag. If the creative has never been used in the system, the mezzanine file is extracted and transcoded. In this scenario, the ad is skipped and the next available ad is played instead. VAST error code 407 is sent.
+5. <b>Select Transcoded:</b> If the creative in the VAST tag from step 3 matches the unique creative identifier for an ad that has already been transcoded, the ad-stitching service selects the pre-transcoded file already in the system.
+6. <b>Stitch Ad into Content Stream:</b> The ad-stitching service stitches the ad into the content stream and serves the content and ad to the player in one continuous stream. Ad-stitching vendors rely on a unique creative identifier for managing the mezzanine source file and its cache of transcoded files for stitching into a video or audio stream. If the ad creative is changed in any way, it should be served with a new creative identifier. In VAST 4.x, the unique creative identifier is provided in the <UniversalAdId> element under <Creative>. See section 3.7.1 for details.
 
 ### Headers in Server-to-Server Ad Requests and Ad Tracking <a name="headers"></a>
 
