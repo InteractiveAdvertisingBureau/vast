@@ -52,6 +52,8 @@ VAST Specification the IAB Tech Lab is licensed under a Creative Commons Attribu
     - [2.3.3 Encoding URIs for VAST](#encodinguris)
     - [2.3.4 Tracking](#tracking)
     - [2.4.5 VAST Wrappers](#wrappers)
+      - [2.3.5.1 Infinite Loops and Dead Ends](#infiniteloops)
+      - [2.3.5.2 Wrapper Conflict Management and Precedence](#wrapperconflict)  
     - [2.4.6 Error Reporting](#errorreporting)
     - [2.4.7 Industry Icon Support](#industryicon)
   - [2.4 Viewability Verification and Interactive Linear Creative](#viewability)
@@ -174,7 +176,7 @@ The updates made in VAST 4.0 and the challenges they address are summarized here
 
 - <b>Universal Ad ID:</b> While VAST has offered a creative identifier in the past, it has been used inconsistently. The new Universal Ad ID feature is used specifically for including a creative identifier that is maintained across systems. The existing adId attribute for creative can still be used to log creative IDs specific to the server.
 
-- <b>Ad Verification and Viewability Execution:</b> Verification vendors have been using VPAID for measurement verification instead of using it for ad interaction as VPAID was intended. VAST 4 offers a designated space (<AdVerifications>) for inserting ad verification APIs, enabling a more streamlined process for executing files strictly intended for ad verification. Open Measurement (OM) is expected to be used for this purpose. In addition, a secondary impression element, the <ViewableImpression> element, has been added to allow publishers the option to track viewability on their inventory.
+- <b>Ad Verification and Viewability Execution:</b> Verification vendors have been using VPAID for measurement verification instead of using it for ad interaction as VPAID was intended. VAST 4 offers a designated space (`<AdVerifications>`) for inserting ad verification APIs, enabling a more streamlined process for executing files strictly intended for ad verification. Open Measurement (OM) is expected to be used for this purpose. In addition, a secondary impression element, the `<ViewableImpression>` element, has been added to allow publishers the option to track viewability on their inventory.
 
 - <b>Support for Categories:</b> Ad categories help publishers separate competing ad creative and improve brand safety. VAST 4 ad categories support these efforts.
 
@@ -182,7 +184,7 @@ The updates made in VAST 4.0 and the challenges they address are summarized here
 
 - <b>New Error Codes:</b> Along with support for the mezzanine file and other new features, added error codes provide additional troubleshooting support.
 
-- <b>Standardized Timestamp:</b> Trackers used in VAST often include timestamp macros, but its use has not been consistent. In VAST 4, the [TIMESTAMP] macro and the format for time has been standardized to enable more consistent time-sensitive tracking.
+- <b>Standardized Timestamp:</b> Trackers used in VAST often include timestamp macros, but its use has not been consistent. In VAST 4, the `[TIMESTAMP]` macro and the format for time has been standardized to enable more consistent time-sensitive tracking.
 
 ## VAST 4.1 Updates <a name="vast41"></a>
 
@@ -190,7 +192,7 @@ The updates made in VAST 4.1 are summarized here:
 
 - <b>Verification:</b> Changes that enable verification to be supported in a non-VPAID architecture (separated from media file). Also includes changes required to work with Open Measurement.
 
-- <b>Digital Audio Ad Serving Template (DAAST):</b> With VAST 4.1, DAAST has been merged into VAST. This mostly involves providing direction in places where audio ads might need to be treated differently. The main change is an optional “adType” added to the “Ad” element to support the various audio use cases.
+- <b>Digital Audio Ad Serving Template (DAAST):</b> With VAST 4.1, DAAST has been merged into VAST. This mostly involves providing direction in places where audio ads might need to be treated differently. The main change is an optional `adType` added to the `Ad` element to support the various audio use cases.
 
 - <b>Ad Requests:</b> VAST is a response protocol. 4.1 now includes a basic Ad Request specification, based on macros.
 
@@ -200,7 +202,7 @@ The updates made in VAST 4.1 are summarized here:
 
 - <b>Deprecating Video Player Ad-Serving Interface Definition (VPAID):</b> While VPAID will likely be in use for some more time, with VAST 4.1 we are taking the first steps to officially deprecate the use of VPAID. The apiFramework attribute on MediaFile, and the conditionalAd attribute on the Ad element are being deprecated.
 
-- <b>Updates to Tracking Events:</b> Added “loaded”, “closeLinear” (back from VAST 3.0). Removed acceptInvitationLinear and timeSpentViewing.
+- <b>Updates to Tracking Events:</b> Added `loaded`, `closeLinear` (back from VAST 3.0). Removed `acceptInvitationLinear` and `timeSpentViewing`.
 
 - <b>AdServingId:</b> A required field has been added to simplify comparing data about a video impression across the various systems involved with the delivery and tracking of the impression.
 
@@ -214,9 +216,9 @@ The updates made in VAST 4.1 are summarized here:
 
 - <b>Other Updates:</b>
   - MediaFile fixes - fixes to UniversalAdId, added support for more types, changed bounding of Mezzanine files, added support for fileSize etc.
-  - Added id attribute to "Advertisers" element
-  - Added "Expires" element
-  - Added variableDuration to InteractiveCreativeFile
+  - Added `id` attribute to `Advertisers` element
+  - Added `Expires` element
+  - Added `variableDuration` to `InteractiveCreativeFile`
 
 <b>Note:</b> based on feedback received during public comment, the group decided not to deprecate nonlinear ads in VAST 4.1. However, we will continue to explore this format further to determine if the use cases are better handled with other options.
 
@@ -224,17 +226,17 @@ The updates made in VAST 4.1 are summarized here:
 
 The updates included in VAST 4.2 are summarized here:
   - Support for Secure Interactive Media Interface Definition (SIMID). SIMID is the replacement for VPAID to support interactive use cases. More information available at this blog post by the IAB Tech Lab. This includes a new tracking event and an error code 902.
-  - Allow ClickThrough element to be specified in a wrapper to better enable the use case defined in 2.3.5 (managing assets with an ad cloud).
+  - Allow `ClickThrough` element to be specified in a wrapper to better enable the use case defined in 2.3.5 (managing assets with an ad cloud).
   - Added error code 206 to support use cases where the player might decide not to play an ad (for example during live broadcasts where the break needed to be shortened at the last moment).
-  - Allow multiple UniversalAdID nodes to be provided.
-  - Updates to Icon and Icon ClickFallbackImages.
+  - Allow multiple `UniversalAdID` nodes to be provided.
+  - Updates to `Icon` and `Icon` > `ClickFallbackImages`.
   - New macros for better adbreak info.
 
 ## VAST 4.3 Updates <a name="vast43"></a>
 
 The updates included in VAST 4.3 are summarized here:
   - Macros moved to Github for management independent of VAST updates (Section 6.2)
-  - Macro value added for [PLAYBACKMETHODS] to indicate continuous play, where content episodes are being played back to back without any user interaction. A value of 7 indicates “continuous play”
+  - Macro value added for `[PLAYBACKMETHODS]` to indicate continuous play, where content episodes are being played back to back without any user interaction. A value of 7 indicates “continuous play”
   - For interactive creative files, an inline data URI may be included such as when you want to place HTML directly instead of a URL for retrieving the file. (section 3.9.3)
 
 # Intended Audience <a name="audience"></a>
@@ -250,7 +252,7 @@ In order to improve the interconnectivity of the digital video and audio marketp
   - <b>VAST:</b> The Video Ad Serving Template is an XML response framework that enables a consistent delivery format for ad across streaming video and audio platforms.
   - <b>VPAID:</b> The Video Player-Ad Interface Definition specifies the protocol between the ad and the media player required to enable ad interactivity and other advanced video advertising functionality. Deprecated - <a href="http://bit.ly/videoAdVision">VPAID is being phased out</a>, to be replaced by OMID (for Verification) and SIMID for interactivity.
   - <b>SIMID:</b> The Secure Interactive Media Interface Definition, the API made available to build an interactive experience with the video ad media. A replacement for VPAID for interactivity in the VAST 4 model of separated media & executable files.
-  - <b>OMID:</b> The Open Measurement Interface Definition, the API made available to verification code by OMSDK or equivalent service. A replacement for VPAID for verification in the VAST 4 model of separated media & executable files.
+  - <b>OMID:</b> The Open Measurement Interface Definition, the API made available to verification code by OM SDK or equivalent service. A replacement for VPAID for verification in the VAST 4 model of separated media & executable files.
   - <b>VMAP:</b> The Video Multi-Ad Playlist is an XML response framework that defines where to place ads within the video content.
   - <b>Digital Video Ad Metric Definitions:</b> An industry-defined list of metrics used in digital video ads.
   - <b>Digital Video Ad Format Guidelines:</b> An industry-defined list of streaming video creative submission specifications.
@@ -298,7 +300,7 @@ Called ad stitching (or stream stitching, ad insertion, etc.), the process looks
 3. <b>Send VAST:</b> The ad server sends a VAST tag with a mezzanine file and ready-toserve files. If the ad stitching service has already received the creative for a previous request and has transcoded the mezzanine file, or the ready-to-serve files are already in the format required to be stitched into the content stream, then it moves on to step 5. If the VAST tag response is a Wrapper tag then the ad-stitching service should extract the inner InLine response using the same precedence logic as a client-side media player.
 4. <b>*Extract Mezzanine and Transcode:</b> The ad-stitching service pulls the unique creative identifier from the VAST tag. If the creative has never been used in the system, the mezzanine file is extracted and transcoded. In this scenario, the ad is skipped and the next available ad is played instead. VAST error code 407 is sent.
 5. <b>Select Transcoded:</b> If the creative in the VAST tag from step 3 matches the unique creative identifier for an ad that has already been transcoded, the ad-stitching service selects the pre-transcoded file already in the system.
-6. <b>Stitch Ad into Content Stream:</b> The ad-stitching service stitches the ad into the content stream and serves the content and ad to the player in one continuous stream. Ad-stitching vendors rely on a unique creative identifier for managing the mezzanine source file and its cache of transcoded files for stitching into a video or audio stream. If the ad creative is changed in any way, it should be served with a new creative identifier. In VAST 4.x, the unique creative identifier is provided in the <UniversalAdId> element under <Creative>. See section 3.7.1 for details.
+6. <b>Stitch Ad into Content Stream:</b> The ad-stitching service stitches the ad into the content stream and serves the content and ad to the player in one continuous stream. Ad-stitching vendors rely on a unique creative identifier for managing the mezzanine source file and its cache of transcoded files for stitching into a video or audio stream. If the ad creative is changed in any way, it should be served with a new creative identifier. In VAST 4.x, the unique creative identifier is provided in the `<UniversalAdId>` element under `<Creative>`. See section 3.7.1 for details.
 
 ### 1.1.3 Headers in Server-to-Server Ad Requests and Ad Tracking <a name="headers"></a>
 
@@ -310,18 +312,18 @@ When an ad-stitching service is involved, the ad-stitching server may send track
 In the future, ad requests will move to a POST based model, which has performance and scaling implications, so the working group recommends that platforms start working on understanding architectural changes required to support POST messages at scale.
 To avoid being mistaken as fraudulent traffic, ad stitching providers must include with their ad tracking requests the following HTTP headers:
 
-X-Device-IP set to the IP address of the device on whose behalf this request is being made.
-X-Device-User-Agent set to the User-Agent of the client on whose behalf the request is being made.
+`X-Device-IP` set to the IP address of the device on whose behalf this request is being made.
+`X-Device-User-Agent` set to the `User-Agent` of the client on whose behalf the request is being made.
 
 The requester should also include the following headers, if available:
 
-X-Device-Referer set to the Referer header value that the client would have used when making a request itself.
-X-Device-Accept-Language set to the Accept-Language header value that the client would have used when making a request itself.
-X-Device-Requested-With set to the X-Requested-With header value that the client would have used when making a request itself.
+`X-Device-Referer` set to the `Referer` header value that the client would have used when making a request itself.
+`X-Device-Accept-Language` set to the `Accept-Language` header value that the client would have used when making a request itself.
+`X-Device-Requested-With` set to the `X-Requested-With` header value that the client would have used when making a request itself.
 
 The requester may also include the following headers:
-X-Forwarded-For for backwards compatibility, although this is now deprecated.
-X-Device-* Other HTTP headers that the client would have sent itself may be forwarded as well by the requester using the X-Device- prefix.
+`X-Forwarded-For` for backwards compatibility, although this is now deprecated.
+`X-Device-*` Other HTTP headers that the client would have sent itself may be forwarded as well by the requester using the `X-Device-` prefix.
 
 The information included in these headers must match the information in the original ad request payload, per section 1.1.1.
 
@@ -343,7 +345,7 @@ An unfortunate side effect of this approach is that, rather than simply enabling
 
 In order to support verification with minimal impact to performance, VAST 4 separates media resources from those intended for measurement.
 
-The <AdVerifications> element provides a place for verification vendors to specify their executable resources and related metadata, as described in section 3.16. The IAB Tech Lab strongly recommends using code that supports the Open Measurement Interface Definition (OMID) for this purpose, and strongly against using VPAID (which is being retired). OMID has been designed from the ground up to support the needs of verification efficiently, while providing a level of flexibility and transparency that was unavailable in previous VAST generations.
+The `<AdVerifications>` element provides a place for verification vendors to specify their executable resources and related metadata, as described in section 3.16. The IAB Tech Lab strongly recommends using code that supports the Open Measurement Interface Definition (OMID) for this purpose, and strongly against using VPAID (which is being retired). OMID has been designed from the ground up to support the needs of verification efficiently, while providing a level of flexibility and transparency that was unavailable in previous VAST generations.
 See section 3.16 for details.
 
 ## 1.3 Long-Form Video Support <a name="longform"></a>
@@ -370,7 +372,7 @@ In order to support additional formats such as 3D, augmented reality (AR), virtu
 As ad creatives move from system to system, they become more difficult to track and impressions involving these creatives become difficult to reconcile in reports from different systems. Historically, VAST has provided a placeholder for a creative id, but its purpose has been unclear and its use varies under different vendors and use cases.
 
 In VAST 4.x, the placeholder for a unique creative ID has been pulled out into a new element to draw more attention to it and provide attributes that more clearly define the id.
-The new <UniversalAdId> element is required for linear ads and consists of an attribute for defining the idRegistry and the value of the ID specified in the content of the node.
+The new `<UniversalAdId>` element is required for linear ads and consists of an attribute for defining the `idRegistry` and the value of the ID specified in the content of the node.
 
 Using a unique creative identifier enables all data associated with the creative to follow across systems. Unifying data under a unique ID streamlines data collection operations, reporting, and analysis.
 
@@ -380,7 +382,7 @@ See section 3.7.1 for details.
 
 DAAST, the Digital Audio Ad Serving Template was developed in 2014 as a spin-off of VAST 3.0 to support Audio ads. DAAST is now being merged back into VAST4, though the name of the standard will continue to be VAST for the moment.
 
-The main changes are on the VAST “Ad” element (to include an “adType" attribute), some minor additions (identified below), using the term “media player” instead of “video player”, and instructions on handling various VAST elements/attributes when in an Audio Ad scenario.
+The main changes are on the VAST `Ad` element (to include an `adType` attribute), some minor additions (identified below), using the term “media player” instead of “video player”, and instructions on handling various VAST elements/attributes when in an Audio Ad scenario.
 
 ### 1.4.1 Audio Player Use Cases <a name="audioplayer"></a>
 
@@ -438,7 +440,7 @@ This section provides recommendations for both publishers and tag creators to he
 
 <b>For VAST tag creators (both direct as well as wrapped tags):</b>
 
-VAST tag creators should plan to deliver the relevant VAST content based on information in the ad requests (OpenRTB and via VAST ad request macros - refer section 1.5 and 5). Use the APIFRAMEWORKS macro.
+VAST tag creators should plan to deliver the relevant VAST content based on information in the ad requests (OpenRTB and via VAST ad request macros - refer section 1.5 and 5). Use the `[APIFRAMEWORKS]` macro.
 
 1. When OMID support is indicated in the request, include the AdVerifications node (or extensions node with type AdVerifications for pre VAST 4.1) to include verification scripts.
 2. If VPAID support is indicated in the request and the tag creator requires VPAID support (for interactivity or ad blocking), include the following in the VAST tag
@@ -451,7 +453,7 @@ c. One or more non-VPAID (video creative) MediaFile nodes.
 
 <b>For Publishers</b>
 
-For best results, send information in the ad request (OpenRTB and VAST ad request macros) about capabilities of the video player. Use the APIFRAMEWORKS macro. Based on the standards supported, execute in this order for best results
+For best results, send information in the ad request (OpenRTB and VAST ad request macros) about capabilities of the video player. Use the `[APIFRAMEWORKS]` macro. Based on the standards supported, execute in this order for best results
 
 1. If OMID is supported, run the AdVerifications node (for Open Measurement) - and the video creative MediaFile
 2. If OMID is not supported but VPAID is supported and VPAID MediaFile node is available in VAST tag, run VPAID
@@ -466,279 +468,254 @@ Once Open Measurement supports Brand Safety and once the interactivity replaceme
 
 # 2. VAST Compliance <a name="compliance"></a> 
 
-Compliance is a two-party effort that involves, at a minimum, the media player and the ad
-server. Both must meet certain expectations so that VAST can be truly interoperable and
-encourage growth in the marketplace.
+Compliance is a two-party effort that involves, at a minimum, the media player and the ad server. Both must meet certain expectations so that VAST can be truly interoperable and encourage growth in the marketplace.
 
-General Implementation Note: Open Measurement, VPAID and VMAP specs are excluded from VAST compliance
-because these specs are independent of each other and of VAST. Compliance with one
-spec does not imply compliance with any of the other specs. Compliance for either spec
-must be separately declared
+|VAST | Implementation Note |
+|---|---|
+|General Implementation Note:| Open Measurement, VPAID and VMAP specs are excluded from VAST compliance because these specs are independent of each other and of VAST. Compliance with one spec does not imply compliance with any of the other specs. Compliance for either spec must be separately declared.|
 
-## Ad Server Expectations <a name="adserver"></a> 
+## 2.1 Ad Server Expectations <a name="adserver"></a> 
 
-VAST-compliant ad servers must be able to serve ad responses that conform to the VAST
-XML schema defined in this document. Ad servers must also be able to receive the
-subsequent tracking and error requests that result from the media player’s execution of the
-VAST ad response. Tables for each VAST XML element define which are required in a
-VAST response.
+VAST-compliant ad servers must be able to serve ad responses that conform to the VAST XML schema defined in this document. Ad servers must also be able to receive the subsequent tracking and error requests that result from the media player’s execution of the VAST ad response. Tables for each VAST XML element define which are required in a VAST response.
 
-## Media Player Expectations <a name="mediaplayer"></a> 
+## 2.2 Media Player Expectations <a name="mediaplayer"></a> 
 
-VAST-compliant media players and SSAI systems must be able to play the ad in a VAST
-response according to the instructions provided by the VAST ad response and according
-the media player’s declared format support, which includes:
-● Rendering the ad asset(s) correctly
-● Respecting ad server instructions in a VAST response including those of any
-subsequent ad servers called in a chain of VAST Wrapper responses, providing the
-responses are VAST-compliant
-● Responding to supported user-interactions
-● Sending appropriate tracking information back to the ad server
-● Supporting XML conventions such as standard comment syntax (i.e. acknowledge
-VAST comments in the standard XML syntax: <!--comment-->)
-Details for proper ad display and VAST support are defined throughout this document,
-including player support requirement notes for each XML element.
+VAST-compliant media players and SSAI systems must be able to play the ad in a VAST response according to the instructions provided by the VAST ad response and according the media player’s declared format support, which includes:
+- Rendering the ad asset(s) correctly
+- Respecting ad server instructions in a VAST response including those of any subsequent ad servers called in a chain of VAST Wrapper responses, providing the responses are VAST-compliant
+- Responding to supported user-interactions
+- Sending appropriate tracking information back to the ad server
+- Supporting XML conventions such as standard comment syntax (i.e. acknowledge VAST comments in the standard XML syntax: `<!--comment-->`) Details for proper ad display and VAST support are defined throughout this document, including player support requirement notes for each XML element.
 
-## General Compliance <a name="generalcompliance"></a> 
+## 2.3 General Compliance <a name="generalcompliance"></a> 
 
-VAST specifies both the format of the ad response and how the media player should handle
-the response. In order for VAST to be effective, both ad servers and media players must
-adopt the guidelines outlined in this document.
-In general, the video player need only accept ads that it requests and ad server responses
-should be displayed in the ad format intended.
-For example, VAST allows for compliance while only supporting a subset of ad types
-(described in section 2.3.1). For example, if a standard Linear Ad is requested but a
-Skippable Linear Ad is received, the media player is not expected to display the Skippable
-Linear Ad nor should the media player play the Skippable Ad as a Linear Ad (without skip
-controls).
+VAST specifies both the format of the ad response and how the media player should handle the response. In order for VAST to be effective, both ad servers and media players must adopt the guidelines outlined in this document.
+
+In general, the video player need only accept ads that it requests and ad server responses should be displayed in the ad format intended.
+
+For example, VAST allows for compliance while only supporting a subset of ad types (described in section 2.3.1). For example, if a standard Linear Ad is requested but a Skippable Linear Ad is received, the media player is not expected to display the Skippable Linear Ad nor should the media player play the Skippable Ad as a Linear Ad (without skip controls).
 
 The following features must be supported for general functionality:
-● Declaration of ad types
-● XML structure
-● Tracking
-● Wrappers
-● Error reporting
-● Macros
-● Industry icons
-● Verification
+- Declaration of ad types
+- XML structure
+- Tracking
+- Wrappers
+- Error reporting
+- Macros
+- Industry icons
+- Verification
 These features are described in the following sections.
 
-### VAST Ad Types <a name="adtypes"></a> 
+### 2.3.1 VAST Ad Types <a name="adtypes"></a> 
 
-VAST covers several distinct ad types, but ad serving and publisher organizations may not
-want to support all formats. For example, some vendors may choose to serve only linear
-ads with companions.
-VAST 3.0 introduced five ad types for compliance so that organizations may be compliant
-with VAST while only supporting a selected subset of the ad types.
+VAST covers several distinct ad types, but ad serving and publisher organizations may not want to support all formats. For example, some vendors may choose to serve only linear ads with companions.
+
+VAST 3.0 introduced five ad types for compliance so that organizations may be compliant with VAST while only supporting a selected subset of the ad types.
+
 The VAST- compliant ad types are as follows:
+
 1. Linear Ads
 2. NonLinear Ads
 3. Companion Ads
 4. Skippable Linear Ads
 5. Ad Pods
-A company wishing to display IAB’s seal for VAST compliance must declare which of the
-five ad types their technology supports.
+
+A company wishing to display IAB’s seal for VAST compliance must declare which of the five ad types their technology supports.
+
 Note – all ad types are relevant for “audio only” ads except NonLinear ads.
 
-### XML Structure <a name="xml"></a> 
+### 2.3.2 XML Structure <a name="xml"></a> 
 
-A VAST-compliant ad response is a well-formed XML document, compliant with XML 1.0 so
-that standard XML requirements such as character entities and <!--XML comments-->
-should be honored. It must also pass a schema check against the VAST 4.x XML Schema
-Definition (XSD) that is distributed in conjunction with this document.
+A VAST-compliant ad response is a well-formed XML document, compliant with XML 1.0 so that standard XML requirements such as character entities and `<!--XML comments-->` should be honored. It must also pass a schema check against the VAST 4.x XML Schema Definition (XSD) that is distributed in conjunction with this document.
+
 IAB Tech Lab Github URL for the XSD: https://github.com/InteractiveAdvertisingBureau/vast
 
-Ad Server Implementation Note: All URIs or any other free text fields containing potentially dangerous characters
-contained in the VAST document should be wrapped in CDATA blocks. The VAST
-response should be carefully tested for appropriate treatment of URI characters that
-require special handling.
+|VAST | Implementation Note |
+|---|---|
+|Ad Server Implementation Note:| All URIs or any other free text fields containing potentially dangerous characters contained in the VAST document should be wrapped in CDATA blocks. The VAST response should be carefully tested for appropriate treatment of URI characters that require special handling. |
 
-### Encoding URIs for VAST <a name="encodinguris"></a> 
+### 2.3.3 Encoding URIs for VAST <a name="encodinguris"></a> 
 
 URIs provided in a VAST response must be CDATA-wrapped as in the following example:
+
+```xml
 <Impression id="myserver">
-<![CDATA[
-http://ad.server.com/impression/dot.gif
-]]>
+  <![CDATA[http://ad.server.com/impression/dot.gif]]>
 </Impression>
+```
+
 Wrapping the URI in a CDATA section enables most characters to be included as they are.
-For example, without a CDATA section, the character & would need to be encoded as
-&amp;. However, encoding this within a CDATA section double-encodes the URI.
+For example, without a CDATA section, the character & would need to be encoded as `&amp;`. However, encoding this within a CDATA section double-encodes the URI.
+
 Consider the CDATA wrapping needed for the following URI:
+
 http://ad.server.com/impression/dot.gif?v=1&id=abc
+
+```xml
 <Impression id="myserver">
-<![CDATA[
-http://ad.server.com/impression/dot.gif?v=1&amp;id=abc
-]]>
+  <![CDATA[http://ad.server.com/impression/dot.gif?v=1&amp;id=abc]]>
 </Impression>
-The encoding of & into &amp; is not necessary in this example because the URI is enclosed
-in a CDATA section. Characters in the URI that are also used to section out the URI with
-CDATA may need extra encoding.
+```
+
+The encoding of & into `&amp;` is not necessary in this example because the URI is enclosed in a CDATA section. Characters in the URI that are also used to section out the URI with CDATA may need extra encoding.
+
 Consider the CDATA wrapping needed for the following URI:
+
 http://ad.server.com/impression/dot.gif?s=x]]>x
+
+```xml
 <Impression id="myserver">
-<![CDATA[http://ad.server.com/impression/dot.gif?s=x]]
-]]>
-<![CDATA[>]]>
-x
+  <![CDATA[http://ad.server.com/impression/dot.gif?s=x]]]]>
+  <![CDATA[>]]>
+  x
 </Impression>
-The ]]> characters are used to close the CDATA section; therefore, the > character must
-be enclosed in a secondary CDATA section. Since the x is harmless character at the end, it
-can be left outside the CDATA section and will be concatenated with the other two URI
-components, each closed in their CDATA sections.
-Since CDATA-wrapping URIs is a requirement in VAST, the author of the VAST response
-should carefully edit and test all included URIs, especially when input values require special
-handling. Incorrect treatment of these characters may cause ad playback to fail or enable
-content injection attacks.
-Some additional examples are offered in the following table.
- Impression URL: http://ad.server.com/impression/dot.gif
- <Impression id="myserver">
-http://ad.server.com/impression/dot.gif
-</Impression>
-Not enclosed in a CDATA section
+```
+
+The `]]>` characters are used to close the CDATA section; therefore, the `>` character must be enclosed in a secondary CDATA section. Since the x is harmless character at the end, it can be left outside the CDATA section and will be concatenated with the other two URI components, each closed in their CDATA sections.
+
+Since CDATA-wrapping URIs is a requirement in VAST, the author of the VAST response should carefully edit and test all included URIs, especially when input values require special handling. Incorrect treatment of these characters may cause ad playback to fail or enable content injection attacks.
+
+Some additional examples follow.
+
+Impression URL: http://ad.server.com/impression/dot.gif 
+
+```xml
 <Impression id="myserver">
-<![CDATA[http://ad.server.com/impression/dot.gif]]>
+  http://ad.server.com/impression/dot.gif
 </Impression>
-Correct and backwards compatible
-Impression URL: http://ad.server.com/impression/dot.gif?v=1&id=abc
+```
+<b>Not enclosed in a CDATA section</b>
+
+```xml
+<Impression id="myserver"> 
+<![CDATA[http://ad.server.com/impression/dot.gif]]> 
+</Impression>
+```
+<b>Correct and backwards compatible.</b>
+
+Impression URL: http://ad.server.com/impression/dot.gif?v=1&id=abc 
+
+```xml
 <Impression id="myserver">
-http://ad.server.com/impression/dot.gif?v=1&amp;id=abc
+  http://ad.server.com/impression/dot.gif?v=1&amp;id=abc
 </Impression>
-The & is xml-encoded, but the URI needs to be wrapped in a CDATA block
-Invalid -
+```
+<b>The & is xml-encoded, but the URI needs to be wrapped in a CDATA block.</b>
+
+Invalid Example: 
+
+```xml
+<Impression id="myserver"> 
+  http://ad.server.com/impression/dot.gif?v=1&id=abc 
+</Impression> 
+```
+
+<b>Not only is this URI not CDATA enclosed but the & is also not XML-encoded.</b>
+
+```xml
 <Impression id="myserver">
-http://ad.server.com/impression/dot.gif?v=1&id=abc
+  <![CDATA[http://ad.server.com/impression/dot.gif?v=1&amp;id=abc]]>
 </Impression>
-Not only is this URI not CDATA enclosed but the & is also not XML-encoded
+```
+
+<b>This URI is both CDATA-enclosed and the & is XML-encoded. The player will interpret the URI as:
+http://ad.server.com/impression/dot.gif?v=1&amp;id=1234 </b>
+
+```xml
 <Impression id="myserver">
-<![CDATA[http://ad.server.com/impression/dot.gif?v=1&amp;id=abc]]>
+  <![CDATA[http://ad.server.com/impression/dot.gif?v=1&id=abc]]>
 </Impression>
-This URI is both CDATA-enclosed and the & is XML-encoded. The player will interpret the URI as:
-http://ad.server.com/impression/dot.gif?v=1&amp;id=1234
-<Impression id="myserver">
-<![CDATA[http://ad.server.com/impression/dot.gif?v=1&id=abc]]>
-</Impression>
-This URI is properly wrapped in a CDATA block. The & doesn't need to be encoded.
+```
+
+<b>This URI is properly wrapped in a CDATA block. The & doesn't need to be encoded.</b>
+
 
 Impression URL: http://ad.server.com/impression/dot.gif?s=x]]>x
+
+```xml
 <Impression id="myserver">
-http://ad.server.com/impression/dot.gif?s=x]]&gt;x
+  http://ad.server.com/impression/dot.gif?s=x]]&gt;x
 </Impression>
-Not enclosed in a CDATA section even though > is encoded
+```
+<b>Not enclosed in a CDATA section even though > is encoded 
+
+```xml
 <Impression id="myserver">
-http://ad.server.com/impression/dot.gif?s=x]]>x
+  http://ad.server.com/impression/dot.gif?s=x]]>x
 </Impression>
-Not enclosed in a CDATA section
+```
+
+<b>Not enclosed in a CDATA section.</b>
+
+```xml
 <Impression id="myserver">
-<![CDATA[http://ad.server.com/impression/dot.gif?s=x]]>x]]>
+  <![CDATA[http://ad.server.com/impression/dot.gif?s=x]]>x]]>
 </Impression>
-CDATA section used but appears to end early because of the ]]> characters before the x, potentially allowing
-content injection attacks
+```
+
+<b>CDATA section used but appears to end early because of the ]]> characters before the x, potentially allowing
+content injection attacks.</b>
+
+```xml
 <Impression id="myserver">
-<![CDATA[http://ad.server.com/impression/dot.gif?s=x]]]]>
-<![CDATA[>]]>x
+  <![CDATA[http://ad.server.com/impression/dot.gif?s=x]]]]>
+  <![CDATA[>]]>x
 </Impression>
-Correct and backwards compatible
+```
 
-Finally, a VAST-compliant ad response must conform to certain additional dependencies
-that cannot be expressed in the VAST 4 XSD. For example, one ad type of either <InLine>
-or <Wrapper> is allowed but not both. Another example is the protocol for providing 3 readyto-serve media files, ideally separate from any interactive components (see section 3.9). The
-XSD can only validate for whether you’ve provided a URI under <MediaFile>; it cannot
-validate whether the appropriate files have been provided. Such dependencies are further
-described throughout this document.
+<b>Correct and backwards compatible.</b>
 
-### Tracking <a name="tracking"></a> 
+Finally, a VAST-compliant ad response must conform to certain additional dependencies that cannot be expressed in the VAST 4 XSD. For example, one ad type of either `<InLine>` or `<Wrapper>` is allowed but not both. Another example is the protocol for providing 3 readyto-serve media files, ideally separate from any interactive components (see section 3.9). The XSD can only validate for whether you’ve provided a URI under <MediaFile>; it cannot validate whether the appropriate files have been provided. Such dependencies are further described throughout this document.
 
-VAST tracking is implemented using a number of individual tracking elements that map to
-video events, such as video start or video completion. Each of these elements contains a
-reference to a server-side resource, which historically has been an 1x1 pixel image, but
-may also be a script or document reference. Calls to these resources are counted by the
-ad server or other measurement vendor to tally up the total for a specific video event.
+### 2.3.4 Tracking <a name="tracking"></a> 
 
-Publisher Implementation Note: The publisher is responsible for making the server-side request associated with a
-specific video event when that event occurs during video playback. These events
-may originate from a client-side player, or (in some SSAI cases) from the publisher
-server. In the event the request comes from the publisher server extra care must
-be taken to make sure that the calls are made concurrently with the corresponding
-playback events, and any missing client-side information (user agent, etc) should
-be passed along via headers or other mechanism.
+VAST tracking is implemented using a number of individual tracking elements that map to video events, such as video start or video completion. Each of these elements contains a reference to a server-side resource, which historically has been an 1x1 pixel image, but may also be a script or document reference. Calls to these resources are counted by the ad server or other measurement vendor to tally up the total for a specific video event.
 
-The media player is required to request the resource file for any included tracking elements
-from the URI provided at the appropriate times, or “fire” the tracking element. Advertisers
-and publishers depend on accurate tracking records for billing, campaign effectiveness,
-market analysis, and other important business intelligence and accounting. Good tracking
-practices throughout the industry are important to the success and growth of digital video
-and audio advertising.
+|VAST | Implementation Note |
+|---|---|
+|Publisher Implementation Note: | The publisher is responsible for making the server-side request associated with a specific video event when that event occurs during video playback. These events may originate from a client-side player, or (in some SSAI cases) from the publisher server. In the event the request comes from the publisher server extra care must be taken to make sure that the calls are made concurrently with the corresponding playback events, and any missing client-side information (user agent, etc) should be passed along via headers or other mechanism.|
 
-General Implementation Note: The publisher must send requests to the URIs provided in tracking elements;
-however, the publisher is not required to do anything with the response that is
-returned. The response is only to acknowledge an event and to comply with the
-HTTP protocol. This response is typically a 200 with a 1x1 pixel image in the
-response body (although the response could be of any other type).
+The media player is required to request the resource file for any included tracking elements from the URI provided at the appropriate times, or “fire” the tracking element. Advertisers and publishers depend on accurate tracking records for billing, campaign effectiveness, market analysis, and other important business intelligence and accounting. Good tracking practices throughout the industry are important to the success and growth of digital video and audio advertising.
 
-The use of multiple impression URIs enables the ad server to share impression-tracking
-information with other ad serving systems, such as a vendor or partner ad server employed
-by the advertiser. When multiple impression elements are included in a VAST response, the media player is required to request all impressions at the same time or as close as possible
-to the same time. Any significant delay between impression requests may result in count
-discrepancies between ad serving systems.
+|VAST | Implementation Note |
+|---|---|
+|General Implementation Note:| The publisher must send requests to the URIs provided in tracking elements; however, the publisher is not required to do anything with the response that is returned. The response is only to acknowledge an event and to comply with the HTTP protocol. This response is typically a 200 with a 1x1 pixel image in the response body (although the response could be of any other type).|
 
-Publisher Implementation Note: If multiple <Impression> elements are provided, they must be requested at the
-same moment in time or as close in time as possible. In particular for a VAST
-response containing a <Linear> element, compliance with the IAB Digital Video
-Measurement Guidelines. If any of the requests are delayed significantly,
-discrepancies may result in the counts of participating ad serving system.
+The use of multiple impression URIs enables the ad server to share impression-tracking information with other ad serving systems, such as a vendor or partner ad server employed by the advertiser. When multiple impression elements are included in a VAST response, the media player is required to request all impressions at the same time or as close as possible to the same time. Any significant delay between impression requests may result in count discrepancies between ad serving systems.
 
-### VAST Wrappers <a name="wrappers"></a> 
+|VAST | Implementation Note |
+|---|---|
+|Publisher Implementation Note: | If multiple `<Impression>` elements are provided, they must be requested at the same moment in time or as close in time as possible. In particular for a VAST response containing a `<Linear>` element, compliance with the IAB Digital Video Measurement Guidelines. If any of the requests are delayed significantly, discrepancies may result in the counts of participating ad serving system.|
 
-Wrappers provide a way for one ad server to redirect a media player to another, secondary
-ad server to retrieve an ad, multiple ads, or yet another VAST Wrapper.
+### 2.3.5 VAST Wrappers <a name="wrappers"></a> 
+
+Wrappers provide a way for one ad server to redirect a media player to another, secondary ad server to retrieve an ad, multiple ads, or yet another VAST Wrapper.
+
 One ad server may redirect to another for a variety of reasons:
-● The first ad server has selected a specific advertiser campaign to fill the inventory. In
-this case the redirect instructs the secondary ad server to return specific ads from a
-particular ad campaign.
-● The first ad server is delegating a specific piece of inventory for either a single ad or
-an entire Pod of ads to the secondary ad server to fill with any ads that are within an
-established agreement between the two parties.
-● An ad server may wish to delegate delivery of the specific ad creative file(s) to a
-separate asset repository/host (ad cloud).
-● An ad server may have no ad to return and may return a redirect to a backfill
-provider.
 
-Infinite Loops and Dead Ends
-When serving an ad involves a chain of Wrappers, an infinite loop is possible where a chain
-of Wrappers never results in a final InLine VAST response. Another case involves a finite
-number of VAST Wrappers in which the resulting InLine response is used as a decisioning
-mechanism to find an ad instead of delivering the ad as required. In these cases, the
-decisioning mechanism may never return an ad or may take too long to return the ad.
+- The first ad server has selected a specific advertiser campaign to fill the inventory. In this case the redirect instructs the secondary ad server to return specific ads from a particular ad campaign.
+- The first ad server is delegating a specific piece of inventory for either a single ad or an entire Pod of ads to the secondary ad server to fill with any ads that are within an established agreement between the two parties.
+- An ad server may wish to delegate delivery of the specific ad creative file(s) to a separate asset repository/host (ad cloud).
+- An ad server may have no ad to return and may return a redirect to a backfill provider.
+
+#### 2.3.5.1 Infinite Loops and Dead Ends <a name="infiniteloops"></a>
+
+When serving an ad involves a chain of Wrappers, an infinite loop is possible where a chain of Wrappers never results in a final InLine VAST response. Another case involves a finite number of VAST Wrappers in which the resulting InLine response is used as a decisioning mechanism to find an ad instead of delivering the ad as required. In these cases, the decisioning mechanism may never return an ad or may take too long to return the ad.
+
 In general, VAST Wrappers should be limited to five before resulting in an InLine response.
-If the player detects more than five Wrappers, the player may reject any subsequent
-responses in the chain, replace the [ERRORCODE] macro in the VAST/Ad/Wrapper/Error
-URI if provided to indicate that the Wrapper limit was reached, and move on to the next
-option for an ad. Error codes should be sent for all wrappers in the chain where provided.
-When an InLine response fails to produce an ad within the timeframe identified in VPAID or
-other ad framework, the player may reject the ad, send error code 304 to indicate that no ad
-was produced in the given timeframe, and move on to the next option for an ad. Error codes
-should also be sent to any wrappers preceding the InLine response.
+If the player detects more than five Wrappers, the player may reject any subsequent responses in the chain, replace the [ERRORCODE] macro in the VAST/Ad/Wrapper/Error URI if provided to indicate that the Wrapper limit was reached, and move on to the next option for an ad. Error codes should be sent for all wrappers in the chain where provided.
 
-Wrapper Conflict Management and Precedence
-When creative elements, such as Companion creative or click-throughs, are included
-directly in the Wrapper response, conflict may occur. In a VAST ad, whether served with
-multiple Wrappers or in one Inline response, all creative offered is intended to be part of the
-same creative concept, and the media player should attempt to display all creative
-presented in the response (or in a chain of responses). However, when a conflict occurs,
-the media player should favor creative elements offered closest to the InLine response.
-For example, if a wrapper contains companion creative and the InLine response also
-contains companion creative, the companion creative in the Inline response should be
-selected (unless both creative can be displayed without conflict).
-In another example, if the InLine response is absent of any companion creative but two or
-more Wrappers contain companion creative, then creative for the Wrapper served closest to
-the InLine response should be favored. However, if multiple creative can be served without
-conflict, the media player should attempt to display whatever creative it can.
-With respect to ClickThrough handling, if the InLine response doesn’t include a
-ClickThrough element and one or more of the calling Wrappers includes a ClickThrough
-element, then the ClickThrough element closest to the InLine response must be favored.
-Similarly, if the inLine response includes a ClickThrough element then this must be favored
-over ClickThrough element(s) specified in calling Wrappers.
+When an InLine response fails to produce an ad within the timeframe identified in VPAID or other ad framework, the player may reject the ad, send error code 304 to indicate that no ad was produced in the given timeframe, and move on to the next option for an ad. Error codes should also be sent to any wrappers preceding the InLine response.
+
+#### 2.3.5.2 Wrapper Conflict Management and Precedence <a name="wrapperconflict"></a>
+
+When creative elements, such as Companion creative or click-throughs, are included directly in the Wrapper response, conflict may occur. In a VAST ad, whether served with multiple Wrappers or in one Inline response, all creative offered is intended to be part of the same creative concept, and the media player should attempt to display all creative presented in the response (or in a chain of responses). However, when a conflict occurs, the media player should favor creative elements offered closest to the InLine response.
+
+For example, if a wrapper contains companion creative and the InLine response also contains companion creative, the companion creative in the Inline response should be selected (unless both creative can be displayed without conflict).
+
+In another example, if the InLine response is absent of any companion creative but two or more Wrappers contain companion creative, then creative for the Wrapper served closest to the InLine response should be favored. However, if multiple creative can be served without conflict, the media player should attempt to display whatever creative it can.
+
+With respect to ClickThrough handling, if the InLine response doesn’t include a ClickThrough element and one or more of the calling Wrappers includes a ClickThrough element, then the ClickThrough element closest to the InLine response must be favored. Similarly, if the inLine response includes a ClickThrough element then this must be favored over ClickThrough element(s) specified in calling Wrappers.
 
 ### Error Reporting <a name="errorreporting"></a> 
 
