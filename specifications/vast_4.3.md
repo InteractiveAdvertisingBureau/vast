@@ -276,6 +276,9 @@ VAST is a unidirectional means of sending ad details to a media player. Built as
 top of browser technology, the VAST process that uses client-side execution looks
 something like this:
 
+![]((https://github.com/InteractiveAdvertisingBureau/vast/blob/master/specifications/assets/Client-Side%20Ad%20Serving.png))
+
+
 1. <b>VAST Request:</b> At some point during content playback, either before (pre-roll), in
 the middle of (mid-roll), or after (post-roll), the player reaches a cue to insert an ad
 and uses HTTP to send the request for an ad. See section 1.1.1 on sending an ad
